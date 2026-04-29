@@ -269,7 +269,7 @@ function converterCard(p) {
   const isMulti = p && p.slug === "youtube-multi-downloader";
   const inputHtml = isMulti 
     ? `<textarea id="yt-url" name="url" placeholder="Paste YouTube URLs here (one per line)" aria-label="Paste YouTube links" required autocomplete="off" spellcheck="false" rows="4" style="resize:vertical;"></textarea>`
-    : `<input id="yt-url" name="url" type="url" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">`;
+    : `<input id="yt-url" name="url" type="text" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">`;
 
   return `<div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
   <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
