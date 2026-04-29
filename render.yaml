@@ -15,7 +15,7 @@ services:
     autoDeploy: true
     envVars:
       - key: STORAGE_DIR
-        value: /data
+        value: /tmp/ytconvert
       - key: FILE_TTL_SECONDS
         value: "1800"
       - key: MAX_DURATION_SECONDS
@@ -25,7 +25,7 @@ services:
       #   sync: false
       # - key: YTDLP_COOKIES_FILE
       #   sync: false
-    disk:
-      name: data
-      mountPath: /data
-      sizeGB: 1
+    # Note: Render free tier does not support persistent disks.
+    # Files are written to /tmp (ephemeral) and auto-cleaned after 30 min via FILE_TTL_SECONDS,
+    # which matches our cleanup schedule anyway. For persistence across restarts, upgrade to
+    # Starter ($7/mo) and add a disk block: { name: data, mountPath: /data, sizeGB: 1 }.
