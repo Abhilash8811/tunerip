@@ -1,0 +1,31 @@
+# Render.com Blueprint — one-click backend deploy.
+# Use the "Deploy to Render" button in the README, or manually:
+#   1. Create a new Blueprint in Render dashboard
+#   2. Point it at this repo
+#   3. Render reads this file and provisions the service
+services:
+  - type: web
+    name: ytmp3-api
+    runtime: docker
+    plan: free
+    region: oregon
+    rootDir: api
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: STORAGE_DIR
+        value: /data
+      - key: FILE_TTL_SECONDS
+        value: "1800"
+      - key: MAX_DURATION_SECONDS
+        value: "10800"
+      # Optional: set these in the Render dashboard to unblock YouTube bot checks at scale.
+      # - key: YTDLP_PROXY
+      #   sync: false
+      # - key: YTDLP_COOKIES_FILE
+      #   sync: false
+    disk:
+      name: data
+      mountPath: /data
+      sizeGB: 1
