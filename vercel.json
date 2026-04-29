@@ -1,4 +1,6 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "outputDirectory": "web",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
@@ -18,8 +20,5 @@
         { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" }
       ]
     }
-  ],
-  "rewrites": [
-    { "source": "/pages/:slug", "destination": "/pages/:slug.html" }
   ]
 }
