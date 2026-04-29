@@ -32,9 +32,9 @@ PROXY = os.environ.get("YTDLP_PROXY") or None
 COOKIES_FILE = os.environ.get("YTDLP_COOKIES_FILE") or None
 
 YOUTUBE_URL_RE = re.compile(
-    r"^(?:https?://)?(?:www\.|m\.|music\.)?"
+    r"^(?:(?:https?://)?(?:www\.|m\.|music\.)?"
     r"(?:youtube\.com/(?:watch\?v=|shorts/|embed/|v/|playlist\?list=)|youtu\.be/)"
-    r"[\w\-?=&/.]+$"
+    r"[\w\-?=&/.]+|ytsearch\d*:.+)$"
 )
 
 AUDIO_FORMATS = {"mp3", "m4a", "ogg", "wav", "opus"}

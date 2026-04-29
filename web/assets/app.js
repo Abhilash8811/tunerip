@@ -221,8 +221,12 @@
     e.preventDefault();
     var url = (urlInput.value || "").trim();
     if (!isYouTubeUrl(url)) {
-      showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be).</div>');
-      return;
+      if (url.length > 0 && !url.match(/^https?:\/\//i)) {
+        url = "ytsearch1:" + url;
+      } else {
+        showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be) or enter a search keyword.</div>');
+        return;
+      }
     }
     convertBtn.disabled = true;
     showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');

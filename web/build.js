@@ -265,13 +265,18 @@ function footer() {
   return `<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> ${BRAND}. Not affiliated with YouTube or Google.</p></div></footer>`;
 }
 
-function converterCard() {
+function converterCard(p) {
+  const isMulti = p && p.slug === "youtube-multi-downloader";
+  const inputHtml = isMulti 
+    ? `<textarea id="yt-url" name="url" placeholder="Paste YouTube URLs here (one per line)" aria-label="Paste YouTube links" required autocomplete="off" spellcheck="false" rows="4" style="resize:vertical;"></textarea>`
+    : `<input id="yt-url" name="url" type="url" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">`;
+
   return `<div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
   <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
-      <input id="yt-url" name="url" type="url" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
-      <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
+      ${inputHtml}
+      ${!isMulti ? `<button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>` : ''}
     </div>
     <div class="controls-row">
       <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
@@ -389,7 +394,7 @@ ${header()}
     <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/">&larr; Home</a></p>
     <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">${esc(p.h1)}</h1>
     <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">${esc(p.kicker)}</p>
-    ${converterCard()}
+    ${converterCard(p)}
   </div>
 </section>
 ${sectionsHtml}
