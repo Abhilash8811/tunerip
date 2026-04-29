@@ -132,6 +132,7 @@ def _ydl_opts_audio(job_id: str, out_dir: Path, fmt: str, bitrate: str) -> dict:
         "restrictfilenames": False,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
+        "extractor_args": {"youtube": {"client": ["android", "web"]}},
     }
     if FFMPEG_LOCATION:
         opts["ffmpeg_location"] = FFMPEG_LOCATION
@@ -152,6 +153,7 @@ def _ydl_opts_video(job_id: str, out_dir: Path, height: str) -> dict:
         "no_warnings": True,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
+        "extractor_args": {"youtube": {"client": ["android", "web"]}},
     }
     if FFMPEG_LOCATION:
         opts["ffmpeg_location"] = FFMPEG_LOCATION
@@ -219,7 +221,13 @@ def healthz() -> dict:
 def info(url: str) -> JSONResponse:
     if not YOUTUBE_URL_RE.match(url):
         raise HTTPException(status_code=400, detail="Invalid YouTube URL")
-    opts = {"quiet": True, "no_warnings": True, "skip_download": True, "noplaylist": True}
+    opts = {
+        "quiet": True, 
+        "no_warnings": True, 
+        "skip_download": True, 
+        "noplaylist": True,
+        "extractor_args": {"youtube": {"client": ["android", "web"]}},
+    }
     if PROXY:
         opts["proxy"] = PROXY
     if COOKIES_FILE and os.path.exists(COOKIES_FILE):
