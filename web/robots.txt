@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://ytmp3.pro/sitemap.xml
+Sitemap: https://yt2mp3.lol/sitemap.xml

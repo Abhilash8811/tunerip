@@ -1,4 +1,4 @@
-// ytmp3.pro frontend — talks to the FastAPI backend.
+// yt2mp3.lol frontend — talks to the FastAPI backend.
 (function () {
   "use strict";
 
@@ -49,8 +49,12 @@
   var form = document.getElementById("convert-form");
   if (!form) return;
 
+  var card = document.getElementById("converter");
+  var variant = (card && card.getAttribute("data-variant")) || "single";
   var urlInput = document.getElementById("yt-url");
+  var urlTextarea = document.getElementById("yt-url-multi");
   var pasteBtn = document.getElementById("paste-btn");
+  var pasteBtnMulti = document.getElementById("paste-btn-multi");
   var qualitySel = document.getElementById("quality");
   var convertBtn = document.getElementById("convert-btn");
   var segBtns = Array.prototype.slice.call(document.querySelectorAll(".seg-btn"));
@@ -93,17 +97,24 @@
     });
   });
 
-  if (pasteBtn) {
-    pasteBtn.addEventListener("click", function () {
-      if (!navigator.clipboard || !navigator.clipboard.readText) {
-        urlInput.focus();
-        return;
-      }
+  function wirePaste(btn, target, joinMulti) {
+    if (!btn || !target) return;
+    btn.addEventListener("click", function () {
+      if (!navigator.clipboard || !navigator.clipboard.readText) { target.focus(); return; }
       navigator.clipboard.readText().then(function (text) {
-        if (text) { urlInput.value = text.trim(); urlInput.focus(); }
-      }).catch(function () { urlInput.focus(); });
+        if (!text) return;
+        if (joinMulti) {
+          var existing = target.value.trim();
+          target.value = (existing ? existing + "\n" : "") + text.trim();
+        } else {
+          target.value = text.trim();
+        }
+        target.focus();
+      }).catch(function () { target.focus(); });
     });
   }
+  wirePaste(pasteBtn, urlInput, false);
+  wirePaste(pasteBtnMulti, urlTextarea, true);
 
   function isYouTubeUrl(u) {
     try {
@@ -190,17 +201,8 @@
     tick();
   }
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var url = (urlInput.value || "").trim();
-    if (!isYouTubeUrl(url)) {
-      showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be).</div>');
-      return;
-    }
-    convertBtn.disabled = true;
-    showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
-
-    fetch(API_BASE + "/api/convert", {
+  function convertOne(url, slot) {
+    return fetch(API_BASE + "/api/convert", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ url: url, format: currentFormat, quality: qualitySel.value }),
@@ -209,10 +211,91 @@
         if (!r.ok) return r.json().then(function (j) { throw new Error(j.detail || "Request failed"); });
         return r.json();
       })
-      .then(function (j) { pollStatus(j.job_id); })
-      .catch(function (err) {
-        showStatus('<div class="error">' + escapeHtml(err.message || "Failed to start conversion.") + "</div>");
-        convertBtn.disabled = false;
+      .then(function (j) {
+        return new Promise(function (resolve) {
+          var tries = 0;
+          function tick() {
+            tries++;
+            fetch(API_BASE + "/api/status/" + encodeURIComponent(j.job_id))
+              .then(function (r) { return r.json(); })
+              .then(function (job) {
+                slot(job);
+                if (job.state === "done" || job.state === "error") { resolve(job); return; }
+                if (tries > 600) { slot({ state: "error", error: "Timeout" }); resolve({ state: "error" }); return; }
+                setTimeout(tick, 1500);
+              })
+              .catch(function () { slot({ state: "error", error: "Network error" }); resolve({ state: "error" }); });
+          }
+          tick();
+        });
       });
+  }
+
+  function renderJobRow(urlStr, job) {
+    var pct = Math.max(0, Math.min(100, Number(job.progress) || 0));
+    var labels = { queued: "Queued…", downloading: "Downloading…", processing: "Encoding…", done: "Ready", error: "Failed" };
+    var stateLabel = labels[job.state] || "Working…";
+    var title = job.title ? escapeHtml(job.title) : escapeHtml(urlStr);
+    var meta = [];
+    if (job.duration) meta.push(fmtDuration(job.duration));
+    if (job.size) meta.push(fmtBytes(job.size));
+    var body = '<div class="status-meta"><span class="status-title">' + title + '</span><span>' + stateLabel + " · " + pct + "%</span>"
+      + (meta.length ? "<span>" + meta.join(" · ") + "</span>" : "")
+      + "</div>"
+      + '<div class="progress"><div style="width:' + pct + '%"></div></div>';
+    if (job.state === "done") {
+      var dl = API_BASE + "/api/download/" + encodeURIComponent(job.id);
+      body += '<div class="download-row"><a class="download-btn" href="' + dl + '" download>Download ' + (job.filename ? escapeHtml(job.filename) : "file") + "</a></div>";
+    }
+    if (job.state === "error") {
+      body += '<div class="error">' + escapeHtml(job.error || "Conversion failed.") + "</div>";
+    }
+    return body;
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (variant === "multi") {
+      var raw = (urlTextarea.value || "").split(/\r?\n/).map(function (s) { return s.trim(); }).filter(Boolean);
+      // dedupe
+      var seen = {}; var urls = [];
+      raw.forEach(function (u) { if (!seen[u]) { seen[u] = 1; urls.push(u); } });
+      var valid = urls.filter(isYouTubeUrl);
+      var invalid = urls.filter(function (u) { return !isYouTubeUrl(u); });
+      if (!valid.length) {
+        showStatus('<div class="error">Paste at least one valid YouTube URL (one per line).</div>');
+        return;
+      }
+      convertBtn.disabled = true;
+      var rowsState = valid.map(function (u) { return { url: u, html: renderJobRow(u, { state: "queued", progress: 0 }) }; });
+      function flush() {
+        var html = rowsState.map(function (r) { return '<div class="job-row">' + r.html + "</div>"; }).join("");
+        if (invalid.length) html += '<div class="error">Skipped ' + invalid.length + ' non-YouTube line' + (invalid.length > 1 ? "s" : "") + ".</div>";
+        showStatus(html);
+      }
+      flush();
+      // Sequential to respect rate limits on free tier.
+      var p = Promise.resolve();
+      valid.forEach(function (u, idx) {
+        p = p.then(function () {
+          return convertOne(u, function (job) {
+            rowsState[idx].html = renderJobRow(u, job);
+            flush();
+          });
+        });
+      });
+      p.then(function () { convertBtn.disabled = false; });
+      return;
+    }
+
+    var url = (urlInput.value || "").trim();
+    if (!isYouTubeUrl(url)) {
+      showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be).</div>');
+      return;
+    }
+    convertBtn.disabled = true;
+    showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
+
+    convertOne(url, renderProgress).then(function () { convertBtn.disabled = false; });
   });
 })();

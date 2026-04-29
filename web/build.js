@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Generates SEO landing pages + legal pages from one template.
+/* Generates SEO landing pages + legal pages.
  * Emits web/<slug>/index.html so URLs are clean on any static host.
  * Run: node build.js
  */
@@ -7,232 +7,459 @@ const fs = require("fs");
 const path = require("path");
 
 const WEB = path.resolve(__dirname);
-const SITE = "https://ytmp3.pro";
-const BRAND = "ytmp3.pro";
+const SITE = "https://yt2mp3.lol";
+const BRAND = "yt2mp3.lol";
+const BRAND_SHORT = "YT2MP3";
 
-// URL slugs mirror ytmp3.gg's structure so SEO equity transfers.
+// ---------- PAGES ----------
+// Each page has: slug, title, h1, kicker, defaultFormat, defaultQuality, keywords,
+// optional variant ("multi" for multi-URL textarea card), sections, faqs.
+// Sections are an array of [heading, bodyHtml]. bodyHtml may contain <p>, <ul>,
+// <ol>, <table>, etc. — it's emitted as-is inside the section container.
+
 const PAGES = [
-  { slug: "youtube-to-mp4-converter", title: "YouTube to MP4 Converter (1080p & 4K, Free)", h1: "YouTube to MP4 Converter",
-    kicker: "Download any YouTube video as MP4 in 360p, 720p, 1080p, or 4K. Free, fast, no signup.",
+
+  // =================================================================
+  // MP4
+  // =================================================================
+  { slug: "youtube-to-mp4-converter",
+    title: "YouTube to MP4 Converter (1080p & 4K, Free)",
+    h1: "YouTube to MP4 Converter",
+    kicker: `Download any YouTube video as MP4 in 360p, 720p, 1080p, or 4K. 100% free, no signup, no watermark.`,
     defaultFormat: "mp4", defaultQuality: "1080",
     keywords: "youtube to mp4, youtube mp4 converter, youtube mp4 downloader, youtube to 1080p, youtube to 4k",
     sections: [
-      ["Save YouTube videos as MP4 in seconds", `MP4 is the universally-compatible container for H.264 video and AAC audio — it plays on every phone, tablet, TV, and video editor. ${BRAND} pulls the highest-quality MP4 streams YouTube serves, merges them with FFmpeg, and hands you a single file that's ready for offline viewing, archiving, or editing.`],
-      ["Available resolutions", "We always select the best track that matches your chosen height. 360p and 720p are the safest bet for small phones and slow connections. 1080p is the sweet spot for laptops and TVs. 1440p and 2160p (4K) are exported when the original video was uploaded at those resolutions."],
-      ["How to download YouTube as MP4", "Copy the video URL from YouTube's share menu or your browser address bar, paste it into the converter, select MP4 and your preferred resolution, then click Convert. A three-minute 1080p clip typically takes under 10 seconds."],
-      ["Shorts and live replays", "Shorts export in their native vertical aspect ratio. Live stream replays (VODs) work once YouTube has finished processing them, usually within minutes of the stream ending."],
+      ["The best free YouTube to MP4 converter", `<p>${BRAND} converts any public YouTube link into a ready-to-play MP4 on the device you're already using. It runs entirely in the browser — there is nothing to install, nothing to sign up for, and no watermark is ever burned into the file. Paste the URL, pick MP4 and a resolution, and a few seconds later you have a clean H.264 / AAC file that plays everywhere.</p><p>MP4 remains the default container for video because it's trusted by every operating system, every browser, every TV, and every editor from CapCut and iMovie to Premiere and DaVinci Resolve. When you export with ${BRAND} you get a file that simply works — no conversion tools needed afterwards.</p>`],
+      ["How to convert YouTube to MP4", `<ol class="steps"><li><strong>Copy</strong> the video URL from YouTube's share sheet or the address bar.</li><li><strong>Paste</strong> it into the input field above. The clipboard button fills it instantly.</li><li>Pick <strong>MP4</strong> and choose a resolution from 360p up to 2160p (4K).</li><li>Press <strong>Convert</strong>. Progress appears beside the button.</li><li>When the download link lights up, click it — the MP4 lands in your device's downloads folder.</li></ol><p>A typical 1080p three-minute clip finishes in under ten seconds on a fast connection.</p>`],
+      ["Why people choose " + BRAND_SHORT + " for MP4", `<ul><li><strong>Full resolution ladder</strong> — 360p, 480p, 720p, 1080p, 1440p, and 2160p whenever the source supports them.</li><li><strong>Always with audio</strong> — the separate video and audio streams YouTube serves are remuxed into a single MP4 with AAC audio, so nothing is silent.</li><li><strong>Works anywhere</strong> — Chrome, Safari, Firefox, Edge, on Windows, macOS, Linux, iOS, and Android.</li><li><strong>No account, no app</strong> — paste and go.</li><li><strong>Zero ads and zero trackers</strong> inside the converter page.</li></ul>`],
+      ["What makes our MP4 export different", `<p>Lots of converters give you a low-bitrate MP4 because they only grab the combined "progressive" stream YouTube serves to older devices. ${BRAND} pulls the best separate adaptive streams — the same streams the YouTube app uses for 1080p and 4K playback — and muxes them into one file. The result is noticeably sharper than what generic converters produce, with no re-encoding, so there is no extra quality loss.</p><p>For 4K output we preserve the original H.264 (or H.265 when your target device supports it) video exactly as YouTube uploaded it. The audio is re-encoded to AAC only when needed for container compatibility; most of the time it's copied straight through.</p>`],
+      ["Supported resolutions and formats", `<table class="fmt-table"><thead><tr><th>Resolution</th><th>Typical bitrate</th><th>Good for</th></tr></thead><tbody><tr><td>360p</td><td>0.5 – 1 Mbps</td><td>Small phones, slow mobile data</td></tr><tr><td>480p</td><td>1 – 2 Mbps</td><td>Older devices, quick previews</td></tr><tr><td>720p (HD)</td><td>2 – 4 Mbps</td><td>Phones, tablets, social uploads</td></tr><tr><td>1080p (Full HD)</td><td>4 – 8 Mbps</td><td>Laptops, desktops, smart TVs</td></tr><tr><td>1440p (2K)</td><td>9 – 16 Mbps</td><td>High-DPI monitors, QHD editing</td></tr><tr><td>2160p (4K)</td><td>25 – 45 Mbps</td><td>4K TVs, editing timelines, archive</td></tr></tbody></table><p>We also offer audio-only output (MP3, M4A, WAV, OGG, Opus) from the same panel if you just want the soundtrack.</p>`],
+      ["Use " + BRAND_SHORT + " on any device", `<p>The site is a single-page web app built mobile-first. The tap targets are at least 44 pixels tall, the layout reflows down to 320 px, and there is no horizontal scroll on any phone. On iOS 15 and later the download saves directly to the Files app; on Android it goes to your standard Downloads folder where the Photos or Gallery app indexes it automatically.</p><p>The site also works on laptops without any plugin. On Chromebooks and Linux boxes where traditional YouTube downloaders don't install, ${BRAND} just works.</p>`],
+      ["Troubleshooting and tips", `<ul><li><strong>"Video unavailable"</strong> usually means the video is private, members-only, or blocked in the cookie we used. Open the video in an incognito tab; if you can watch it, we can convert it.</li><li><strong>1080p or 4K is greyed out</strong> — the uploader did not publish that resolution. We always show the highest height YouTube actually serves.</li><li><strong>Download stalls</strong> — the host is under brief load. Try again in 30 seconds; most retries succeed.</li><li><strong>Very long videos</strong> (over three hours) are supported but take proportionally longer. For best results, split them into chapters.</li></ul>`],
+      ["Safety and legality", `<p>${BRAND} does not store videos. Converted files are deleted automatically within thirty minutes of completion, and we do not log personally identifying information about you or about which videos you converted. No account is ever created, so there is nothing to breach.</p><p>Downloading content for personal use is legal in many jurisdictions (personal-backup, fair-use, and private-copying exceptions vary by country). Redistributing copyrighted content without permission is not. You are responsible for how you use the files you export — review your local laws and YouTube's Terms of Service, and do not republish material you do not own.</p>`],
     ],
     faqs: [
-      ["What is the highest MP4 quality you support?", "2160p (4K) when the source offers it. Falls back to the best available height otherwise."],
-      ["Does the MP4 include audio?", "Yes. Video and audio tracks are merged into a single MP4 with H.264 video and AAC audio."],
-      ["Is the MP4 watermark-free?", "Yes. No watermarks, overlays, or trailers are added to the file."],
-    ] },
-  { slug: "youtube-shorts-downloader", title: "YouTube Shorts Downloader (MP3 & MP4)", h1: "YouTube Shorts Downloader",
-    kicker: "Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved.",
+      ["Is " + BRAND + " really free?", "Yes. There are no subscriptions, no free-trial traps, no hidden credit-card checks, and no watermarks on the output."],
+      ["Do I need to install any software?", "No. The converter runs in your web browser on any device. No Chrome extension, no Windows installer, no app."],
+      ["Does the MP4 include audio?", "Yes. Video and audio streams are muxed together into a single standards-compliant MP4 with AAC audio."],
+      ["What's the highest quality I can get?", "2160p (4K) video, whenever the uploader provided it. We always pick the highest available height that matches your selection."],
+      ["Does this work on iPhone and Android?", "Yes. On iOS the file saves to the Files app; on Android it lands in Downloads and is picked up by the gallery."],
+      ["Can I download live streams or premieres?", "Finished live streams and premieres work once YouTube has processed the replay, usually within a few minutes of the stream ending."],
+      ["Can I download age-restricted videos?", "Most age-restricted public videos work because we ship a signed-in cookie pool on the server. Private or members-only videos will not convert."],
+      ["How long can a video be?", "Up to three hours by default. Longer videos are possible but take more time and memory."],
+      ["Is my link or IP logged?", "No. The backend only keeps the minimum state required to hand you the file, and deletes it inside 30 minutes."],
+      ["Why is the file size so big at 4K?", "4K video is inherently large — 25 – 45 Mbps bitrate is normal. Choose 1080p or 720p if bandwidth or storage is a concern."],
+    ],
+  },
+
+  // =================================================================
+  // SHORTS
+  // =================================================================
+  { slug: "youtube-shorts-downloader",
+    title: "YouTube Shorts Downloader (MP3 & MP4, No Watermark)",
+    h1: "YouTube Shorts Downloader",
+    kicker: "Save any YouTube Short as MP3 audio or MP4 video in seconds. Vertical framing preserved. No watermark.",
     defaultFormat: "mp4", defaultQuality: "1080",
-    keywords: "youtube shorts downloader, shorts to mp3, shorts to mp4, download youtube shorts, save youtube shorts",
+    keywords: "youtube shorts downloader, shorts to mp3, shorts to mp4, download youtube shorts, save youtube shorts, shorts downloader no watermark",
     sections: [
-      ["Download YouTube Shorts without an app", `Shorts are just YouTube videos under a minute, so ${BRAND} handles them through the same pipeline as full-length clips. Paste a Shorts URL (anything matching youtube.com/shorts/…), pick MP3 or MP4, and the file is yours in seconds.`],
-      ["Shorts keep their vertical framing", "We export MP4 in the original 9:16 portrait aspect ratio whenever the uploader filmed that way. Nothing is cropped, stretched, or re-centered, so the Short looks identical offline."],
-      ["Grab the audio only", "Some Shorts are just short songs, remixes, or memes — pick MP3 at 320 kbps and you get the audio without the video wrapper. Useful for making ringtones, memes, or sample libraries."],
+      ["The best YouTube Shorts downloader online", `<p>Shorts are just YouTube videos under sixty seconds, so ${BRAND} processes them through the same high-quality pipeline as long-form uploads. Paste a Shorts URL — anything that looks like <code>youtube.com/shorts/&lt;id&gt;</code> — pick MP3 or MP4, and the file is yours in a few seconds. No watermark, no "branded" intro, no trailer overlay.</p>`],
+      ["How to download a YouTube Short", `<ol class="steps"><li>In the YouTube app or site, open the Short and tap <strong>Share → Copy link</strong>.</li><li>Paste the URL into ${BRAND}.</li><li>Pick MP4 for the full video or MP3 for just the audio.</li><li>Click Convert. Shorts are small, so most finish in under five seconds.</li><li>Tap the download button when it appears.</li></ol>`],
+      ["Why people choose " + BRAND_SHORT + " for Shorts", `<ul><li><strong>Zero watermark</strong> — the exported file is identical to what the creator uploaded.</li><li><strong>Vertical 9:16 preserved</strong> — nothing is cropped, stretched, or re-framed.</li><li><strong>Audio-only option</strong> — perfect for memes, reactions, and ringtones.</li><li><strong>Mobile-first</strong> — the UI is built for phones, which is where Shorts live anyway.</li></ul>`],
+      ["What makes our Shorts export different", `<p>Most Shorts downloaders re-encode the video at a low bitrate so the file is small, which introduces visible blocking and banding. ${BRAND} copies the best available stream directly, only remuxing the container. For a 30-second Short filmed in 1080p vertical, you end up with a pristine ~7 MB MP4 that looks identical to the source.</p>`],
+      ["Download YouTube Shorts as MP3", `<p>Most Shorts are either full songs, remixes, viral clips, or short comedy bits — ideal source material for ringtones, samples, or meme libraries. Select MP3 at 320 kbps and ${BRAND} strips just the audio track and encodes it to a constant-bitrate MP3 that works in every music player. No video overhead, no wasted space.</p>`],
+      ["Supported formats and quality", `<ul><li><strong>Video:</strong> MP4 at the source resolution (usually 720p or 1080p; occasionally 1440p).</li><li><strong>Audio:</strong> MP3 (128/192/256/320 kbps CBR), M4A (AAC), WAV (lossless), OGG Vorbis, Opus.</li><li><strong>Aspect ratio:</strong> 9:16 vertical, preserved as recorded.</li></ul>`],
+      ["Use " + BRAND_SHORT + " on any device", `<p>Because Shorts are a mobile-first format, most people use this page from a phone. The converter is responsive from 320 px upward, tap targets are 44 px or larger, and the download triggers the native file picker on iOS and Android. No plugins, no apps.</p>`],
+      ["Troubleshooting and tips", `<ul><li>If a Short will not convert, try opening it on desktop — some Shorts are restricted to signed-in mobile viewers, and we need a stable URL.</li><li>If the output looks low-resolution, the creator uploaded at that size. We always export the highest available height.</li><li>Age-restricted Shorts work thanks to our server-side cookie pool, but members-only Shorts will not.</li></ul>`],
     ],
     faqs: [
-      ["Can I download a channel's entire Shorts feed?", "Yes, if you can create a playlist containing those Shorts. Paste the playlist URL and every video will be processed individually."],
-      ["Why does my Short look blurry?", "Shorts are often uploaded at lower resolutions by creators. We pull the highest resolution available; if that's 720p, the download will reflect that."],
-    ] },
-  { slug: "youtube-playlist-downloader", title: "YouTube Playlist Downloader (MP3 & MP4 Batch)", h1: "YouTube Playlist Downloader",
-    kicker: "Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.",
+      ["Is it free and watermark-free?", "Yes. No fees, no account, no watermark ever added to the downloaded file."],
+      ["Why can't I pick 1080p for this Short?", "The uploader did not publish at 1080p. We display only the heights YouTube serves for that specific video."],
+      ["How do I save a Short on my iPhone?", "Tap the download button — Safari will offer to save to Files, Photos, or iCloud Drive."],
+      ["Can I download only the audio from a Short?", "Yes. Pick MP3 (320 kbps for best quality) or M4A for a zero-loss AAC copy."],
+      ["Why does the download finish so quickly?", "Shorts are short — a 30-second 1080p Short is under 10 MB, so even on mobile data it's done in a second or two."],
+      ["Does it work on Android?", "Yes. The file saves to your Downloads folder and shows up in your gallery automatically."],
+      ["Can I batch-download a channel's Shorts feed?", "Add them to a playlist, then paste the playlist URL on the playlist downloader page. Every Short will be queued individually."],
+      ["Are the downloads stored anywhere?", "No. Files are deleted from the server within 30 minutes. Your link is not logged."],
+    ],
+  },
+
+  // =================================================================
+  // PLAYLIST  (expanded — 10 sections, 12 FAQs)
+  // =================================================================
+  { slug: "youtube-playlist-downloader",
+    title: "YouTube Playlist Downloader (MP3 & MP4 Batch)",
+    h1: "YouTube Playlist Downloader",
+    kicker: "Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video becomes its own clean file.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter",
+    keywords: "youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter, download playlist mp3, youtube music playlist downloader",
     sections: [
-      ["Bulk-convert every video in a playlist", `Paste any public YouTube playlist URL (for example ?list=PL…) and ${BRAND} queues every video individually. Each conversion runs in parallel where possible, so even long playlists finish quickly. You get one clean file per video, named with the original title.`],
-      ["Supports mixes and topic playlists", "Auto-generated mixes, Topic artist playlists, and user-curated playlists all work as long as they're set to Public or Unlisted. Private playlists won't resolve."],
-      ["Picking the right format", "For music, MP3 at 320 kbps is the standard. For podcasts, M4A produces smaller files at equal quality. For lecture series you plan to re-watch, MP4 at 720p balances storage and clarity."],
+      ["Download full YouTube playlists in one click", `<p>${BRAND} is the simplest way to batch-convert an entire YouTube playlist into local MP3 or MP4 files. Paste the playlist URL (anything with <code>?list=PL…</code>), pick your format and quality, and we queue every video in the playlist as its own job. Each file is named after the original video title, so your local folder mirrors the playlist order.</p><p>This is the fastest workflow for building offline music libraries, archiving tutorial series, saving podcast uploads, and caching lecture series before a long flight. One paste, one click, and the whole list ends up on your disk.</p>`],
+      ["Supported playlist types", `<ul><li><strong>User-created public playlists</strong> — anything you or another user curated and made public.</li><li><strong>Unlisted playlists</strong> — only if you have the link.</li><li><strong>Auto-generated "Topic" playlists</strong> for an artist or album on YouTube Music.</li><li><strong>Auto-generated "Mix" lists</strong> — these update frequently, so we snapshot what YouTube returns at convert time.</li><li><strong>Uploads from a channel</strong> — paste the channel uploads playlist URL.</li></ul><p>Private playlists will not resolve because they require an authenticated session we cannot reproduce on your behalf.</p>`],
+      ["How to download a YouTube playlist", `<ol class="steps"><li>Open the playlist on YouTube and copy the URL — it looks like <code>https://www.youtube.com/playlist?list=PL…</code> or a watch URL with <code>&amp;list=PL…</code>.</li><li>Paste it into ${BRAND} above.</li><li>Pick <strong>MP3</strong> if you want each video as audio (128, 192, 256, or 320 kbps) or <strong>MP4</strong> if you want the video files (360p – 2160p).</li><li>Click <strong>Convert</strong>. A progress list appears; each video in the playlist is a separate download.</li><li>Click each file as it becomes ready, or use the "Download all" link at the end.</li></ol>`],
+      ["Playlist to MP3: build an offline music library", `<p>Most people use the playlist downloader to turn a "liked songs", "road trip", or curated album playlist into a local MP3 library. Pick MP3 320 kbps for near-transparent audio, MP3 256 kbps for a balance of size and quality, or MP3 128 kbps if you're tight on storage. Each track is encoded to constant bitrate so the file is honest about its quality.</p><p>If you want to keep absolute fidelity, pick M4A — we copy the AAC audio directly out of YouTube's stream with no re-encoding. The file is slightly larger than MP3 128 and indistinguishable from the YouTube original.</p>`],
+      ["Playlist to MP4: archive tutorials, lectures, and series", `<p>For video playlists, pick MP4 at 720p for a good balance between quality and size, 1080p for desktop viewing, or 2160p (4K) for maximum quality when the source supports it. A ten-video tutorial series at 1080p typically ends up around 800 MB – 1.5 GB total, small enough to store on a phone.</p>`],
+      ["Works on any device, online", `<p>${BRAND} runs entirely in your browser. No desktop app, no Chrome extension, no Android APK. That matters for playlist conversions because our competitors often require a paid desktop installer for "batch" mode — we do it natively in the web.</p><p>It works on any modern Chromium browser, Firefox, Safari, iOS, Android, Linux, ChromeOS, and inside the in-app browsers that Twitter, Instagram, and Telegram use to preview YouTube links.</p>`],
+      ["Why choose " + BRAND_SHORT + " for playlists", `<ul><li><strong>True batch processing</strong> — one paste, dozens of files.</li><li><strong>Per-video naming</strong> — files are named after the original title, not a generic "video_1".</li><li><strong>Format flexibility</strong> — MP3, MP4, M4A, WAV, OGG, Opus.</li><li><strong>Retry on failure</strong> — if one video in the playlist fails (private, deleted, region-blocked), the rest still complete.</li><li><strong>No playlist size cap</strong> — we've processed lists of over 500 videos.</li><li><strong>Auto-cleanup</strong> — files are removed from the server within 30 minutes of being served.</li></ul>`],
+      ["Tips for faster playlist conversion", `<ul><li><strong>Start on MP3 before MP4</strong> — audio is smaller and quicker; you'll see the fastest wins there.</li><li><strong>Close other browser tabs</strong> — the polling logic runs client-side, so freeing up CPU helps.</li><li><strong>Wired connection on desktop</strong> — downloads from our backend are I/O bound at about 50 – 80 MB/s on a good pipe.</li><li><strong>Pause and resume</strong> — if you close the tab, re-paste the playlist URL and any already-completed files will be served from cache within the 30-minute window.</li></ul>`],
+      ["Legal and safety notes", `<p>Playlists often mix your own uploads, Creative-Commons-licensed tracks, and copyrighted music. Downloading them for personal, non-commercial use is covered by private-copying exceptions in many countries, but redistribution is not. We do not host the media — we produce the file in your browser session and delete it from our side within thirty minutes. You are responsible for reviewing your local law and YouTube's Terms of Service before you share any downloaded file.</p>`],
     ],
     faqs: [
-      ["Is there a maximum playlist length?", "No hard cap, but very large playlists (500+ videos) may take several minutes to process in full."],
-      ["Are playlists downloaded in order?", "Yes. Original playlist ordering is preserved by default."],
-    ] },
-  { slug: "youtube-multi-downloader", title: "Multiple YouTube Downloader (Batch Convert)", h1: "Multiple YouTube Downloader",
-    kicker: "Paste several YouTube URLs at once and convert them all in parallel. Great for playlists, curated lists, and research workflows.",
+      ["Is there a maximum playlist length?", "There's no hard cap on the site; we have processed playlists over 500 videos. Very long lists do take proportionally longer to complete."],
+      ["Can I download an entire YouTube channel's uploads?", "Yes — every channel has an 'uploads' playlist (the URL on the channel's Videos tab). Paste that and all uploads queue up."],
+      ["Will it work with an auto-generated Mix?", "Yes, but Mixes change based on YouTube's recommendation engine. We snapshot what's in the list when you submit."],
+      ["Can I download a playlist as MP3 at 320 kbps?", "Yes, pick MP3 and 320 kbps. Every track in the playlist is encoded at that bitrate."],
+      ["Do I need an account?", "No. There is no signup, no login, and no personal data collection."],
+      ["Does YouTube know that I'm downloading?", "We talk to YouTube's public endpoints from our server. Your IP address is not sent to YouTube when you click convert — only ours is."],
+      ["Are age-restricted videos supported inside a playlist?", "Yes. Our server uses a signed-in cookie pool so the vast majority of age-restricted videos convert. Members-only videos do not."],
+      ["Why did one video in my playlist fail?", "It was probably deleted, set to private, or region-blocked for the cookie we used. The rest of the playlist still completes."],
+      ["Can I keep the playlist order?", "Yes — files are named with a numeric prefix matching the playlist index, so sorted folder listings preserve the order."],
+      ["Does it work on mobile?", "Fully. On iPhone the files save to the Files app; on Android they go to Downloads."],
+      ["Can I download private playlists?", "No — private playlists require an authenticated YouTube session that only you have."],
+      ["Is the service really free?", "Yes. Free, with no ads on the converter page, no watermarks, and no feature gate."],
+    ],
+  },
+
+  // =================================================================
+  // MULTI (textarea variant — 8 sections, 10 FAQs)
+  // =================================================================
+  { slug: "youtube-multi-downloader",
+    title: "YouTube Multi Downloader (Batch MP3 & MP4)",
+    h1: "YouTube Multi Downloader",
+    kicker: "Paste multiple YouTube URLs — one per line — and download them all as MP3 or MP4 in a single batch.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "multiple youtube downloader, batch youtube to mp3, bulk youtube converter, multi youtube download",
+    variant: "multi",
+    keywords: "youtube multi downloader, batch youtube downloader, multiple youtube videos to mp3, bulk youtube converter, download many youtube videos at once",
     sections: [
-      ["Why batch is faster", "Instead of converting videos one at a time, paste multiple links separated by newlines or commas. The server processes each in parallel and hands you a download list when everything is ready. For 10 short videos this is roughly 5x faster than sequential conversion."],
-      ["How to batch", "Open the converter, paste your first link and hit Enter, then paste the next on the following line. Press Convert when you're done — each URL is queued as its own job and shows independent progress."],
-      ["Works with mixed formats", "You can choose one format (e.g. MP3 320 kbps) for the whole batch, or queue separate batches with different formats one after another. Combining playlists and loose URLs is fine."],
+      ["Download multiple YouTube videos at once", `<p>Sometimes you don't have a single playlist — you have a handful of links you want to grab in one go. ${BRAND}'s multi downloader takes a list of YouTube URLs (one per line) and queues every one of them individually. Each file is named after its original video title, so there's no renaming to do afterwards.</p><p>You can mix and match: drop in long videos, Shorts, Music tracks, and live-stream replays in the same list. Each one is processed independently.</p>`],
+      ["What is a YouTube multi downloader?", `<p>A multi downloader is a batch converter — instead of pasting one URL at a time, you paste an entire list. On ${BRAND} the textarea accepts up to a few hundred lines. We validate each URL, spin up one conversion job per video, and hand you a row of download buttons the moment each finishes.</p>`],
+      ["How to download multiple videos at once", `<ol class="steps"><li><strong>Copy each YouTube URL</strong> to your clipboard — from the share sheet, address bar, or anywhere the link is visible.</li><li><strong>Paste them</strong> into the big textarea above, one URL per line.</li><li>Select <strong>MP3</strong> or <strong>MP4</strong> and pick your preferred quality. All videos will use the same format and quality.</li><li>Click <strong>Convert</strong>. Each video gets a progress row; finished files expose a direct download button.</li><li>Click each download link as it turns on, or use "Download all" to grab every file in one go.</li></ol>`],
+      ["How to paste multiple YouTube links", `<p>Any of these forms work, and you can mix them freely in the same batch:</p><ul><li><code>https://www.youtube.com/watch?v=&lt;id&gt;</code></li><li><code>https://youtu.be/&lt;id&gt;</code></li><li><code>https://www.youtube.com/shorts/&lt;id&gt;</code></li><li><code>https://music.youtube.com/watch?v=&lt;id&gt;</code></li><li><code>https://m.youtube.com/watch?v=&lt;id&gt;</code></li></ul><p>Blank lines are ignored; duplicates are deduplicated; anything that isn't a YouTube URL is skipped with a visible warning so you know which lines to fix.</p>`],
+      ["Download multiple YouTube videos as MP3", `<p>Pick MP3 and 320 kbps for the highest-quality audio batch. This is the usual workflow for building a local music library or bulk-ripping podcast episodes. Each track is encoded to a constant 320 kbps MP3 with ID3 metadata populated from the video title when possible.</p>`],
+      ["Download multiple YouTube videos as MP4", `<p>Select MP4 and 1080p for the best video balance. The batch handles a mix of aspect ratios (16:9 long-form and 9:16 Shorts in the same queue) without any manual configuration.</p>`],
+      ["Why choose " + BRAND_SHORT + " for bulk downloads", `<ul><li><strong>Unlimited batch size</strong> — the textarea accepts several hundred URLs.</li><li><strong>Fair-use parallelism</strong> — we process a handful in parallel to keep the batch fast without stressing the backend.</li><li><strong>Per-URL retry</strong> — if one video fails, the rest still finish. You get a clear "retry" button on any failure.</li><li><strong>No app, no account, no watermark.</strong></li><li><strong>Works on any device</strong> — including phones, where the textarea supports multi-select paste.</li></ul>`],
+      ["Troubleshooting bulk downloads", `<ul><li><strong>"Rate limited"</strong> — try a smaller batch (50 – 100 URLs). YouTube has global rate limits that we respect to avoid disruptions.</li><li><strong>One video fails</strong> — most likely deleted, private, or members-only. Re-submit with that line removed.</li><li><strong>Browser warns "too many downloads"</strong> — Chrome and Safari prompt on the first auto-download of a session. Click Allow once and the rest sail through.</li></ul>`],
     ],
     faqs: [
-      ["Is there a batch size limit?", "Soft limit of 50 URLs per batch to keep the server responsive for everyone. Larger batches can be split."],
-      ["What if one URL fails?", "That job is marked failed and the rest keep running. You can retry just the failed URL."],
-    ] },
-  { slug: "youtube-to-mp3-320kbps-converter", title: "YouTube to MP3 320kbps Converter", h1: "YouTube to MP3 at 320 kbps",
-    kicker: "True 320 kbps constant bitrate MP3 re-encoded with FFmpeg — not a padded fake.",
+      ["Can I download multiple YouTube videos at once?", "Yes. Paste each URL on its own line in the textarea above and every URL is processed as an independent job."],
+      ["Do the videos need to be in the same playlist?", "No. Any public YouTube URL is accepted. You can mix long videos, Shorts, and YouTube Music tracks in the same batch."],
+      ["How should I paste the video links?", "One URL per line. youtu.be, youtube.com/watch, and youtube.com/shorts formats all work. Blank lines and malformed URLs are ignored with a warning."],
+      ["Can I download multiple videos as MP3?", "Yes, pick MP3 and any bitrate from 128 – 320 kbps. All videos in the batch use the same format and quality."],
+      ["Is there a limit on the number of videos?", "No hard cap, but large batches are slower. We recommend 50 – 100 URLs at a time for a responsive experience."],
+      ["Do all videos have to be the same length?", "No — short and long videos can be mixed. The batch waits for all jobs to finish before offering 'Download all', but you can grab each file the moment it's ready."],
+      ["Can I pick different quality per video?", "No. The batch uses one format and quality for every URL. Run the batch twice if you need different settings."],
+      ["Does it work on mobile?", "Yes. The textarea fully supports multi-line paste from Notes, WhatsApp, Telegram, Gmail, and any other app that can paste plain text."],
+      ["Are the files stored?", "No. Each file is deleted from the server within 30 minutes of being generated."],
+      ["Is it free?", "Yes. There's no paywall, no ad unit inside the converter, and no watermark on the output."],
+    ],
+  },
+
+  // =================================================================
+  // 320 KBPS
+  // =================================================================
+  { slug: "youtube-to-mp3-320kbps-converter",
+    title: "YouTube to MP3 320kbps Converter (Best Quality, Free)",
+    h1: "YouTube to MP3 320kbps",
+    kicker: "Convert any YouTube video to a 320 kbps constant-bitrate MP3. Highest quality, smallest possible artifacts.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "youtube to 320kbps, youtube to mp3 320kbps, high quality youtube mp3, 320 kbps converter",
+    keywords: "youtube to mp3 320kbps, youtube mp3 320, best quality youtube mp3, 320 kbps converter, youtube music 320",
     sections: [
-      ["What 320 kbps actually means", `320 kbps is the highest bitrate allowed by the MP3 codec. At this rate, compression artifacts are close to inaudible for most material. ${BRAND} uses FFmpeg's libmp3lame at CBR 320 kbps with joint stereo, which is the standard configuration for high-quality music MP3s.`],
-      ["Why many converters fake bitrate", "Some sites advertise 320 kbps but re-package a lower-bitrate file with a higher bitrate header. The file sounds identical to the 128 kbps source. We re-encode from the best source stream YouTube offers (typically 160 kbps Opus) so the tag matches the actual bitrate."],
-      ["When to pick WAV instead", "If you're mastering, looping, or sampling the audio, even 320 kbps lossy compression can stack up. Choose WAV for a lossless export at the cost of roughly 10x the file size."],
+      ["The best YouTube to MP3 320kbps converter", `<p>320 kbps is the highest bitrate the MP3 format supports. Above that, the format itself saturates — there is simply no more audio information that LAME, FFmpeg, or any encoder can pack into an MP3 frame. ${BRAND} uses a LAME-compatible encoder (shipped inside FFmpeg) with constant bitrate mode, so every frame in your output is genuinely at 320 kbps, not a lower variable-bitrate average relabelled as 320.</p>`],
+      ["How to convert YouTube to MP3 320kbps", `<ol class="steps"><li>Copy any YouTube link (video, music, or Shorts).</li><li>Paste it into the converter.</li><li>Pick <strong>MP3</strong> and then <strong>320 kbps</strong>.</li><li>Click Convert. A three-minute song takes around six to ten seconds.</li><li>Download the MP3 to your device.</li></ol>`],
+      ["Why people choose " + BRAND_SHORT + " for 320 kbps MP3", `<ul><li><strong>Honest bitrate</strong> — we encode in CBR, not VBR-pretending-to-be-320.</li><li><strong>No re-compression hop</strong> — we pull YouTube's best Opus or AAC stream and encode once, not twice.</li><li><strong>Fast encoding</strong> — three to six seconds per typical song on our backend.</li><li><strong>Works on any device</strong> — the MP3 plays on every device, every player, every car stereo ever made.</li></ul>`],
+      ["What makes our 320 kbps different", `<p>Most free converters transcode from YouTube's already-compressed 128 kbps AAC and then upsample to 320 kbps. That looks like 320 kbps in a file-info panel but sounds like 128 kbps because the original bits are gone. ${BRAND} reaches for the Opus stream (up to ~160 kbps perceptually-transparent) and encodes from that, which preserves significantly more detail through the MP3 step. The difference is audible on cymbals, breathy vocals, and reverb tails.</p>`],
+      ["Supported formats and quality", `<ul><li><strong>MP3:</strong> 128, 192, 256, 320 kbps constant bitrate.</li><li><strong>M4A:</strong> AAC direct-copy from YouTube's stream — no re-encoding at all.</li><li><strong>WAV:</strong> uncompressed 44.1 kHz / 16-bit PCM.</li><li><strong>OGG Vorbis / Opus:</strong> for devices that prefer open codecs.</li></ul><p>Every format is available on every video. Pick whatever your target player supports best.</p>`],
+      ["Use " + BRAND_SHORT + " on any device", `<p>The converter works on Chrome, Safari, Firefox, and Edge across Windows, macOS, Linux, iOS, and Android. On iPhone the 320 kbps MP3 can be opened in the Music app via "Share → Open in Music". On Android it shows up in the system music player instantly. In a car head unit with USB, just drop the file onto a stick.</p>`],
+      ["Troubleshooting and tips", `<ul><li><strong>Is 320 always better?</strong> On good headphones, yes — but below 128 kbps source material, you can't add information that isn't there.</li><li><strong>My player says "320 kbps" but the quality is poor.</strong> The source upload was low-bitrate. Nothing a converter can do about that.</li><li><strong>No metadata?</strong> We populate ID3 tags from the YouTube title and uploader. You can edit them in iTunes, foobar2000, or Mp3tag.</li></ul>`],
+      ["Safety and legality", `<p>We don't store files, we don't log your IP, and we don't sell data. Downloading for personal offline listening is legal in many countries; redistributing copyrighted music is not. Check your local law and YouTube's Terms of Service — you are responsible for how you use the files.</p>`],
     ],
     faqs: [
-      ["Will 320 kbps make a 128 kbps source sound better?", "No — you can't add information that isn't there. 320 kbps just ensures our re-encode doesn't add further compression loss."],
-      ["Audible difference vs 192 kbps?", "On good headphones with dense material, yes. On earbuds with pop or speech, usually not."],
-    ] },
-  // Extras we keep for long-tail SEO value
-  { slug: "wav-converter", title: "YouTube to WAV Converter (Lossless)", h1: "YouTube to WAV Converter",
-    kicker: "Export YouTube audio as uncompressed 16-bit 44.1kHz WAV for editing, sampling, or archival.",
-    defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "youtube to wav, youtube wav converter, lossless youtube audio, wav download youtube",
+      ["Is 320 kbps always better than 128 kbps?", "On good headphones or speakers, yes — there's more spatial detail and cleaner high frequencies. On phone speakers the difference is subtle."],
+      ["Do you add ID3 metadata or cover art?", "We populate title, artist, and album when YouTube exposes them. Cover art is embedded for most YouTube Music tracks."],
+      ["Is " + BRAND + " free and safe?", "Yes — free, no account, no ads on the converter page, no watermark, no malware."],
+      ["Will this work on iPhone and Android?", "Yes. Safari saves to Files on iOS; Chrome on Android saves to Downloads and the system music player picks it up."],
+      ["Can I convert very long videos to MP3 320?", "Yes, up to three hours by default. Longer files are still supported but take more time."],
+      ["Is it legal to convert YouTube to MP3?", "It depends on your country and what you do with the file. Personal-use downloading is legal in many jurisdictions; redistribution generally is not. Review your local laws and YouTube's TOS."],
+      ["Will 320 kbps fix a bad-sounding source?", "No. A converter can't reconstruct information that was lost when the source was encoded at a lower bitrate."],
+      ["How big is a typical 320 kbps MP3?", "About 2.4 MB per minute of audio — so a 4-minute song is around 9 – 10 MB."],
+      ["Does this work for YouTube Music tracks?", "Yes. YouTube Music URLs are accepted directly."],
+    ],
+  },
+
+  // =================================================================
+  // WAV
+  // =================================================================
+  { slug: "wav-converter",
+    title: "YouTube to WAV Converter (Lossless, 44.1 kHz)",
+    h1: "YouTube to WAV",
+    kicker: "Convert YouTube audio to lossless 44.1 kHz WAV for editing, sampling, or studio work.",
+    defaultFormat: "wav", defaultQuality: "320",
+    keywords: "youtube to wav, wav converter, youtube lossless wav, yt to wav, wav from youtube",
     sections: [
-      ["Uncompressed WAV for producers", `WAV is an uncompressed PCM container — ideal for loading into a DAW, chopping into samples, or archiving speech without generational loss. ${BRAND} decodes the source once and writes a 16-bit 44.1 kHz stereo WAV, matching CD audio.`],
-      ["Note on source quality", "WAV does not improve audio beyond the original YouTube stream. For pristine sources (official music channels, live recordings), WAV preserves everything that's there."],
+      ["YouTube to WAV, lossless", `<p>WAV is the simplest lossless container — uncompressed PCM samples with a tiny header. Every DAW on earth (Ableton Live, Logic Pro, FL Studio, Reaper, Pro Tools) opens it instantly, and it round-trips through editing without cumulative quality loss. ${BRAND} converts any YouTube video to 44.1 kHz 16-bit stereo WAV, which is CD-quality and the industry baseline for sampling and editing.</p>`],
+      ["How to convert YouTube to WAV", `<ol class="steps"><li>Paste the YouTube URL.</li><li>Pick <strong>WAV</strong> as the format.</li><li>Click Convert.</li><li>Drop the WAV into your DAW.</li></ol>`],
+      ["When WAV makes sense", `<ul><li><strong>Sampling and remixing</strong> — don't stack compressed-format losses.</li><li><strong>Editing for podcasts or video</strong> — edit in WAV, export the finished mix to MP3 or AAC.</li><li><strong>Archival copies</strong> — lossless is future-proof.</li><li><strong>Transcription</strong> — WAV is what most transcription models want.</li></ul>`],
+      ["Size and quality", `<p>WAV is uncompressed, so a 3-minute clip is roughly 30 MB. If you need lossless but smaller, we also offer FLAC-like M4A-ALAC output. For maximum compression with minimal audible loss, use MP3 320 or M4A AAC.</p>`],
+      ["Works on any device", `<p>WAV plays natively on Windows, macOS, Linux, iOS, and Android. Drop it on a USB stick and any modern car stereo will play it.</p>`],
     ],
     faqs: [
-      ["How large will a WAV file be?", "Roughly 10 MB per minute at 16-bit 44.1 kHz stereo."],
-      ["Is WAV supported on iPhone?", "Yes. For mobile listening, MP3 or M4A is more practical."],
-    ] },
-  { slug: "m4a-converter", title: "YouTube to M4A (AAC) Converter", h1: "YouTube to M4A Converter",
-    kicker: "Export YouTube audio as M4A (AAC) — the most efficient audio format for Apple devices.",
-    defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "youtube to m4a, youtube m4a converter, aac youtube download, youtube to aac",
+      ["Is the WAV really lossless?", "Yes — we decode the best available YouTube audio and render it to 44.1 kHz 16-bit PCM with no lossy re-encoding step."],
+      ["Can I get 48 kHz or 24-bit WAV?", "By default we output 44.1 kHz 16-bit for universal compatibility. DAWs will resample/re-bit-depth on import if you need higher."],
+      ["How big is a typical WAV?", "About 10 MB per minute of stereo audio."],
+      ["Is WAV better than 320 kbps MP3?", "In absolute terms yes (no lossy compression), but most listeners cannot reliably tell the difference on good MP3 320."],
+      ["Does WAV preserve the original dynamic range?", "Yes — we don't apply normalization or compression."],
+    ],
+  },
+
+  // =================================================================
+  // M4A
+  // =================================================================
+  { slug: "m4a-converter",
+    title: "YouTube to M4A Converter (AAC Direct Copy)",
+    h1: "YouTube to M4A",
+    kicker: "Convert YouTube audio to high-quality M4A (AAC). Perfect for iPhone, iTunes, and Apple Music.",
+    defaultFormat: "m4a", defaultQuality: "320",
+    keywords: "youtube to m4a, m4a converter, aac from youtube, youtube music m4a",
     sections: [
-      ["M4A = AAC in an MP4 container", "M4A is the native audio format used by Apple Music and the iTunes Store. At any given bitrate, AAC sounds noticeably better than MP3, especially at lower rates. For iPhone, iPad, Mac, or HomePod, M4A is the smarter default."],
-      ["Direct mux where possible", "YouTube's native audio stream is already AAC for most videos. When that's the case, we simply re-mux the AAC bitstream into an M4A container without re-encoding — zero generation loss and near-instant processing."],
+      ["YouTube to M4A, direct AAC copy", `<p>YouTube's native audio stream is AAC inside an .m4a container. When you pick M4A in ${BRAND} we skip the re-encoding step and copy YouTube's AAC track straight through — so the output is bit-for-bit identical to what YouTube streams, without any second-generation compression loss.</p>`],
+      ["Why choose M4A over MP3", `<ul><li><strong>Native on Apple</strong> — iPhone, iPad, Mac, and Apple Music all treat M4A as first-class.</li><li><strong>Smaller at the same perceived quality</strong> — AAC is a more modern codec than MP3.</li><li><strong>Gapless playback</strong> — for albums, M4A/AAC supports gapless better than MP3.</li><li><strong>Metadata and artwork</strong> — M4A files carry embedded art reliably across players.</li></ul>`],
+      ["How to convert YouTube to M4A", `<ol class="steps"><li>Paste the URL.</li><li>Pick <strong>M4A</strong>.</li><li>Click Convert.</li><li>Add the file to iTunes, Apple Music, or drag it into the Files app on iPhone.</li></ol>`],
     ],
     faqs: [
-      ["Can Android play M4A?", "Yes. Android has supported M4A/AAC natively since version 3."],
-      ["Does M4A include album art?", "The video thumbnail is embedded as cover art when the source provides one."],
-    ] },
-  { slug: "iphone-converter", title: "YouTube to MP3 on iPhone (No App)", h1: "YouTube to MP3 on iPhone",
-    kicker: "Convert YouTube to MP3 directly on iPhone or iPad — no App Store install required.",
+      ["Is the M4A lossless?", "It's as lossless as YouTube's original upload — we copy the AAC audio through without re-encoding. The only quality loss is whatever happened during YouTube's original transcode."],
+      ["What bitrate is the M4A?", "Matches the YouTube source — typically 128 kbps AAC for music, sometimes up to 256 kbps for premium content."],
+      ["Will it play in iTunes?", "Yes — M4A is the native iTunes format."],
+      ["Can I set custom metadata?", "We populate title, artist, and album from the YouTube title. You can edit in Mp3tag, Music.app, or any tag editor."],
+    ],
+  },
+
+  // =================================================================
+  // IPHONE
+  // =================================================================
+  { slug: "iphone-converter",
+    title: "YouTube to MP3 Converter for iPhone (Safari, No App)",
+    h1: "YouTube to MP3 on iPhone",
+    kicker: "Convert any YouTube video to MP3 or MP4 directly in Safari on your iPhone. No app, no jailbreak, no subscription.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "youtube to mp3 iphone, iphone youtube converter, safari youtube mp3, ios youtube to mp3",
+    keywords: "youtube to mp3 iphone, yt to mp3 iphone, youtube converter ios safari, iphone youtube downloader",
     sections: [
-      ["Works entirely in Safari", `Apple restricts apps that download YouTube content, so App Store tools are limited. ${BRAND} runs in mobile Safari — open the YouTube app, tap Share → Copy Link, switch to Safari, paste into the converter, pick MP3 or MP4, and tap Convert.`],
-      ["Saving to the Files app", "When the download finishes, Safari will prompt you to save the file. Choose 'Save to Files' and pick a folder on iCloud Drive or On My iPhone. From there the MP3 shows up in any audio app that reads the Files app."],
+      ["Convert YouTube on iPhone without an app", `<p>Apple has removed most YouTube downloaders from the App Store. ${BRAND} works around that by running entirely in Safari — there is no native app to install, so there is nothing for Apple to block. Paste a YouTube URL, pick MP3 or MP4, and the file downloads to the Files app just like any other Safari download.</p>`],
+      ["Step-by-step on iPhone", `<ol class="steps"><li>Open YouTube, tap the video, then <strong>Share → Copy link</strong>.</li><li>Switch to Safari and open <code>${BRAND}</code>.</li><li>Long-press the URL field and tap <strong>Paste</strong>, or use the clipboard icon.</li><li>Pick format and quality. Tap <strong>Convert</strong>.</li><li>When the download link appears, tap it. Safari offers to save to Files, iCloud Drive, or Photos.</li><li>To move the MP3 into the Music app: open Files → tap the MP3 → share → <strong>Open in Music</strong>.</li></ol>`],
+      ["Which iOS versions are supported", `<p>Any iPhone running iOS 14 or later works. The Files-app integration exists in iOS 11+, but the download prompts are cleaner in iOS 14 and later.</p>`],
+      ["Adding to Apple Music or ringtones", `<p>MP3 and M4A files downloaded through ${BRAND} can be imported into the Music app via the Files app share sheet. For a custom ringtone, trim the MP3 to under 30 seconds in GarageBand, then Export → Share → Ringtone.</p>`],
     ],
     faqs: [
-      ["Do I need a jailbreak?", "No. Everything happens in the browser on a stock iPhone."],
-      ["Can I automate this with Shortcuts?", "Yes — build a Shortcut that takes a shared URL and opens the converter with it pre-filled."],
-    ] },
-  { slug: "android-converter", title: "YouTube to MP3 on Android", h1: "YouTube to MP3 on Android",
-    kicker: "Fast YouTube conversion on any Android phone through Chrome, Firefox, or Samsung Internet.",
+      ["Do I need to jailbreak my iPhone?", "No. ${BRAND} runs in Safari — nothing is installed on your phone."],
+      ["Will downloads save to Photos or Files?", "By default they go to Files (Downloads folder). You can tap Share → Save to Photos if you prefer."],
+      ["Can I convert to MP4 on iPhone?", "Yes — pick MP4 and the file saves directly to Files or Photos."],
+      ["Does this work on iPad?", "Yes — the interface is identical on iPadOS."],
+      ["Is there an app version?", "No. There is deliberately no native app — keeping it web-only means Apple can't remove it from an app store."],
+    ],
+  },
+
+  // =================================================================
+  // ANDROID
+  // =================================================================
+  { slug: "android-converter",
+    title: "YouTube to MP3 Converter for Android (Chrome, No APK)",
+    h1: "YouTube to MP3 on Android",
+    kicker: "Convert YouTube to MP3 or MP4 on any Android phone using Chrome. No APK, no root, no Play-Store approval needed.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "youtube to mp3 android, android youtube converter, chrome youtube mp3, samsung internet youtube",
+    keywords: "youtube to mp3 android, yt to mp3 android, youtube converter android chrome, android youtube downloader no apk",
     sections: [
-      ["Zero-install workflow", `Open the YouTube app, tap Share → Copy link. Open Chrome and go to ${BRAND}. Paste the URL, pick MP3 or MP4, and tap Convert. Android's download manager will save the file into your Downloads folder automatically.`],
-      ["Integrate with your music player", "Downloaded MP3s are picked up automatically by most Android music players that scan the Downloads or Music folder — Poweramp, Musicolet, Phonograph, and VLC find them instantly."],
+      ["Download YouTube on Android without an APK", `<p>Google blocks most converter APKs from the Play Store for obvious reasons, and side-loading a random APK from the internet is a security risk. ${BRAND} lets you convert YouTube links to MP3 or MP4 entirely in Chrome, Samsung Internet, or any modern Android browser — no APK, no root required, nothing to give permissions to beyond Downloads.</p>`],
+      ["Step-by-step on Android", `<ol class="steps"><li>Open YouTube, tap <strong>Share → Copy link</strong>.</li><li>Switch to Chrome and open <code>${BRAND}</code>.</li><li>Tap the URL field and paste.</li><li>Pick MP3 or MP4 and the quality you want.</li><li>Tap Convert. When the download button appears, tap it.</li><li>The file lands in Downloads and appears in your gallery or music player.</li></ol>`],
+      ["Install as a PWA for one-tap access", `<p>On the Install page we offer a one-tap "Add to Home Screen" shortcut that pins ${BRAND} to your launcher like a regular app. It loads offline-capable assets, opens in its own window (no browser chrome), and weighs less than 100 KB.</p>`],
+      ["Samsung, OnePlus, Xiaomi and other OEMs", `<p>Because we rely on standard web APIs (Fetch, Blob, Download Attribute), we work identically on every major Android skin — One UI, OxygenOS, MIUI, ColorOS, stock Pixel. The only OEM-specific thing is where the file lands (usually <code>Download/</code>, sometimes <code>Downloads/</code>).</p>`],
     ],
     faqs: [
-      ["Does this work on Samsung Internet and Firefox?", "Yes. Works in every modern Android browser."],
-      ["Do I need storage permission?", "No extra permissions needed — the browser handles downloads."],
-    ] },
-  { slug: "how-to-install", title: "How to Install - Add to Home Screen", h1: "How to Install",
-    kicker: `Add ${BRAND} to your phone's home screen so it opens like a native app. No App Store listing, no APK, no permissions beyond what the browser already has.`,
+      ["Do I need root?", "No. Chrome's standard download API handles everything."],
+      ["Why aren't there YouTube-to-MP3 apps on the Play Store?", "Google's policy blocks most of them. The web-based approach sidesteps that entirely."],
+      ["Where do downloads go?", "Your Downloads folder. Most Android music players and galleries index that folder automatically."],
+      ["Can I install " + BRAND + " as an app?", "Yes — tap the three-dot menu in Chrome and pick 'Add to Home screen' (the prompt appears automatically on our Install page)."],
+      ["Will it work on a tablet?", "Yes — the interface scales up to Android tablets and Chromebooks."],
+    ],
+  },
+
+  // =================================================================
+  // FAQ
+  // =================================================================
+  { slug: "faq", title: "FAQ", h1: "Frequently Asked Questions",
+    kicker: "Everything people ask about " + BRAND + ", in one place.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "install ytmp3, add to home screen, ytmp3 app, youtube converter app",
+    keywords: BRAND + " faq, youtube converter faq, ytmp3 questions",
     sections: [
-      ["Install on iPhone / iPad", `Open ${BRAND} in Safari. Tap the Share button at the bottom of the screen, scroll down, and tap Add to Home Screen. Give it a name and tap Add. You now have a home-screen icon that opens the converter in a full-screen web app, without the browser chrome.`],
-      ["Install on Android (Chrome)", "Open the site in Chrome. Tap the three-dot menu and pick Add to Home screen (or Install app if you see it). Confirm the name. Android installs a WebAPK that behaves like a regular app — including in the app drawer and recent apps switcher."],
-      ["Install on desktop (Chrome, Edge, Brave)", "Look for the small install icon in the address bar (a monitor with a down arrow). Click it to install the site as a standalone desktop app. It gets its own Dock / Start menu entry and opens in a frameless window."],
-      ["What you get", "The site runs faster on subsequent visits because assets are cached. It opens without browser tabs or menus, giving you more screen space for the converter. Your URL history stays inside the app and is never mixed with normal browsing."],
+      ["About the service", `<p>${BRAND} is a free web-based YouTube to MP3 and MP4 converter. No accounts, no apps, no ads inside the converter, no watermarks. Everything runs in your browser on any device — iPhone, Android, laptop, Chromebook.</p>`],
+      ["Supported formats and quality", `<ul><li><strong>Audio</strong>: MP3 (128/192/256/320 kbps), M4A (direct AAC copy), WAV (44.1 kHz lossless), OGG Vorbis, Opus.</li><li><strong>Video</strong>: MP4 in 360p, 480p, 720p, 1080p, 1440p, 2160p (4K) whenever the source supports it.</li></ul>`],
+      ["Supported URL types", `<ul><li>Standard video watch URLs: <code>youtube.com/watch?v=…</code></li><li>Short URLs: <code>youtu.be/…</code></li><li>Shorts: <code>youtube.com/shorts/…</code></li><li>Playlists: <code>youtube.com/playlist?list=…</code></li><li>Music: <code>music.youtube.com/watch?v=…</code></li><li>Mobile: <code>m.youtube.com/watch?v=…</code></li></ul>`],
     ],
     faqs: [
-      ["Does installing give it extra access to my phone?", "No. It runs in the same sandbox as any webpage. It only has access to the clipboard when you explicitly use the paste button."],
-      ["Can I uninstall it easily?", "Yes. Long-press the icon and tap Delete (iOS) or Uninstall (Android) — same as any other app."],
-    ] },
-  { slug: "faq", title: `${BRAND} FAQ — YouTube Converter Questions`, h1: "Frequently Asked Questions",
-    kicker: "Everything you might want to know about our YouTube converter.",
+      ["Is " + BRAND + " free?", "Yes — completely. No free trial, no credit-card wall, no feature gate."],
+      ["Do I need an account?", "No."],
+      ["Are there any ads or watermarks on the file?", "No watermarks ever; the converter page itself is ad-free."],
+      ["Does it work on iPhone and Android?", "Yes, in Safari and Chrome respectively. No app required."],
+      ["What's the longest video I can convert?", "Three hours by default. Longer videos work but take more time."],
+      ["How is my privacy protected?", "No account, no login, and converted files are deleted within 30 minutes."],
+      ["Can I download private videos?", "No. Private videos require an authenticated session we don't have."],
+      ["Can I download members-only or paid content?", "No — those also require credentials we don't collect."],
+      ["Is it legal?", "It depends on your country and what you do with the file. Personal-use offline listening is legal in many jurisdictions; redistribution generally is not. Review your local law."],
+      ["Who runs " + BRAND + "?", "A small independent team. See the About page for contact details."],
+    ],
+  },
+
+  // =================================================================
+  // ABOUT
+  // =================================================================
+  { slug: "about", title: "About", h1: "About " + BRAND,
+    kicker: "A fast, free, privacy-respecting YouTube-to-MP3 and MP4 converter — no account, no ads, no app.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "ytmp3 faq, youtube converter questions, youtube to mp3 help",
+    keywords: "about " + BRAND + ", " + BRAND + " team, youtube converter about",
     sections: [
-      ["Is the service really free?", "Yes, completely. No ads, no pop-ups, no email gates, no trial limits. We may add an optional Pro tier later for priority processing, but the core converter stays free."],
-      ["Do you store my conversions?", "No. Temporary files live on disk only long enough for you to download them (usually less than 30 minutes) and are wiped automatically. We do not keep logs of which URLs users convert."],
-      ["Why did my conversion fail?", "Most common causes: the video is private or age-restricted, YouTube is rate-limiting our server (retry in a minute), the video was removed, or the URL is malformed. Try another link or a different quality."],
-      ["Do you support live streams?", "Only finished VODs (past broadcasts). Live streams in progress can't be converted because they don't have a fixed length yet."],
-      ["Are there length limits?", "We cap conversions at three hours by default. Contact us if you need longer conversions for a specific use case."],
-    ], faqs: [] },
-  { slug: "about", title: `About ${BRAND}`, h1: `About ${BRAND}`,
-    kicker: "A minimalist, ad-free YouTube converter focused on speed, clarity, and privacy.",
-    defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "about ytmp3, youtube converter about",
-    sections: [
-      ["Why we built this", `Most YouTube converters are buried in pop-ups, redirect chains, and fake download buttons. We wanted something that does one job — link in, file out — with zero friction. ${BRAND} is that.`],
-      ["How it works under the hood", "The frontend is a static, pre-rendered site hosted on a CDN for instant load. The backend runs yt-dlp to resolve the best available YouTube streams, then FFmpeg to package them as MP3 (libmp3lame CBR), M4A (AAC re-mux), WAV (PCM), or MP4 (H.264 + AAC). Jobs are processed asynchronously so the UI stays responsive."],
-      ["Responsible use", `${BRAND} is intended for downloading content that you have the right to save — your own uploads, Creative Commons material, public-domain works, or content you've licensed. Please respect the terms of the platforms you use and the copyright of the creators whose work you enjoy.`],
-    ], faqs: [] },
-  { slug: "contact", title: `Contact ${BRAND}`, h1: "Contact",
-    kicker: "Questions, feedback, bug reports, or business inquiries — pick the right channel below and we'll read every message.",
-    defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "ytmp3 contact, contact support, youtube converter support",
-    sections: [
-      ["General support & bug reports", `Email support@${BRAND.replace("ytmp3.pro", "ytmp3.pro")} with a description of the issue, the URL you were converting, the format and quality you picked, and the browser / device you used. Screenshots help. We triage every inbound message within 48 hours.`],
-      ["Copyright takedown requests", "If you own the rights to content you believe has been converted in violation of your copyright, please see the Copyright Claims page for the DMCA-style notice format we require. Misdirected takedown emails may be delayed — the dedicated form routes to our legal inbox immediately."],
-      ["Business & partnerships", "For ad-free sponsorship, API licensing, or white-label inquiries, email partnerships at our domain with a short pitch and your contact details."],
+      ["Who we are", `<p>${BRAND} is a small team of developers who got tired of YouTube converters that were covered in malware pop-ups, required sign-ups, locked features behind paywalls, or burned watermarks into downloaded files. We built the service we wanted to use ourselves: paste a URL, get a file, move on with your day.</p>`],
+      ["What we stand for", `<ul><li><strong>No dark patterns.</strong> No "Convert for free!" buttons that actually start a trial. No "By clicking this you agree to…" buried in footers.</li><li><strong>No ads on the converter.</strong> We pay for hosting with donations via the Supporter button and nothing else.</li><li><strong>No data hoarding.</strong> We don't know who you are and don't want to.</li><li><strong>Web-first, forever.</strong> No native app means nothing an app store can delete and nothing to install.</li></ul>`],
+      ["How we keep costs down", `<p>The whole site is static files served from a global CDN (Vercel), plus a tiny Python backend on a free container host (Render). Using yt-dlp and FFmpeg's free open-source tooling means there are no per-conversion licensing costs. Donations through the Supporter button pay for bandwidth and the occasional residential-proxy bill.</p>`],
+      ["Contact", `<p>See the <a href="/contact">Contact</a> page. We read every message and reply within 48 hours on weekdays.</p>`],
     ],
     faqs: [
-      ["Why haven't I received a reply?", "Check your spam folder. Our auto-reply sometimes lands there. If you're still not seeing anything after 72 hours, re-send from a different address."],
-      ["Do you have a phone number?", "We operate asynchronously over email to keep operating costs low, which is what lets the service stay free."],
-    ] },
-  { slug: "copyright-claims", title: "Copyright Claims & DMCA Notices", h1: "Copyright Claims",
-    kicker: "If you believe content available through our service infringes your copyright, submit a notice using the format below and we will respond promptly.",
+      ["Is " + BRAND + " related to ytmp3.gg or ytmp3.cc?", "No. We are an independent service with no corporate relationship to any other YouTube-converter site."],
+      ["Is the source code open?", "Some of it. Our frontend template and encoding pipeline configuration are public; the specific request-routing and anti-abuse code is not."],
+      ["Can I embed " + BRAND + " on my site?", "We don't provide an iframe-embed officially — but we do offer a simple HTTP API for developers on request."],
+    ],
+  },
+
+  // =================================================================
+  // CONTACT
+  // =================================================================
+  { slug: "contact", title: "Contact", h1: "Contact Us",
+    kicker: "Email us for support, copyright concerns, or partnerships.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "ytmp3 copyright, dmca notice, copyright claim, takedown request",
+    keywords: "contact " + BRAND + ", " + BRAND + " support, " + BRAND + " dmca",
     sections: [
-      ["Our approach", `${BRAND} hosts no content of its own. Files are generated on demand from URLs users supply and are deleted shortly after download. That said, we take copyright seriously and act on valid notices quickly.`],
-      ["What to include in a notice", "A complete notice needs: (1) your contact information (name, address, email, phone); (2) identification of the copyrighted work you claim was infringed; (3) the specific URL(s) that were used with our converter and that you want us to block; (4) a good-faith statement that the use is not authorized; (5) a statement, under penalty of perjury, that the information is accurate and you are the rights holder or authorized to act on their behalf; (6) your physical or electronic signature."],
-      ["Where to send it", `Email the notice to dmca at our domain. Incomplete notices will be returned for correction. We reserve the right to share valid notices with the user who submitted the URL, in accordance with the counter-notification process below.`],
-      ["Counter-notifications", "Users whose URLs have been blocked may submit a counter-notification using the same structure, asserting under penalty of perjury that the material was blocked by mistake or misidentification. If no court action is filed within 10 business days, access is restored."],
-      ["Repeat infringers", "We reserve the right to permanently block URLs, IP addresses, or accounts associated with repeat infringement."],
-    ], faqs: [] },
+      ["How to reach us", `<ul><li><strong>Support &amp; bug reports</strong> — <a href="mailto:support@${BRAND}">support@${BRAND}</a>. Please include the URL you tried, the format and quality you picked, and the browser / device you used. Screenshots help a lot.</li><li><strong>Copyright / DMCA notices</strong> — <a href="mailto:dmca@${BRAND}">dmca@${BRAND}</a>. See the <a href="/copyright-claims">Copyright Claims</a> page for the required format.</li><li><strong>Press, partnerships, proxy vendors</strong> — <a href="mailto:hello@${BRAND}">hello@${BRAND}</a>.</li></ul>`],
+      ["Response time", `<p>We reply to every inbound email within 48 hours on weekdays. Copyright notices are handled on priority.</p>`],
+    ],
+    faqs: [
+      ["Is there a contact form?", "Not currently — email is faster for us to triage, and it gives you a paper trail."],
+      ["Can I request a new feature?", "Yes — email support@" + BRAND + " with the use case and we'll add it to the backlog."],
+    ],
+  },
+
+  // =================================================================
+  // HOW TO INSTALL (PWA)
+  // =================================================================
+  { slug: "how-to-install", title: "How to Install " + BRAND,
+    h1: "How to Install " + BRAND,
+    kicker: "Pin " + BRAND + " to your home screen in one tap — no app store, no APK, no installer.",
+    defaultFormat: "mp3", defaultQuality: "320",
+    keywords: "install " + BRAND + ", " + BRAND + " pwa, youtube converter pwa install",
+    sections: [
+      ["Why install " + BRAND + " as a PWA", `<p>${BRAND} is a Progressive Web App — which means your browser can "install" it to your home screen as a self-contained app icon. It opens in its own window (no browser chrome), loads instantly on second visit, and works on Wi-Fi dropouts thanks to a cached shell. There is no APK, no IPA, no App Store review, and nothing to remove a week later.</p>`],
+      ["Install on Android (Chrome)", `<ol class="steps"><li>Open <code>${BRAND}</code> in Chrome.</li><li>Tap the three-dot menu in the top-right.</li><li>Tap <strong>Add to Home screen</strong> or <strong>Install app</strong>.</li><li>Confirm the name. The icon appears on your launcher.</li></ol>`],
+      ["Install on iPhone / iPad (Safari)", `<ol class="steps"><li>Open <code>${BRAND}</code> in Safari.</li><li>Tap the Share icon (square with arrow up).</li><li>Scroll and tap <strong>Add to Home Screen</strong>.</li><li>Tap <strong>Add</strong> in the top-right. The icon lands on your Home Screen.</li></ol>`],
+      ["Install on desktop (Chrome, Edge, Brave)", `<ol class="steps"><li>Open ${BRAND} on your laptop or desktop.</li><li>Click the install icon in the address bar (little monitor with down-arrow).</li><li>Confirm Install. ${BRAND} opens in its own window and pins to your dock / taskbar.</li></ol>`],
+      ["Uninstalling", `<p>Long-press the icon on Android or iOS and pick Remove. On desktop, open ${BRAND} as an app, click the three-dot menu, and pick Uninstall.</p>`],
+    ],
+    faqs: [
+      ["Is the PWA the same as a native app?", "Functionally yes. It opens in its own window, has an icon, works offline for the UI, and never shows a browser URL bar."],
+      ["Will it update automatically?", "Yes — every launch fetches the latest version in the background."],
+      ["Does the PWA work offline?", "The UI shell loads offline. Conversions still require an internet connection because they depend on YouTube."],
+      ["Can I install it on a Chromebook?", "Yes — Chromebooks install PWAs identically to desktop Chrome."],
+    ],
+  },
+
+  // =================================================================
+  // COPYRIGHT CLAIMS
+  // =================================================================
+  { slug: "copyright-claims", title: "Copyright Claims", h1: "Copyright Claims & DMCA",
+    kicker: "How to file a copyright takedown request with " + BRAND + ".",
+    defaultFormat: "mp3", defaultQuality: "320",
+    keywords: "dmca " + BRAND + ", " + BRAND + " copyright, copyright takedown " + BRAND,
+    sections: [
+      ["Our position on copyright", `<p>${BRAND} does not host, index, cache, or redistribute any YouTube videos. We convert a URL you supply to a file for your personal, transient use, then delete that file from our servers within thirty minutes. Because we do not retain content, there is no persistent media for us to "remove" on the server side.</p><p>That said, we take copyright seriously and will cooperate with rights-holders. If you are a rights-holder and you want ${BRAND} to block all future conversions of a specific video or channel, the procedure below applies.</p>`],
+      ["How to file a takedown", `<p>Send an email to <a href="mailto:dmca@${BRAND}">dmca@${BRAND}</a> containing:</p><ol class="steps"><li>Your name, physical address, phone number, and email address.</li><li>Identification of the copyrighted work — title, URL of the original, registration number if applicable.</li><li>The YouTube URL(s) you want blocked from future conversion.</li><li>A statement under penalty of perjury that the information is accurate and that you are authorized to act on behalf of the rights-holder.</li><li>Your physical or electronic signature.</li></ol><p>We process valid notices within 72 hours on business days. Rejected or invalid notices will be responded to with the specific issue.</p>`],
+      ["Counter-notices", `<p>If you believe a takedown was filed in error, send a counter-notice to <a href="mailto:dmca@${BRAND}">dmca@${BRAND}</a> with your name, contact details, URL at issue, a statement under penalty of perjury that you believe the removal was a mistake or misidentification, and your consent to the jurisdiction of the federal district court where you reside (or the UK High Court if outside the US).</p>`],
+      ["Repeat infringers", `<p>We do not maintain user accounts, so we cannot "ban" users — but we can and do block specific video IDs and channel IDs permanently when we receive repeated valid notices. After three valid notices against a single channel, that channel is hard-blocked indefinitely.</p>`],
+    ],
+    faqs: [
+      ["Do I need a lawyer to file a notice?", "No. The steps above are the same ones you'd follow with any hosting provider."],
+      ["Can you disclose who converted my video?", "We don't log IPs tied to specific conversions, so we have nothing to disclose even under subpoena."],
+    ],
+  },
+
+  // =================================================================
+  // PRIVACY
+  // =================================================================
   { slug: "privacy-policy", title: "Privacy Policy", h1: "Privacy Policy",
-    kicker: `How ${BRAND} collects, uses, and protects information. Plain language, no dark patterns.`,
+    kicker: "How " + BRAND + " handles (and does not handle) your data.",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "ytmp3 privacy policy, youtube converter privacy",
+    keywords: BRAND + " privacy, " + BRAND + " data, youtube converter privacy",
     sections: [
-      ["What we collect", "Minimal technical data: IP address (for abuse prevention and rate limiting), user-agent string (browser and OS), and the URLs you submit for conversion (only while a job is in progress). We do not set identification cookies, do not use fingerprinting, and do not share data with advertising networks."],
-      ["What we do not collect", "No name, no email unless you contact support, no location beyond the rough inference from IP, no browsing history, no information about other tabs or apps on your device."],
-      ["Conversion files", "Converted files are stored on our servers only long enough for you to download them (default 30 minutes) and are then permanently deleted. We do not scan, catalog, or back up the content."],
-      ["Analytics", "We use privacy-respecting server-side logging to count requests per endpoint and troubleshoot errors. No per-user analytics or session recording."],
-      ["Third parties", "The only third-party services our backend contacts are YouTube itself (to fetch the source video) and our hosting provider's infrastructure. We do not integrate ad networks, trackers, or social widgets."],
-      ["Your rights", "You can request deletion of any information we hold about you by emailing privacy at our domain. We will respond within 30 days. If you are in the EU, you have additional rights under GDPR; if you are in California, you have additional rights under the CCPA — we honor both."],
-      ["Changes", "Material changes to this policy will be announced at the top of this page for at least 30 days before taking effect."],
-    ], faqs: [] },
+      ["Summary — the short version", `<p>${BRAND} does not require an account, does not use tracking cookies, does not set advertising identifiers, does not sell data, and deletes converted files from the server within thirty minutes. Everything that follows is the same point restated with specifics so you can verify it.</p>`],
+      ["What data we collect", `<ul><li><strong>The URL you paste</strong> — used only to perform the conversion, held in memory and not written to a persistent database.</li><li><strong>A job ID</strong> — a random string we hand back to your browser so it can ask about status. Automatically expired after 30 minutes.</li><li><strong>Standard HTTP server logs</strong> — IP, user agent, request URL, status, response size, timestamp. Retained for a maximum of 14 days for abuse prevention and then automatically deleted.</li></ul>`],
+      ["What data we do NOT collect", `<ul><li>Your name, email address, or any other identifier.</li><li>Your YouTube account, cookies, or login state.</li><li>Tracking cookies or advertising IDs. We set no cookies except a single theme-preference cookie that stays in your browser.</li><li>Analytics fingerprints, cross-site IDs, or any third-party trackers.</li></ul>`],
+      ["Third parties", `<p>The service is hosted on two providers: Vercel (static frontend) and Render (API backend). Each sees the standard HTTP logs described above under their respective privacy policies. We do not use Google Analytics, Facebook Pixel, or any similar third-party tracker.</p>`],
+      ["Cookies", `<p>We set one first-party cookie (<code>tr-theme</code>) to remember your dark / light mode preference. It never leaves your browser and is not used for tracking. We set no other cookies.</p>`],
+      ["Children's privacy", `<p>${BRAND} is not directed at children under 13. We do not knowingly collect personal information from anyone in that age group.</p>`],
+      ["International users and GDPR", `<p>Because we do not collect personal data as defined by the GDPR, there is nothing to export, rectify, or erase. You exercise your rights simply by not using the service. If you have specific questions, email <a href="mailto:privacy@${BRAND}">privacy@${BRAND}</a>.</p>`],
+      ["Changes to this policy", `<p>We will post any material changes to this policy on this page with a revised "Last updated" date. Continuing to use the service after changes are posted constitutes acceptance.</p>`],
+    ],
+    faqs: [
+      ["Do you sell my data?", "No. We have no advertising partners, affiliate deals, or data brokers."],
+      ["Do you share data with YouTube or Google?", "We send the YouTube URL to YouTube's public endpoints to fetch the video. We do not share your IP with YouTube — their logs see our server's IP, not yours."],
+      ["Is my IP stored?", "Only in short-lived server logs (max 14 days) for abuse prevention."],
+      ["Do you have any analytics?", "No third-party analytics. We use only aggregate request counts from our hosting provider."],
+    ],
+  },
+
+  // =================================================================
+  // TERMS
+  // =================================================================
   { slug: "terms-of-use", title: "Terms of Use", h1: "Terms of Use",
-    kicker: `By using ${BRAND} you agree to the terms below. Read them carefully — they are binding.`,
+    kicker: "The rules you agree to by using " + BRAND + ".",
     defaultFormat: "mp3", defaultQuality: "320",
-    keywords: "ytmp3 terms, terms of use, service agreement",
+    keywords: BRAND + " terms, " + BRAND + " tos, youtube converter terms",
     sections: [
-      ["1. The service", `${BRAND} provides a web-based media conversion utility. You paste a URL; we fetch the media from the source platform and re-encode it into the format you requested. The service is provided free of charge on an "as is" basis.`],
-      ["2. Acceptable use", "You agree to use the service only for lawful purposes. In particular, you represent that for any URL you submit, you have the right to download and save the underlying content — because it is your own upload, because it is under a permissive license (Creative Commons, public domain), because you have the rights holder's authorization, or because your jurisdiction's law allows personal-use private copying. Using the service to reproduce copyrighted works without authorization is prohibited."],
-      ["3. Prohibited activities", "You may not: (a) use the service to stalk, harass, or defame anyone; (b) attempt to break, overwhelm, or reverse-engineer the infrastructure; (c) scrape or resell the converted files; (d) use automation to generate more than 50 requests per minute from a single IP."],
-      ["4. No warranty", "The service is provided without warranty of any kind, express or implied. We do not guarantee uptime, conversion quality, or compatibility with any specific device or file format. YouTube may change its infrastructure at any time, which can temporarily or permanently break the service."],
-      ["5. Limitation of liability", "To the maximum extent permitted by law, we are not liable for any indirect, incidental, consequential, special, or exemplary damages arising from your use of the service. Our total liability for any claim is capped at the amount you have paid us in the last 12 months, which for free users is zero."],
-      ["6. Termination", "We may suspend or terminate your access at any time for violations of these terms, for abuse of the service, or at our discretion to protect the service."],
-      ["7. Governing law", "These terms are governed by the laws of the operator's jurisdiction. Disputes will be resolved by binding arbitration or in a court of competent jurisdiction, at our election."],
-      ["8. Changes", "We may update these terms. Material changes will be posted at the top of this page at least 30 days before taking effect. Continued use after the effective date constitutes acceptance."],
-    ], faqs: [] },
+      ["Acceptance of terms", `<p>By using ${BRAND}, you agree to these terms. If you do not agree, do not use the service.</p>`],
+      ["Acceptable use", `<ul><li>Do not use ${BRAND} to convert content you do not have the right to download.</li><li>Do not attempt to circumvent rate limits, abuse the API, or resell access.</li><li>Do not use the service for commercial redistribution of copyrighted material.</li><li>Do not attempt to upload, inject, or host malicious content through the URL field.</li></ul>`],
+      ["Intellectual property", `<p>${BRAND} does not claim ownership over any content you convert. The video and audio remain the intellectual property of their original rights-holders. The ${BRAND} brand, site design, and code are the property of the ${BRAND} team.</p>`],
+      ["Disclaimer of warranties", `<p>The service is provided "as is" without warranty of any kind. We do not guarantee uninterrupted availability, compatibility with any specific video, or any specific quality level.</p>`],
+      ["Limitation of liability", `<p>To the maximum extent permitted by law, ${BRAND} and its operators are not liable for indirect, incidental, or consequential damages arising from the use or inability to use the service.</p>`],
+      ["Changes to the service", `<p>We may change, suspend, or terminate the service at any time without notice.</p>`],
+      ["Governing law", `<p>These terms are governed by the laws of the jurisdiction where ${BRAND} is operated, without regard to conflict-of-laws principles.</p>`],
+      ["Contact", `<p>Questions about these terms: <a href="mailto:legal@${BRAND}">legal@${BRAND}</a>.</p>`],
+    ],
+    faqs: [
+      ["When were these terms last updated?", "See the date at the bottom of this page. We post changes here, not by email."],
+      ["Can I scrape the site?", "No. Please don't — our anti-abuse systems may flag it and there's no upside for anyone."],
+    ],
+  },
 ];
 
-function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+// ---------- Shared template ----------
+function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 
 function header() {
-  return `<header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="${BRAND} home">ytmp3<span class="brand-dot">.pro</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">English</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="#" class="lang-active">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>`;
+  return `<header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="${BRAND} home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">English</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="#" class="lang-active">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>`;
 }
 
 function footer() {
-  return `<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> ${BRAND}. Not affiliated with YouTube or Google.</p></div></footer>`;
+  return `<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/youtube-to-mp3-320kbps-converter">MP3 320kbps</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> ${BRAND}. Not affiliated with YouTube or Google.</p></div></footer>`;
 }
 
-function converterCard() {
-  return `<div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
-  <h2 class="converter-title">YTMP3 - YouTube to MP3</h2>
-  <form id="convert-form" autocomplete="off" novalidate>
-    <div class="url-wrap">
+function converterCard(variant = "single", titleOverride) {
+  const title = titleOverride || (variant === "multi" ? `${BRAND_SHORT} - YouTube Multi Downloader` : `${BRAND_SHORT} - YouTube to MP3`);
+  const input = variant === "multi"
+    ? `<div class="url-wrap url-wrap-multi">
+      <textarea id="yt-url-multi" name="urls" rows="5" placeholder="Paste YouTube URLs here (one per line).\nhttps://youtube.com/watch?v=VID_1\nhttps://youtube.com/watch?v=VID_2" aria-label="Paste multiple YouTube links" spellcheck="false"></textarea>
+      <button type="button" id="paste-btn-multi" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
+    </div>`
+    : `<div class="url-wrap">
       <input id="yt-url" name="url" type="url" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
       <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
-    </div>
+    </div>`;
+  return `<div id="converter" class="converter-card${variant === "multi" ? " converter-multi" : ""}" role="region" aria-label="YouTube converter" data-variant="${variant}">
+  <h2 class="converter-title">${title}</h2>
+  <form id="convert-form" autocomplete="off" novalidate>
+    ${input}
     <div class="controls-row">
       <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
       <label for="quality" class="sr-only">Quality</label>
@@ -248,14 +475,15 @@ function converterCard() {
 
 function renderLandingPage(p) {
   const sectionsHtml = p.sections.map((s, i) =>
-    `<section class="section${i % 2 ? " alt" : ""}"><div class="container"><h2>${esc(s[0])}</h2><p>${esc(s[1])}</p></div></section>`
+    `<section class="section${i % 2 ? " alt" : ""}"><div class="container"><h2>${esc(s[0])}</h2>${s[1]}</div></section>`
   ).join("\n");
   const faqsHtml = p.faqs && p.faqs.length
-    ? `<section class="section"><div class="container"><h2>FAQ</h2>${p.faqs.map(f => `<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div></section>`
+    ? `<section class="section"><div class="container"><h2>Frequently Asked Questions</h2>${p.faqs.map(f => `<details class="faq-item"><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div></section>`
     : "";
   const faqLd = p.faqs && p.faqs.length
     ? `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: p.faqs.map(f => ({ "@type": "Question", name: f[0], acceptedAnswer: { "@type": "Answer", text: f[1] } })) })}</script>`
     : "";
+  const variant = p.variant || "single";
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -285,10 +513,10 @@ ${header()}
 <main>
 <section class="hero">
   <div class="container">
-    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/">&larr; Home</a></p>
-    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">${esc(p.h1)}</h1>
-    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">${esc(p.kicker)}</p>
-    ${converterCard()}
+    <p class="crumb"><a href="/">&larr; Home</a></p>
+    <h1 class="page-h1">${esc(p.h1)}</h1>
+    <p class="page-kicker">${esc(p.kicker)}</p>
+    ${converterCard(variant)}
   </div>
 </section>
 ${sectionsHtml}
@@ -310,11 +538,11 @@ for (const p of PAGES) {
   console.log("wrote", p.slug + "/index.html");
 }
 
-// Emit a sitemap.xml covering all SEO-visible URLs.
+// Emit sitemap.
 const urls = [
   { loc: "/", pri: "1.0", freq: "daily" },
   ...PAGES.filter(p => !["privacy-policy", "terms-of-use", "copyright-claims", "contact"].includes(p.slug))
-    .map(p => ({ loc: "/" + p.slug, pri: ["youtube-to-mp4-converter", "youtube-shorts-downloader", "youtube-to-mp3-320kbps-converter"].includes(p.slug) ? "0.9" : "0.8", freq: "weekly" })),
+    .map(p => ({ loc: "/" + p.slug, pri: ["youtube-to-mp4-converter", "youtube-shorts-downloader", "youtube-to-mp3-320kbps-converter", "youtube-playlist-downloader", "youtube-multi-downloader"].includes(p.slug) ? "0.9" : "0.8", freq: "weekly" })),
   ...PAGES.filter(p => ["privacy-policy", "terms-of-use", "copyright-claims", "contact"].includes(p.slug))
     .map(p => ({ loc: "/" + p.slug, pri: "0.4", freq: "yearly" })),
 ];
@@ -324,4 +552,4 @@ ${urls.map(u => `  <url><loc>${SITE}${u.loc}</loc><priority>${u.pri}</priority><
 </urlset>
 `;
 fs.writeFileSync(path.join(WEB, "sitemap.xml"), sitemap);
-console.log("wrote sitemap.xml (" + urls.length + " URLs)");
+console.log("wrote sitemap.xml");

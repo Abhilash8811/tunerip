@@ -198,6 +198,44 @@ html[data-theme="light"] .track-opt:hover{background:rgba(0,0,0,.04)}
 .section p,.section li{color:#bfc4d4}
 .section strong{color:var(--text)}
 .section .container{max-width:760px}
+.section ul,.section ol{padding-left:22px}
+.section ul li,.section ol li{margin:6px 0;line-height:1.55}
+.section code{background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;font-size:.9em;color:var(--text)}
+.section a{color:var(--accent)}
+.section a:hover{text-decoration:underline}
+
+/* Landing page hero */
+.page-h1{text-align:center;margin:0 0 10px;font-size:clamp(26px,4.2vw,38px);font-weight:800;letter-spacing:-.02em}
+.page-kicker{text-align:center;color:#a3a8b8;max-width:680px;margin:0 auto 28px;font-size:16px;line-height:1.55}
+.crumb{margin:0 0 16px;font-size:14px;color:#9aa0b4;text-align:center}
+.crumb a{color:#9aa0b4;text-decoration:none}
+.crumb a:hover{color:var(--text)}
+
+/* Format-comparison tables */
+.fmt-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.fmt-table th,.fmt-table td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border)}
+.fmt-table thead th{background:var(--card-2);font-weight:700;color:var(--text);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.fmt-table tbody tr:last-child td{border-bottom:none}
+.fmt-table td{color:#bfc4d4}
+
+/* Multi-URL variant (textarea) */
+.converter-multi .url-wrap-multi{position:relative;width:100%;margin:0 0 14px}
+.converter-multi textarea{width:100%;min-height:140px;padding:14px 48px 14px 16px;border-radius:12px;background:var(--card-2);border:1px solid var(--border);color:var(--text);font:14px/1.55 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+.converter-multi textarea:focus{outline:none;border-color:var(--accent)}
+.converter-multi .url-wrap-multi #paste-btn-multi{position:absolute;top:10px;right:10px;width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--border);background:var(--card);color:var(--muted);border-radius:10px;cursor:pointer}
+.converter-multi .url-wrap-multi #paste-btn-multi:hover{color:var(--text);border-color:var(--border-2)}
+
+/* FAQ items (details/summary) on landing pages */
+.faq-item{margin:8px 0}
+
+/* Multi-URL job rows */
+.job-row{background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin:8px 0}
+.job-row .status-meta{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:13px;margin-bottom:8px}
+.job-row .status-title{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text);font-weight:600}
+.job-row .progress{height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden}
+.job-row .progress>div{height:100%;background:var(--accent);transition:width .3s}
+.job-row .download-row{margin-top:10px}
+.job-row .download-btn{display:inline-block;padding:8px 14px;border-radius:10px;background:var(--accent);color:var(--accent-text);font-weight:700;text-decoration:none;font-size:13px}
 
 .steps{counter-reset:step;padding:0;list-style:none;display:grid;gap:12px}
 .steps li{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px 16px 60px;position:relative}
