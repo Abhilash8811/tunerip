@@ -132,11 +132,12 @@ def _ydl_opts_audio(job_id: str, out_dir: Path, fmt: str, bitrate: str) -> dict:
         "restrictfilenames": False,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
-        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
+        "extractor_args": {"youtube": {"client": ["android", "web"], "skip": ["dash", "hls"]}},
+        "nocheckcertificate": True,
         "http_headers": {
-            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
         },
         "geo_bypass": True,
     }
@@ -159,11 +160,12 @@ def _ydl_opts_video(job_id: str, out_dir: Path, height: str) -> dict:
         "no_warnings": True,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
-        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
+        "extractor_args": {"youtube": {"client": ["android", "web"], "skip": ["dash", "hls"]}},
+        "nocheckcertificate": True,
         "http_headers": {
-            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
         },
         "geo_bypass": True,
     }
@@ -254,12 +256,13 @@ def debug(q: str = "hello") -> JSONResponse:
         "no_warnings": False,
         "skip_download": True,
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
+        "extractor_args": {"youtube": {"client": ["web"]}},
         "http_headers": {
-            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
         },
+        "nocheckcertificate": True,
     }
     if COOKIES_FILE and os.path.exists(COOKIES_FILE):
         opts["cookiefile"] = COOKIES_FILE
@@ -267,11 +270,19 @@ def debug(q: str = "hello") -> JSONResponse:
     try:
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
+            title = "No title"
             if "entries" in info:
-                info = info["entries"][0]
+                entries = list(info["entries"])
+                if entries:
+                    title = entries[0].get("title")
+                else:
+                    title = "SEARCH RETURNED ZERO ENTRIES"
+            else:
+                title = info.get("title")
+            
             return JSONResponse({
                 "status": "ok", 
-                "info_title": info.get("title"), 
+                "info_title": title, 
                 "ffmpeg_path": FFMPEG_LOCATION, 
                 "ffmpeg_version": ffmpeg_version,
                 "cookies_path": COOKIES_FILE, 
@@ -297,13 +308,15 @@ def info(url: str) -> JSONResponse:
         "no_warnings": True, 
         "skip_download": True, 
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
+        # Revert to web client for metadata fetching as it's more reliable for search
+        "extractor_args": {"youtube": {"client": ["web"]}},
         "http_headers": {
-            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
-            "Accept": "*/*",
-            "Accept-Language": "en-US,en;q=0.9",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.5",
         },
         "geo_bypass": True,
+        "nocheckcertificate": True,
     }
     if PROXY:
         opts["proxy"] = PROXY
