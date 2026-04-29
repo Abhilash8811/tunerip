@@ -132,7 +132,7 @@ def _ydl_opts_audio(job_id: str, out_dir: Path, fmt: str, bitrate: str) -> dict:
         "restrictfilenames": False,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
-        "extractor_args": {"youtube": {"client": ["android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
         "http_headers": {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -160,7 +160,7 @@ def _ydl_opts_video(job_id: str, out_dir: Path, height: str) -> dict:
         "no_warnings": True,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
-        "extractor_args": {"youtube": {"client": ["android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
         "http_headers": {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -231,6 +231,28 @@ def healthz() -> dict:
     return {"ok": True, "yt_dlp": yt_dlp.version.__version__}
 
 
+@app.get("/api/debug")
+def debug(q: str = "hello") -> JSONResponse:
+    url = f"ytsearch1:{q}"
+    opts = {
+        "quiet": False,
+        "no_warnings": False,
+        "skip_download": True,
+        "noplaylist": True,
+        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
+    }
+    if COOKIES_FILE and os.path.exists(COOKIES_FILE):
+        opts["cookiefile"] = COOKIES_FILE
+    
+    logs = []
+    try:
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            return JSONResponse({"status": "ok", "info_title": info.get("title"), "cookies_path": COOKIES_FILE, "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False})
+    except Exception as e:
+        return JSONResponse({"status": "error", "error": str(e), "cookies_path": COOKIES_FILE, "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False})
+
+
 @app.get("/api/info")
 def info(url: str) -> JSONResponse:
     if not YOUTUBE_URL_RE.match(url):
@@ -240,7 +262,7 @@ def info(url: str) -> JSONResponse:
         "no_warnings": True, 
         "skip_download": True, 
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
         "http_headers": {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
