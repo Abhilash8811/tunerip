@@ -31,6 +31,20 @@ MAX_DURATION_SECONDS = int(os.environ.get("MAX_DURATION_SECONDS", "10800"))
 PROXY = os.environ.get("YTDLP_PROXY") or None
 COOKIES_FILE = os.environ.get("YTDLP_COOKIES_FILE") or None
 
+# Bootstrap cookies from a base64 env var so secret files work on hosts (Render free,
+# Railway, etc.) without persistent disk. Set YTDLP_COOKIES_B64 to the output of
+# `base64 -w0 cookies.txt`; we'll decode it once at startup into /tmp/yt-cookies.txt.
+_b64 = os.environ.get("YTDLP_COOKIES_B64")
+if _b64 and not COOKIES_FILE:
+    import base64
+    _cookie_path = Path("/tmp/yt-cookies.txt")
+    try:
+        _cookie_path.write_bytes(base64.b64decode(_b64))
+        _cookie_path.chmod(0o600)
+        COOKIES_FILE = str(_cookie_path)
+    except Exception as exc:  # noqa: BLE001
+        print(f"warning: could not decode YTDLP_COOKIES_B64: {exc}")
+
 YOUTUBE_URL_RE = re.compile(
     r"^(?:https?://)?(?:www\.|m\.|music\.)?"
     r"(?:youtube\.com/(?:watch\?v=|shorts/|embed/|v/|playlist\?list=)|youtu\.be/)"
