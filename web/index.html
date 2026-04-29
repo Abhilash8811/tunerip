@@ -187,12 +187,24 @@
 <section class="section">
   <div class="container">
     <h2>Frequently asked questions</h2>
-    <details><summary>Is ytmp3.pro free to use?</summary><p>Yes. The converter is free, with no download caps or paywalls. There are no ads or forced sign-ups.</p></details>
-    <details><summary>What is the maximum MP3 quality?</summary><p>320 kbps constant bitrate MP3. For lossless, pick WAV from the format list on the dedicated WAV page.</p></details>
-    <details><summary>Does it support 4K MP4?</summary><p>Yes, when the source was uploaded in 2160p. Otherwise we fall back to the highest quality available.</p></details>
-    <details><summary>Can I convert YouTube Shorts?</summary><p>Yes. Paste the Shorts URL the same way as a regular video. See the dedicated <a href="/youtube-shorts-downloader">Shorts converter</a> page.</p></details>
-    <details><summary>Can I convert playlists?</summary><p>Yes. Paste the playlist URL and every public video is queued individually. Details on the <a href="/youtube-playlist-downloader">playlist converter</a> page.</p></details>
-    <details><summary>Is this legal?</summary><p>ytmp3.pro is intended for personal use with royalty-free, public-domain, or your own content. Respect copyright law and local terms of service; you are responsible for how you use downloaded files.</p></details>
+    <ol class="faq-list">
+      <li><h3>Is ytmp3.pro really free?</h3><p>Yes, completely free. No hidden charges, no trial limits, no email gates, no forced sign-ups. The converter runs on donations and optional Supporter upgrades for people who want priority processing — everyone else gets the same full feature set at no cost.</p></li>
+      <li><h3>What is the highest MP3 quality available?</h3><p>320 kbps constant bitrate, re-encoded through FFmpeg's libmp3lame with joint stereo. That's the top of what the MP3 codec supports. For audio work that needs zero compression artifacts, switch to WAV on the dedicated <a href="/wav-converter">WAV converter</a> page for a lossless PCM file.</p></li>
+      <li><h3>Can I download YouTube videos in 4K?</h3><p>Yes — whenever the uploader published at 2160p or higher, the MP4 converter will fetch the full-resolution track and mux it with the best audio. If the source only offers 1080p, we fall back to that automatically instead of upscaling.</p></li>
+      <li><h3>Does it work with YouTube Shorts?</h3><p>Yes. Shorts behave exactly like regular videos — paste the Shorts URL, pick MP3 or MP4, convert. The vertical 9:16 aspect ratio is preserved. See the dedicated <a href="/youtube-shorts-downloader">Shorts downloader</a> page for more detail.</p></li>
+      <li><h3>Can I convert an entire playlist at once?</h3><p>Yes. Paste any public playlist URL (or one containing a <code>?list=</code> parameter) and every video in that playlist is queued individually. Each finishes as its own file, named with the original video title. See the <a href="/youtube-playlist-downloader">playlist downloader</a> page.</p></li>
+      <li><h3>What about age-restricted videos?</h3><p>Age-restricted public videos work in most cases. Private videos, members-only content, and anything behind a login prompt cannot be converted, because our server cannot authenticate on your behalf.</p></li>
+      <li><h3>Is there a maximum video length?</h3><p>Three hours by default — long enough for lectures, full podcast episodes, concert recordings, and live-stream replays. Contact us through the <a href="/contact">contact page</a> if you need longer jobs for a specific use case and we can extend the limit per-user.</p></li>
+      <li><h3>Do I need to install anything?</h3><p>No. Everything runs inside the browser tab — no app, no extension, no desktop client. If you want a faster launch experience, the <a href="/how-to-install">install guide</a> shows how to pin the converter to your home screen on iOS, Android, and desktop so it opens like a native app.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section alt">
+  <div class="container">
+    <h2>Final Thoughts</h2>
+    <p>A good YouTube converter should stay out of your way. No ads, no redirects, no bait-and-switch quality labels, no hidden charges — just a URL field, a format picker, and a download button. That's what ytmp3.pro is built to be, and it's why we keep the interface intentionally boring.</p>
+    <p>If you've been burned by converter sites that load slowly, bury the download link, or downgrade your files quietly, give this one a try. Paste a link at the top of the page and see how fast and clean the whole flow can be.</p>
   </div>
 </section>
 </main>

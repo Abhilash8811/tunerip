@@ -214,6 +214,11 @@ details>summary{cursor:pointer;font-weight:600;color:var(--text);list-style:none
 details>summary::after{content:'+';float:right;color:var(--muted);font-weight:700;font-size:20px;line-height:1}
 details[open]>summary::after{content:'−'}
 details>p{margin:10px 0 0;color:#bfc4d4}
+.faq-list{padding-left:28px;margin:0}
+.faq-list>li{margin-bottom:22px;padding-left:6px}
+.faq-list h3{margin:0 0 6px;font-size:18px;font-weight:700;color:var(--text)}
+.faq-list p{margin:0;color:#bfc4d4}
+.faq-list code{background:rgba(255,255,255,.06);padding:1px 6px;border-radius:4px;font-size:.9em}
 
 /* Footer */
 .site-footer{border-top:1px solid var(--border);padding:32px 0;margin-top:20px;color:var(--muted);font-size:14px}
