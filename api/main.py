@@ -132,12 +132,11 @@ def _ydl_opts_audio(job_id: str, out_dir: Path, fmt: str, bitrate: str) -> dict:
         "restrictfilenames": False,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
-        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
         "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Referer": "https://www.google.com/",
+            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
         },
         "geo_bypass": True,
     }
@@ -160,12 +159,11 @@ def _ydl_opts_video(job_id: str, out_dir: Path, height: str) -> dict:
         "no_warnings": True,
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
-        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
         "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Referer": "https://www.google.com/",
+            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
         },
         "geo_bypass": True,
     }
@@ -239,7 +237,12 @@ def debug(q: str = "hello") -> JSONResponse:
         "no_warnings": False,
         "skip_download": True,
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
+        "http_headers": {
+            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
+        },
     }
     if COOKIES_FILE and os.path.exists(COOKIES_FILE):
         opts["cookiefile"] = COOKIES_FILE
@@ -262,12 +265,11 @@ def info(url: str) -> JSONResponse:
         "no_warnings": True, 
         "skip_download": True, 
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["android"], "skip": ["dash", "hls"]}},
         "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-            "Referer": "https://www.google.com/",
+            "User-Agent": "com.google.android.youtube/19.10.35 (Linux; U; Android 11; en_US) gzip",
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
         },
         "geo_bypass": True,
     }
