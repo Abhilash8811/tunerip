@@ -93,6 +93,33 @@
     });
   });
 
+  var trackLabel = document.getElementById("track-label");
+  var trackSearch = document.getElementById("track-search");
+  var trackBtns = Array.prototype.slice.call(document.querySelectorAll(".track-opt"));
+  var currentTrack = "";
+
+  trackBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      currentTrack = btn.getAttribute("data-track") || "";
+      if (trackLabel) trackLabel.textContent = btn.textContent;
+      var details = btn.closest("details");
+      if (details) details.removeAttribute("open");
+    });
+  });
+
+  if (trackSearch) {
+    trackSearch.addEventListener("input", function (e) {
+      var term = (e.target.value || "").toLowerCase();
+      trackBtns.forEach(function (btn) {
+        if (btn.textContent.toLowerCase().indexOf(term) > -1) {
+          btn.style.display = "";
+        } else {
+          btn.style.display = "none";
+        }
+      });
+    });
+  }
+
   if (pasteBtn) {
     pasteBtn.addEventListener("click", function () {
       if (!navigator.clipboard || !navigator.clipboard.readText) {
