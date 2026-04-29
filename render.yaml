@@ -1,19 +1,20 @@
 # Render.com Blueprint — one-click backend deploy.
-# Use the "Deploy to Render" button in the README, or manually:
-#   1. Create a new Blueprint in Render dashboard
-#   2. Point it at this repo
-#   3. Render reads this file and provisions the service
+# Native Python runtime (no Dockerfile needed). Uses imageio-ffmpeg's bundled
+# static FFmpeg binary, so no system package install is required.
 services:
   - type: web
     name: ytmp3-api
-    runtime: docker
+    runtime: python
     plan: free
     region: oregon
     rootDir: api
-    dockerfilePath: ./Dockerfile
+    buildCommand: bash build.sh
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /healthz
     autoDeploy: true
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
       - key: STORAGE_DIR
         value: /tmp/ytconvert
       - key: FILE_TTL_SECONDS
@@ -26,6 +27,4 @@ services:
       # - key: YTDLP_COOKIES_FILE
       #   sync: false
     # Note: Render free tier does not support persistent disks.
-    # Files are written to /tmp (ephemeral) and auto-cleaned after 30 min via FILE_TTL_SECONDS,
-    # which matches our cleanup schedule anyway. For persistence across restarts, upgrade to
-    # Starter ($7/mo) and add a disk block: { name: data, mountPath: /data, sizeGB: 1 }.
+    # Files write to /tmp (ephemeral) and auto-clean after 30 min via FILE_TTL_SECONDS.
