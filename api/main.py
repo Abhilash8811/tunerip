@@ -249,53 +249,31 @@ def healthz() -> dict:
 def debug(q: str = "hello") -> JSONResponse:
     import subprocess
     ffmpeg_version = "Not found"
+    deno_version = "Not found"
     if FFMPEG_LOCATION:
-        try:
-            ffmpeg_version = subprocess.check_output([FFMPEG_LOCATION, "-version"], stderr=subprocess.STDOUT).decode().split("\n")[0]
-        except Exception as e:
-            ffmpeg_version = f"Error: {e}"
+        try: ffmpeg_version = subprocess.check_output([FFMPEG_LOCATION, "-version"], stderr=subprocess.STDOUT).decode().split("\n")[0]
+        except Exception as e: ffmpeg_version = f"Error: {e}"
+    
+    # Check if Deno is in PATH
+    try: deno_version = subprocess.check_output(["deno", "--version"], stderr=subprocess.STDOUT).decode().split("\n")[0]
+    except Exception as e: deno_version = f"Error: {e}"
 
     url = f"ytsearch1:{q}"
-    
-    # Try metadata fetch WITHOUT cookies first (often unblocks search)
     opts = {
         "quiet": True,
         "no_warnings": True,
         "skip_download": True,
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["web", "mweb"]}},
+        "extractor_args": {"youtube": {"client": ["tv_embedded"], "skip": ["dash", "hls"]}},
         "nocheckcertificate": True,
     }
     
     try:
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
-            title = "No title"
-            if "entries" in info:
-                entries = list(info["entries"])
-                if entries: title = entries[0].get("title")
-                else: title = "SEARCH RETURNED ZERO ENTRIES"
-            else:
-                title = info.get("title")
-            
-            return JSONResponse({
-                "status": "ok", 
-                "info_title": title, 
-                "ffmpeg_version": ffmpeg_version,
-                "message": "Metadata fetch worked without cookies!"
-            })
+            return JSONResponse({"status": "ok", "info_title": info.get("title"), "deno": deno_version})
     except Exception as e:
-        # If no-cookie fails, try WITH cookies
-        if COOKIES_FILE and os.path.exists(COOKIES_FILE):
-            opts["cookiefile"] = COOKIES_FILE
-            try:
-                with yt_dlp.YoutubeDL(opts) as ydl:
-                    info = ydl.extract_info(url, download=False)
-                    return JSONResponse({"status": "ok", "info_title": "Found with cookies", "ffmpeg_version": ffmpeg_version})
-            except Exception as e2:
-                return JSONResponse({"status": "error", "error_no_cookies": str(e), "error_with_cookies": str(e2)})
-        
-        return JSONResponse({"status": "error", "error": str(e)})
+        return JSONResponse({"status": "error", "error": str(e), "deno": deno_version, "ffmpeg": ffmpeg_version})
 
 
 @app.get("/api/info")
