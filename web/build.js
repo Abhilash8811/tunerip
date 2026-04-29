@@ -380,7 +380,7 @@ function renderLandingPage(p) {
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/style.css?v=2">
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 ${faqLd}
 ${howToLd}
@@ -402,7 +402,7 @@ ${faqsHtml}
 </main>
 ${footer()}
 <script>window.__DEFAULT_FORMAT__=${JSON.stringify(p.defaultFormat)};window.__DEFAULT_QUALITY__=${JSON.stringify(p.defaultQuality)};</script>
-<script src="/assets/app.js" defer></script>
+<script src="/assets/app.js?v=2" defer></script>
 </body>
 </html>
 `;
