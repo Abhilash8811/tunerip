@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>YouTube to MP4 Converter (1080p &amp; 4K, Free) — TuneRip</title>
+<meta name="description" content="Download any YouTube video as MP4 in 360p, 720p, 1080p, or 4K. Free, fast, no signup." />
+<meta name="keywords" content="youtube to mp4, youtube mp4 converter, youtube mp4 downloader, youtube to 1080p, youtube to 4k" />
+<link rel="canonical" href="https://example.com/pages/mp4.html" />
+<meta property="og:title" content="YouTube to MP4 Converter (1080p &amp; 4K, Free) — TuneRip" />
+<meta property="og:description" content="Download any YouTube video as MP4 in 360p, 720p, 1080p, or 4K. Free, fast, no signup." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="theme-color" content="#0b1020" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/style.css" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the highest MP4 quality you support?","acceptedAnswer":{"@type":"Answer","text":"2160p (4K) when the source offers it. We transparently fall back to the best available height otherwise."}},{"@type":"Question","name":"Does the MP4 include audio?","acceptedAnswer":{"@type":"Answer","text":"Yes. Video and audio tracks are merged into a single MP4 with H.264 video and AAC audio."}},{"@type":"Question","name":"Is the MP4 watermark-free?","acceptedAnswer":{"@type":"Answer","text":"Yes. We do not add watermarks, overlays, or trailers to the file."}}]}</script>
+</head>
+<body>
+<a href="#converter" class="skip">Skip to converter</a>
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/" aria-label="TuneRip home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">TuneRip</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/pages/mp4.html">YouTube to MP4</a>
+      <a href="/pages/shorts.html">Shorts</a>
+      <a href="/pages/playlist.html">Playlist</a>
+      <a href="/pages/320kbps.html">320kbps</a>
+      <a href="/pages/faq.html">FAQ</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <p><a href="/">&larr; Home</a></p>
+    <h1>YouTube to MP4 Converter</h1>
+    <p class="lede">Download any YouTube video as MP4 in 360p, 720p, 1080p, or 4K. Free, fast, no signup.</p>
+    <div id="converter" class="converter" role="region" aria-label="YouTube converter">
+      <form id="convert-form" class="convert-form" autocomplete="off" novalidate>
+        <label for="yt-url" class="sr-only">YouTube URL</label>
+        <div class="input-row">
+          <input id="yt-url" name="url" type="url" inputmode="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="Paste a YouTube link" required />
+          <button type="button" id="paste-btn" class="btn-ghost" title="Paste from clipboard">Paste</button>
+        </div>
+        <div class="options">
+          <div class="tabs" role="tablist" aria-label="Output format">
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="mp3">MP3</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="m4a">M4A</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="wav">WAV</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="ogg">OGG</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="opus">OPUS</button>
+            <button type="button" class="tab active" role="tab" aria-selected="true" data-format="mp4">MP4</button>
+          </div>
+          <label for="quality" class="sr-only">Quality</label>
+          <select id="quality" aria-label="Quality"></select>
+          <button id="convert-btn" type="submit" class="btn-primary">Convert</button>
+        </div>
+      </form>
+      <div id="status" class="status hidden" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+<section class="section"><div class="container narrow"><h2>Save YouTube videos as MP4 in seconds</h2><p>MP4 is the universally-compatible container for H.264 video and AAC audio — it plays on every phone, tablet, TV, and editor. TuneRip pulls the highest-quality MP4 streams YouTube serves, merges them with FFmpeg, and hands you a single file that's ready for offline viewing, archiving, or video editing.</p></div></section>
+<section class="section alt"><div class="container narrow"><h2>Available resolutions</h2><p>We always select the best track that matches your chosen height. 360p and 720p are the safest bet for small phones and slow connections. 1080p is the sweet spot for laptops and TVs. 1440p and 2160p (4K) are exported when the original video was uploaded at those resolutions — for most talking-head and music videos, 1080p is the ceiling.</p></div></section>
+<section class="section"><div class="container narrow"><h2>How to download YouTube as MP4</h2><p>Copy the video URL from YouTube's share menu or your browser address bar, paste it into the converter above, select MP4 and your preferred resolution, then click Convert. Processing time scales with length and resolution — a three-minute 1080p clip typically takes under 10 seconds.</p></div></section>
+<section class="section alt"><div class="container narrow"><h2>Does it work for Shorts and live replays?</h2><p>Yes. Shorts export in their native vertical aspect ratio. Live stream replays (VODs) work once YouTube has finished processing them, usually within minutes of the stream ending.</p></div></section>
+<section class="section"><div class="container narrow"><h2>FAQ</h2><details><summary>What is the highest MP4 quality you support?</summary><p>2160p (4K) when the source offers it. We transparently fall back to the best available height otherwise.</p></details><details><summary>Does the MP4 include audio?</summary><p>Yes. Video and audio tracks are merged into a single MP4 with H.264 video and AAC audio.</p></details><details><summary>Is the MP4 watermark-free?</summary><p>Yes. We do not add watermarks, overlays, or trailers to the file.</p></details></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-row">
+    <p>&copy; <span id="year"></span> TuneRip. Not affiliated with YouTube or Google.</p>
+    <nav aria-label="Footer">
+      <a href="/pages/faq.html">FAQ</a>
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/mp4.html">YouTube to MP4</a>
+      <a href="/pages/shorts.html">Shorts</a>
+      <a href="/pages/playlist.html">Playlist</a>
+      <a href="/pages/320kbps.html">320kbps</a>
+    </nav>
+  </div>
+</footer>
+<script>window.__DEFAULT_FORMAT__="mp4";window.__DEFAULT_QUALITY__="1080";</script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

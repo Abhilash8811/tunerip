@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About TuneRip — Free YouTube Converter</title>
+<meta name="description" content="A minimalist, ad-free YouTube converter focused on speed, clarity, and privacy." />
+<meta name="keywords" content="about ytmp3 alternative, tunerip about, youtube converter about" />
+<link rel="canonical" href="https://example.com/pages/about.html" />
+<meta property="og:title" content="About TuneRip — Free YouTube Converter" />
+<meta property="og:description" content="A minimalist, ad-free YouTube converter focused on speed, clarity, and privacy." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="theme-color" content="#0b1020" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/style.css" />
+
+</head>
+<body>
+<a href="#converter" class="skip">Skip to converter</a>
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/" aria-label="TuneRip home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">TuneRip</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/pages/mp4.html">YouTube to MP4</a>
+      <a href="/pages/shorts.html">Shorts</a>
+      <a href="/pages/playlist.html">Playlist</a>
+      <a href="/pages/320kbps.html">320kbps</a>
+      <a href="/pages/faq.html">FAQ</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <p><a href="/">&larr; Home</a></p>
+    <h1>About TuneRip</h1>
+    <p class="lede">A minimalist, ad-free YouTube converter focused on speed, clarity, and privacy.</p>
+    <div id="converter" class="converter" role="region" aria-label="YouTube converter">
+      <form id="convert-form" class="convert-form" autocomplete="off" novalidate>
+        <label for="yt-url" class="sr-only">YouTube URL</label>
+        <div class="input-row">
+          <input id="yt-url" name="url" type="url" inputmode="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="Paste a YouTube link" required />
+          <button type="button" id="paste-btn" class="btn-ghost" title="Paste from clipboard">Paste</button>
+        </div>
+        <div class="options">
+          <div class="tabs" role="tablist" aria-label="Output format">
+            <button type="button" class="tab active" role="tab" aria-selected="true" data-format="mp3">MP3</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="m4a">M4A</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="wav">WAV</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="ogg">OGG</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="opus">OPUS</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="mp4">MP4</button>
+          </div>
+          <label for="quality" class="sr-only">Quality</label>
+          <select id="quality" aria-label="Quality"></select>
+          <button id="convert-btn" type="submit" class="btn-primary">Convert</button>
+        </div>
+      </form>
+      <div id="status" class="status hidden" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+<section class="section"><div class="container narrow"><h2>Why we built this</h2><p>Most YouTube converters are buried in pop-ups, redirect chains, and fake download buttons. We wanted something that does one job — link in, file out — with zero friction. TuneRip is that.</p></div></section>
+<section class="section alt"><div class="container narrow"><h2>How it works under the hood</h2><p>The frontend is a static, pre-rendered site hosted on a CDN for instant load. The backend runs yt-dlp to resolve the best available YouTube streams, then FFmpeg to package them as MP3 (libmp3lame CBR), M4A (AAC re-mux), WAV (PCM), or MP4 (H.264 + AAC). Jobs are processed asynchronously so the UI stays responsive.</p></div></section>
+<section class="section"><div class="container narrow"><h2>Responsible use</h2><p>TuneRip is intended for downloading content that you have the right to save — your own uploads, Creative Commons material, public-domain works, or content you've licensed. Please respect the terms of the platforms you use and the copyright of the creators whose work you enjoy.</p></div></section>
+
+</main>
+<footer class="site-footer">
+  <div class="container footer-row">
+    <p>&copy; <span id="year"></span> TuneRip. Not affiliated with YouTube or Google.</p>
+    <nav aria-label="Footer">
+      <a href="/pages/faq.html">FAQ</a>
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/mp4.html">YouTube to MP4</a>
+      <a href="/pages/shorts.html">Shorts</a>
+      <a href="/pages/playlist.html">Playlist</a>
+      <a href="/pages/320kbps.html">320kbps</a>
+    </nav>
+  </div>
+</footer>
+<script>window.__DEFAULT_FORMAT__="mp3";window.__DEFAULT_QUALITY__="320";</script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>

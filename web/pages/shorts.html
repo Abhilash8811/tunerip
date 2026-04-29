@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>YouTube Shorts Downloader (MP3 &amp; MP4) — TuneRip</title>
+<meta name="description" content="Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved." />
+<meta name="keywords" content="youtube shorts downloader, shorts to mp3, shorts to mp4, download youtube shorts, save youtube shorts" />
+<link rel="canonical" href="https://example.com/pages/shorts.html" />
+<meta property="og:title" content="YouTube Shorts Downloader (MP3 &amp; MP4) — TuneRip" />
+<meta property="og:description" content="Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved." />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="robots" content="index,follow,max-image-preview:large" />
+<meta name="theme-color" content="#0b1020" />
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/style.css" />
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I download a Shorts channel's entire feed?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you can create a playlist containing those Shorts. Paste the playlist URL into the converter and every video will be processed individually."}},{"@type":"Question","name":"Why does my Short look blurry?","acceptedAnswer":{"@type":"Answer","text":"Shorts are often uploaded at lower resolutions by creators. We pull the highest resolution available; if that's 720p or less, the download will reflect that."}}]}</script>
+</head>
+<body>
+<a href="#converter" class="skip">Skip to converter</a>
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/" aria-label="TuneRip home"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text">TuneRip</span></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/pages/mp4.html">YouTube to MP4</a>
+      <a href="/pages/shorts.html">Shorts</a>
+      <a href="/pages/playlist.html">Playlist</a>
+      <a href="/pages/320kbps.html">320kbps</a>
+      <a href="/pages/faq.html">FAQ</a>
+    </nav>
+  </div>
+</header>
+<main>
+<section class="hero">
+  <div class="container">
+    <p><a href="/">&larr; Home</a></p>
+    <h1>YouTube Shorts Downloader</h1>
+    <p class="lede">Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved.</p>
+    <div id="converter" class="converter" role="region" aria-label="YouTube converter">
+      <form id="convert-form" class="convert-form" autocomplete="off" novalidate>
+        <label for="yt-url" class="sr-only">YouTube URL</label>
+        <div class="input-row">
+          <input id="yt-url" name="url" type="url" inputmode="url" placeholder="https://www.youtube.com/watch?v=..." aria-label="Paste a YouTube link" required />
+          <button type="button" id="paste-btn" class="btn-ghost" title="Paste from clipboard">Paste</button>
+        </div>
+        <div class="options">
+          <div class="tabs" role="tablist" aria-label="Output format">
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="mp3">MP3</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="m4a">M4A</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="wav">WAV</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="ogg">OGG</button>
+            <button type="button" class="tab" role="tab" aria-selected="false" data-format="opus">OPUS</button>
+            <button type="button" class="tab active" role="tab" aria-selected="true" data-format="mp4">MP4</button>
+          </div>
+          <label for="quality" class="sr-only">Quality</label>
+          <select id="quality" aria-label="Quality"></select>
+          <button id="convert-btn" type="submit" class="btn-primary">Convert</button>
+        </div>
+      </form>
+      <div id="status" class="status hidden" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+<section class="section"><div class="container narrow"><h2>Download YouTube Shorts without an app</h2><p>Shorts are just YouTube videos under a minute, so TuneRip handles them with the same pipeline as full-length clips. Paste a Shorts URL (anything matching youtube.com/shorts/…), pick MP3 or MP4, and the file is yours in seconds.</p></div></section>
+<section class="section alt"><div class="container narrow"><h2>Shorts keep their vertical framing</h2><p>We export MP4 in the original 9:16 portrait aspect ratio whenever the uploader filmed that way. Nothing is cropped, stretched, or re-centered, so the Short looks identical offline.</p></div></section>
+<section class="section"><div class="container narrow"><h2>Grab the audio only</h2><p>Some Shorts are really short songs, remixes, or memes — pick MP3 at 320 kbps and you'll get the audio without the video wrapper. Useful for making ringtones, memes, or sample libraries.</p></div></section>
+<section class="section"><div class="container narrow"><h2>FAQ</h2><details><summary>Can I download a Shorts channel's entire feed?</summary><p>Yes, if you can create a playlist containing those Shorts. Paste the playlist URL into the converter and every video will be processed individually.</p></details><details><summary>Why does my Short look blurry?</summary><p>Shorts are often uploaded at lower resolutions by creators. We pull the highest resolution available; if that's 720p or less, the download will reflect that.</p></details></div></section>
+</main>
+<footer class="site-footer">
+  <div class="container footer-row">
+    <p>&copy; <span id="year"></span> TuneRip. Not affiliated with YouTube or Google.</p>
+    <nav aria-label="Footer">
+      <a href="/pages/faq.html">FAQ</a>
+      <a href="/pages/about.html">About</a>
+      <a href="/pages/mp4.html">YouTube to MP4</a>
+      <a href="/pages/shorts.html">Shorts</a>
+      <a href="/pages/playlist.html">Playlist</a>
+      <a href="/pages/320kbps.html">320kbps</a>
+    </nav>
+  </div>
+</footer>
+<script>window.__DEFAULT_FORMAT__="mp4";window.__DEFAULT_QUALITY__="1080";</script>
+<script src="/assets/app.js" defer></script>
+</body>
+</html>
