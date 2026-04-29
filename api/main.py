@@ -22,6 +22,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, field_validator
 
+# Add local bin to PATH for Deno
+bin_path = os.path.join(os.path.dirname(__file__), "bin", "bin")
+if os.path.exists(bin_path):
+    os.environ["PATH"] = f"{bin_path}:{os.environ.get('PATH', '')}"
+
 STORAGE_DIR = Path(os.environ.get("STORAGE_DIR", "/tmp/ytconvert"))
 STORAGE_DIR.mkdir(parents=True, exist_ok=True)
 
