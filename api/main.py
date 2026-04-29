@@ -188,17 +188,26 @@ def _run_conversion(job_id: str, url: str, fmt: str, quality: str) -> None:
 
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
+            if "entries" in info:
+                entries = list(info["entries"])
+                if not entries:
+                    raise RuntimeError("No search results found.")
+                info = entries[0]
+
             duration = info.get("duration") or 0
             if duration and duration > MAX_DURATION_SECONDS:
                 raise RuntimeError(
                     f"Video is too long ({duration}s). Max {MAX_DURATION_SECONDS}s."
                 )
+            
             job["title"] = info.get("title") or "video"
             job["thumbnail"] = info.get("thumbnail")
             job["duration"] = duration
             job["updated_at"] = time.time()
 
-            ydl.download([url])
+            # Use the actual video URL for the final download
+            final_url = info.get("webpage_url") or info.get("url") or url
+            ydl.download([final_url])
 
         files = sorted(out_dir.iterdir(), key=lambda p: p.stat().st_mtime, reverse=True)
         if not files:
@@ -231,6 +240,14 @@ def healthz() -> dict:
 
 @app.get("/api/debug")
 def debug(q: str = "hello") -> JSONResponse:
+    import subprocess
+    ffmpeg_version = "Not found"
+    if FFMPEG_LOCATION:
+        try:
+            ffmpeg_version = subprocess.check_output([FFMPEG_LOCATION, "-version"], stderr=subprocess.STDOUT).decode().split("\n")[0]
+        except Exception as e:
+            ffmpeg_version = f"Error: {e}"
+
     url = f"ytsearch1:{q}"
     opts = {
         "quiet": False,
@@ -247,13 +264,28 @@ def debug(q: str = "hello") -> JSONResponse:
     if COOKIES_FILE and os.path.exists(COOKIES_FILE):
         opts["cookiefile"] = COOKIES_FILE
     
-    logs = []
     try:
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
-            return JSONResponse({"status": "ok", "info_title": info.get("title"), "cookies_path": COOKIES_FILE, "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False})
+            if "entries" in info:
+                info = info["entries"][0]
+            return JSONResponse({
+                "status": "ok", 
+                "info_title": info.get("title"), 
+                "ffmpeg_path": FFMPEG_LOCATION, 
+                "ffmpeg_version": ffmpeg_version,
+                "cookies_path": COOKIES_FILE, 
+                "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False
+            })
     except Exception as e:
-        return JSONResponse({"status": "error", "error": str(e), "cookies_path": COOKIES_FILE, "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False})
+        return JSONResponse({
+            "status": "error", 
+            "error": str(e), 
+            "ffmpeg_path": FFMPEG_LOCATION, 
+            "ffmpeg_version": ffmpeg_version,
+            "cookies_path": COOKIES_FILE, 
+            "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False
+        })
 
 
 @app.get("/api/info")
