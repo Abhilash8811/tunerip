@@ -220,6 +220,59 @@ def healthz() -> dict:
     return {"ok": True, "yt_dlp": yt_dlp.version.__version__}
 
 
+@app.get("/api/search")
+def search(q: str, limit: int = 8) -> JSONResponse:
+    """Search YouTube by keywords; returns top matches with thumbnail + id.
+    Uses yt-dlp's ytsearch extractor with flat extraction for speed.
+    """
+    q = (q or "").strip()
+    if not q:
+        raise HTTPException(status_code=400, detail="Empty query")
+    if len(q) > 200:
+        raise HTTPException(status_code=400, detail="Query too long")
+    limit = max(1, min(20, int(limit or 8)))
+    opts = {
+        "quiet": True,
+        "no_warnings": True,
+        "skip_download": True,
+        "extract_flat": True,
+        "default_search": "ytsearch",
+        "noplaylist": True,
+    }
+    if PROXY:
+        opts["proxy"] = PROXY
+    if COOKIES_FILE and os.path.exists(COOKIES_FILE):
+        opts["cookiefile"] = COOKIES_FILE
+    try:
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            data = ydl.extract_info(f"ytsearch{limit}:{q}", download=False)
+    except Exception as e:  # noqa: BLE001
+        raise HTTPException(status_code=502, detail=f"Search failed: {e}")
+    entries = (data or {}).get("entries") or []
+    results = []
+    for e in entries:
+        if not e:
+            continue
+        vid = e.get("id")
+        if not vid:
+            continue
+        thumb = None
+        thumbs = e.get("thumbnails") or []
+        if thumbs:
+            thumb = thumbs[-1].get("url")
+        if not thumb:
+            thumb = f"https://i.ytimg.com/vi/{vid}/mqdefault.jpg"
+        results.append({
+            "id": vid,
+            "title": e.get("title") or "",
+            "uploader": e.get("uploader") or e.get("channel") or "",
+            "duration": e.get("duration"),
+            "thumbnail": thumb,
+            "url": f"https://www.youtube.com/watch?v={vid}",
+        })
+    return JSONResponse({"results": results})
+
+
 @app.get("/api/info")
 def info(url: str) -> JSONResponse:
     if not YOUTUBE_URL_RE.match(url):

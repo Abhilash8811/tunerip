@@ -51,26 +51,26 @@
           <svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </summary>
         <div class="lang-list" role="menu">
-          <a role="menuitem" href="#" class="lang-active">English</a>
-          <a role="menuitem" href="#">العربية</a>
-          <a role="menuitem" href="#">বাংলা</a>
-          <a role="menuitem" href="#">Deutsch</a>
-          <a role="menuitem" href="#">Español</a>
-          <a role="menuitem" href="#">Filipino</a>
-          <a role="menuitem" href="#">Français</a>
-          <a role="menuitem" href="#">हिन्दी</a>
-          <a role="menuitem" href="#">Bahasa Indonesia</a>
-          <a role="menuitem" href="#">Italiano</a>
-          <a role="menuitem" href="#">日本語</a>
-          <a role="menuitem" href="#">한국어</a>
-          <a role="menuitem" href="#">Bahasa Melayu</a>
-          <a role="menuitem" href="#">မြန်မာ</a>
-          <a role="menuitem" href="#">Português</a>
-          <a role="menuitem" href="#">Русский</a>
-          <a role="menuitem" href="#">ภาษาไทย</a>
-          <a role="menuitem" href="#">Türkçe</a>
-          <a role="menuitem" href="#">اردو</a>
-          <a role="menuitem" href="#">Tiếng Việt</a>
+          <a role="menuitem" href="#" data-lang="en" class="lang-active">English</a>
+          <a role="menuitem" href="#" data-lang="ar">العربية</a>
+          <a role="menuitem" href="#" data-lang="bn">বাংলা</a>
+          <a role="menuitem" href="#" data-lang="de">Deutsch</a>
+          <a role="menuitem" href="#" data-lang="es">Español</a>
+          <a role="menuitem" href="#" data-lang="tl">Filipino</a>
+          <a role="menuitem" href="#" data-lang="fr">Français</a>
+          <a role="menuitem" href="#" data-lang="hi">हिन्दी</a>
+          <a role="menuitem" href="#" data-lang="id">Bahasa Indonesia</a>
+          <a role="menuitem" href="#" data-lang="it">Italiano</a>
+          <a role="menuitem" href="#" data-lang="ja">日本語</a>
+          <a role="menuitem" href="#" data-lang="ko">한국어</a>
+          <a role="menuitem" href="#" data-lang="ms">Bahasa Melayu</a>
+          <a role="menuitem" href="#" data-lang="my">မြန်မာ</a>
+          <a role="menuitem" href="#" data-lang="pt">Português</a>
+          <a role="menuitem" href="#" data-lang="ru">Русский</a>
+          <a role="menuitem" href="#" data-lang="th">ภาษาไทย</a>
+          <a role="menuitem" href="#" data-lang="tr">Türkçe</a>
+          <a role="menuitem" href="#" data-lang="ur">اردو</a>
+          <a role="menuitem" href="#" data-lang="vi">Tiếng Việt</a>
         </div>
       </details>
       <button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
@@ -90,9 +90,9 @@
 
       <form id="convert-form" autocomplete="off" novalidate>
         <div class="url-wrap">
-          <input id="yt-url" name="url" type="url" inputmode="url"
+          <input id="yt-url" name="url" type="search" inputmode="search"
                  placeholder="Paste YouTube URL or search keywords"
-                 aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
+                 aria-label="Paste a YouTube link or search keywords" required autocomplete="off" spellcheck="false">
           <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
           </button>

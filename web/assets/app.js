@@ -39,6 +39,42 @@
     });
   }
 
+  // Language switcher — routes through Google's *.translate.goog proxy so any
+  // language is available without maintaining 20× translated HTML builds.
+  // English falls back to the un-translated origin.
+  Array.prototype.slice.call(document.querySelectorAll(".lang-list a[data-lang]")).forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      var code = el.getAttribute("data-lang");
+      if (!code) return;
+      if (code === "en") {
+        // Strip any existing translate.goog wrapper.
+        if (/\.translate\.goog$/i.test(location.hostname)) {
+          var raw = location.hostname.replace(/\.translate\.goog$/i, "").replace(/-/g, ".");
+          location.href = location.protocol + "//" + raw + location.pathname + location.search + location.hash;
+          return;
+        }
+        return;
+      }
+      // If already proxied, just swap the target-lang query param.
+      if (/\.translate\.goog$/i.test(location.hostname)) {
+        var url = new URL(location.href);
+        url.searchParams.set("_x_tr_tl", code);
+        url.searchParams.set("_x_tr_hl", code);
+        location.href = url.toString();
+        return;
+      }
+      var hostDashed = location.hostname.replace(/\./g, "-");
+      var target = location.protocol + "//" + hostDashed + ".translate.goog"
+        + location.pathname
+        + (location.search ? location.search + "&" : "?")
+        + "_x_tr_sl=en&_x_tr_tl=" + encodeURIComponent(code)
+        + "&_x_tr_hl=" + encodeURIComponent(code)
+        + location.hash;
+      location.href = target;
+    });
+  });
+
   // Close native <details> dropdowns when clicking outside.
   document.addEventListener("click", function (e) {
     document.querySelectorAll("details[open]").forEach(function (d) {
@@ -288,14 +324,57 @@
       return;
     }
 
-    var url = (urlInput.value || "").trim();
-    if (!isYouTubeUrl(url)) {
-      showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be).</div>');
+    var raw = (urlInput.value || "").trim();
+    if (!raw) {
+      showStatus('<div class="error">Paste a YouTube link or enter search keywords.</div>');
       return;
     }
+    if (isYouTubeUrl(raw)) {
+      convertBtn.disabled = true;
+      showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
+      convertOne(raw, renderProgress).then(function () { convertBtn.disabled = false; });
+      return;
+    }
+    // Not a URL — treat as a keyword search.
     convertBtn.disabled = true;
-    showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
-
-    convertOne(url, renderProgress).then(function () { convertBtn.disabled = false; });
+    showStatus('<div class="status-meta"><span>Searching YouTube for &ldquo;' + escapeHtml(raw) + '&rdquo;…</span></div><div class="progress"><div style="width:5%"></div></div>');
+    fetch(API_BASE + "/api/search?q=" + encodeURIComponent(raw) + "&limit=8")
+      .then(function (r) {
+        if (!r.ok) return r.json().then(function (j) { throw new Error(j.detail || "Search failed"); });
+        return r.json();
+      })
+      .then(function (data) {
+        var results = (data && data.results) || [];
+        if (!results.length) {
+          showStatus('<div class="error">No YouTube results for &ldquo;' + escapeHtml(raw) + '&rdquo;.</div>');
+          convertBtn.disabled = false;
+          return;
+        }
+        var html = '<div class="search-results"><p class="search-lead">Pick a video to convert:</p>';
+        results.forEach(function (r) {
+          var dur = r.duration ? fmtDuration(r.duration) : "";
+          html += '<button type="button" class="search-row" data-url="' + escapeHtml(r.url) + '">'
+            + '<img alt="" src="' + escapeHtml(r.thumbnail) + '" loading="lazy" width="120" height="68">'
+            + '<span class="search-text">'
+            + '<span class="search-title">' + escapeHtml(r.title) + '</span>'
+            + '<span class="search-meta">' + escapeHtml(r.uploader) + (dur ? " · " + dur : "") + '</span>'
+            + '</span></button>';
+        });
+        html += '</div>';
+        showStatus(html);
+        Array.prototype.slice.call(statusBox.querySelectorAll(".search-row")).forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            var u = btn.getAttribute("data-url");
+            urlInput.value = u;
+            showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
+            convertOne(u, renderProgress).then(function () { convertBtn.disabled = false; });
+          });
+        });
+        convertBtn.disabled = false;
+      })
+      .catch(function (err) {
+        showStatus('<div class="error">' + escapeHtml(err.message || "Search failed.") + "</div>");
+        convertBtn.disabled = false;
+      });
   });
 })();
