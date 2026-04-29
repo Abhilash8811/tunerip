@@ -241,7 +241,7 @@ def healthz() -> dict:
 
 
 @app.get("/api/debug")
-def debug(q: str = "hello") -> JSONResponse:
+def debug(q: str = "hello", oauth: bool = False) -> JSONResponse:
     import subprocess
     ffmpeg_version = "Not found"
     if FFMPEG_LOCATION:
@@ -256,46 +256,54 @@ def debug(q: str = "hello") -> JSONResponse:
         "no_warnings": False,
         "skip_download": True,
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["web"]}},
-        "http_headers": {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
-        },
+        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
         "nocheckcertificate": True,
     }
-    if COOKIES_FILE and os.path.exists(COOKIES_FILE):
+    
+    if oauth:
+        # This will trigger the device login flow
+        opts["username"] = "oauth2"
+        opts["password"] = ""
+    elif COOKIES_FILE and os.path.exists(COOKIES_FILE):
         opts["cookiefile"] = COOKIES_FILE
     
+    output_log = []
+    def logger_hook(d):
+        output_log.append(d)
+
     try:
+        # We use a custom logger to capture the "Go to google.com/device" message
+        class MyLogger:
+            def debug(self, msg): 
+                if "google.com/device" in msg: output_log.append(msg)
+            def warning(self, msg): output_log.append(msg)
+            def error(self, msg): output_log.append(msg)
+        
+        opts["logger"] = MyLogger()
+
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
             title = "No title"
             if "entries" in info:
                 entries = list(info["entries"])
-                if entries:
-                    title = entries[0].get("title")
-                else:
-                    title = "SEARCH RETURNED ZERO ENTRIES"
+                if entries: title = entries[0].get("title")
+                else: title = "SEARCH RETURNED ZERO ENTRIES"
             else:
                 title = info.get("title")
             
             return JSONResponse({
                 "status": "ok", 
                 "info_title": title, 
-                "ffmpeg_path": FFMPEG_LOCATION, 
                 "ffmpeg_version": ffmpeg_version,
-                "cookies_path": COOKIES_FILE, 
-                "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False
+                "logs": output_log
             })
     except Exception as e:
         return JSONResponse({
             "status": "error", 
             "error": str(e), 
-            "ffmpeg_path": FFMPEG_LOCATION, 
             "ffmpeg_version": ffmpeg_version,
-            "cookies_path": COOKIES_FILE, 
-            "cookies_exists": os.path.exists(COOKIES_FILE) if COOKIES_FILE else False
+            "logs": output_log,
+            "help": "If you see a 'google.com/device' link in logs, visit it and enter the code!"
         })
 
 
