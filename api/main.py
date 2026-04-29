@@ -241,7 +241,7 @@ def healthz() -> dict:
 
 
 @app.get("/api/debug")
-def debug(q: str = "hello", oauth: bool = False) -> JSONResponse:
+def debug(q: str = "hello") -> JSONResponse:
     import subprocess
     ffmpeg_version = "Not found"
     if FFMPEG_LOCATION:
@@ -251,36 +251,18 @@ def debug(q: str = "hello", oauth: bool = False) -> JSONResponse:
             ffmpeg_version = f"Error: {e}"
 
     url = f"ytsearch1:{q}"
+    
+    # Try metadata fetch WITHOUT cookies first (often unblocks search)
     opts = {
-        "quiet": False,
-        "no_warnings": False,
+        "quiet": True,
+        "no_warnings": True,
         "skip_download": True,
         "noplaylist": True,
-        "extractor_args": {"youtube": {"client": ["tv", "ios", "android", "web"]}},
+        "extractor_args": {"youtube": {"client": ["web", "mweb"]}},
         "nocheckcertificate": True,
     }
     
-    if oauth:
-        # This will trigger the device login flow
-        opts["username"] = "oauth2"
-        opts["password"] = ""
-    elif COOKIES_FILE and os.path.exists(COOKIES_FILE):
-        opts["cookiefile"] = COOKIES_FILE
-    
-    output_log = []
-    def logger_hook(d):
-        output_log.append(d)
-
     try:
-        # We use a custom logger to capture the "Go to google.com/device" message
-        class MyLogger:
-            def debug(self, msg): 
-                if "google.com/device" in msg: output_log.append(msg)
-            def warning(self, msg): output_log.append(msg)
-            def error(self, msg): output_log.append(msg)
-        
-        opts["logger"] = MyLogger()
-
         with yt_dlp.YoutubeDL(opts) as ydl:
             info = ydl.extract_info(url, download=False)
             title = "No title"
@@ -295,16 +277,20 @@ def debug(q: str = "hello", oauth: bool = False) -> JSONResponse:
                 "status": "ok", 
                 "info_title": title, 
                 "ffmpeg_version": ffmpeg_version,
-                "logs": output_log
+                "message": "Metadata fetch worked without cookies!"
             })
     except Exception as e:
-        return JSONResponse({
-            "status": "error", 
-            "error": str(e), 
-            "ffmpeg_version": ffmpeg_version,
-            "logs": output_log,
-            "help": "If you see a 'google.com/device' link in logs, visit it and enter the code!"
-        })
+        # If no-cookie fails, try WITH cookies
+        if COOKIES_FILE and os.path.exists(COOKIES_FILE):
+            opts["cookiefile"] = COOKIES_FILE
+            try:
+                with yt_dlp.YoutubeDL(opts) as ydl:
+                    info = ydl.extract_info(url, download=False)
+                    return JSONResponse({"status": "ok", "info_title": "Found with cookies", "ffmpeg_version": ffmpeg_version})
+            except Exception as e2:
+                return JSONResponse({"status": "error", "error_no_cookies": str(e), "error_with_cookies": str(e2)})
+        
+        return JSONResponse({"status": "error", "error": str(e)})
 
 
 @app.get("/api/info")
