@@ -7,8 +7,7 @@
     var m = location.search.match(/[?&]api=([^&]+)/);
     if (m) return decodeURIComponent(m[1]).replace(/\/+$/, "");
     if (window.__API_BASE__) return String(window.__API_BASE__).replace(/\/+$/, "");
-    // Fallback: same-origin /api proxy (useful for local dev).
-    return "";
+    return "https://ytconvert-api-ziopojhd.fly.dev";
   })();
 
   var AUDIO_FORMATS = ["mp3", "m4a", "wav", "ogg", "opus"];

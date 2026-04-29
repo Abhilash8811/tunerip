@@ -11,6 +11,12 @@ from pathlib import Path
 from typing import Literal
 
 import yt_dlp
+try:
+    import imageio_ffmpeg  # type: ignore
+    FFMPEG_LOCATION = imageio_ffmpeg.get_ffmpeg_exe()
+except Exception:  # noqa: BLE001
+    FFMPEG_LOCATION = shutil.which("ffmpeg")
+
 from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
@@ -118,6 +124,8 @@ def _ydl_opts_audio(job_id: str, out_dir: Path, fmt: str, bitrate: str) -> dict:
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
     }
+    if FFMPEG_LOCATION:
+        opts["ffmpeg_location"] = FFMPEG_LOCATION
     if PROXY:
         opts["proxy"] = PROXY
     if COOKIES_FILE and os.path.exists(COOKIES_FILE):
@@ -136,6 +144,8 @@ def _ydl_opts_video(job_id: str, out_dir: Path, height: str) -> dict:
         "progress_hooks": [_progress_hook(job_id)],
         "concurrent_fragment_downloads": 4,
     }
+    if FFMPEG_LOCATION:
+        opts["ffmpeg_location"] = FFMPEG_LOCATION
     if PROXY:
         opts["proxy"] = PROXY
     if COOKIES_FILE and os.path.exists(COOKIES_FILE):
