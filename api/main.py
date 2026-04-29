@@ -31,10 +31,19 @@ MAX_DURATION_SECONDS = int(os.environ.get("MAX_DURATION_SECONDS", "10800"))
 PROXY = os.environ.get("YTDLP_PROXY") or None
 COOKIES_FILE = os.environ.get("YTDLP_COOKIES_FILE") or None
 
+if COOKIES_FILE and os.path.exists(COOKIES_FILE):
+    try:
+        import tempfile
+        _tmp_cookies = os.path.join(tempfile.gettempdir(), "yt_cookies_writable.txt")
+        shutil.copy(COOKIES_FILE, _tmp_cookies)
+        COOKIES_FILE = _tmp_cookies
+    except Exception as e:
+        print(f"Warning: Failed to copy cookies file to writable location: {e}")
+
 YOUTUBE_URL_RE = re.compile(
-    r"^(?:https?://)?(?:www\.|m\.|music\.)?"
+    r"^(?:(?:https?://)?(?:www\.|m\.|music\.)?"
     r"(?:youtube\.com/(?:watch\?v=|shorts/|embed/|v/|playlist\?list=)|youtu\.be/)"
-    r"[\w\-?=&/.]+$"
+    r"[\w\-?=&/.]+|ytsearch\d*:.+)$"
 )
 
 AUDIO_FORMATS = {"mp3", "m4a", "ogg", "wav", "opus"}

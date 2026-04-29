@@ -93,6 +93,33 @@
     });
   });
 
+  var trackLabel = document.getElementById("track-label");
+  var trackSearch = document.getElementById("track-search");
+  var trackBtns = Array.prototype.slice.call(document.querySelectorAll(".track-opt"));
+  var currentTrack = "";
+
+  trackBtns.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      currentTrack = btn.getAttribute("data-track") || "";
+      if (trackLabel) trackLabel.textContent = btn.textContent;
+      var details = btn.closest("details");
+      if (details) details.removeAttribute("open");
+    });
+  });
+
+  if (trackSearch) {
+    trackSearch.addEventListener("input", function (e) {
+      var term = (e.target.value || "").toLowerCase();
+      trackBtns.forEach(function (btn) {
+        if (btn.textContent.toLowerCase().indexOf(term) > -1) {
+          btn.style.display = "";
+        } else {
+          btn.style.display = "none";
+        }
+      });
+    });
+  }
+
   if (pasteBtn) {
     pasteBtn.addEventListener("click", function () {
       if (!navigator.clipboard || !navigator.clipboard.readText) {
@@ -194,8 +221,12 @@
     e.preventDefault();
     var url = (urlInput.value || "").trim();
     if (!isYouTubeUrl(url)) {
-      showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be).</div>');
-      return;
+      if (url.length > 0 && !url.match(/^https?:\/\//i)) {
+        url = "ytsearch1:" + url;
+      } else {
+        showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be) or enter a search keyword.</div>');
+        return;
+      }
     }
     convertBtn.disabled = true;
     showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
