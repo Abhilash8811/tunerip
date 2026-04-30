@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3f4f9" media="(prefers-color-scheme: light)">
-<title>YouTube Playlist Downloader (MP3 &amp; MP4 Batch) - yt2mp3.lol</title>
-<meta name="description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
-<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter">
+<title>YouTube প্লেলিস্ট ডাউনলোডার (MP3 এবং MP4 ব্যাচ) - yt2mp3.lol</title>
+<meta name="description" content="একটি ক্লিকে সম্পূর্ণ YouTube প্লেলিস্ট MP3 বা MP4 তে রূপান্তর করুন। প্রতিটি ভিডিও আলাদা ফাইল হিসেবে ডাউনলোড হয়।">
+<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter, ইউটিউব প্লেলিস্ট ডাউনলোডার, প্লেলিস্ট থেকে mp3">
 <link rel="canonical" href="https://yt2mp3.lol/bn/youtube-playlist-downloader">
-<meta property="og:title" content="YouTube Playlist Downloader (MP3 &amp; MP4 Batch)">
-<meta property="og:description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
+<meta property="og:title" content="YouTube প্লেলিস্ট ডাউনলোডার (MP3 এবং MP4 ব্যাচ)">
+<meta property="og:description" content="একটি ক্লিকে সম্পূর্ণ YouTube প্লেলিস্ট MP3 বা MP4 তে রূপান্তর করুন। প্রতিটি ভিডিও আলাদা ফাইল হিসেবে ডাউনলোড হয়।">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yt2mp3.lol/bn/youtube-playlist-downloader">
 <meta name="twitter:card" content="summary_large_image">
@@ -56,28 +56,28 @@
 
 <section class="hero">
   <div class="container">
-    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/bn/">&larr; Home</a></p>
-    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">YouTube Playlist Downloader</h1>
-    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.</p>
+    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/bn/">&larr; হোম</a></p>
+    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">YouTube প্লেলিস্ট ডাউনলোডার</h1>
+    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">একটি ক্লিকে সম্পূর্ণ YouTube প্লেলিস্ট MP3 বা MP4 তে রূপান্তর করুন। প্রতিটি ভিডিও আলাদা ফাইল হিসেবে ডাউনলোড হয়।</p>
     <div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
-  <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
+  <h2 class="converter-title">YT2MP3 - YouTube থেকে MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
-      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
-      <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
+      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="YouTube URL পেস্ট করুন বা কীওয়ার্ড অনুসন্ধান করুন" aria-label="একটি YouTube লিঙ্ক পেস্ট করুন" required autocomplete="off" spellcheck="false">
+      <button type="button" id="paste-btn" aria-label="ক্লিপবোর্ড থেকে পেস্ট করুন" title="পেস্ট"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
     </div>
     <div class="controls-row">
-      <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
-      <label for="quality" class="sr-only">Quality</label>
-      <select id="quality" class="select-pill" aria-label="Quality"></select>
+      <div class="seg" role="tablist" aria-label="আউটপুট ফরম্যাট"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
+      <label for="quality" class="sr-only">গুণমান</label>
+      <select id="quality" class="select-pill" aria-label="গুণমান"></select>
       <details class="track-menu">
-        <summary class="track-pill" role="button" aria-label="Audio track"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Origin</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <summary class="track-pill" role="button" aria-label="অডিও ট্র্যাক"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">মূল</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="track-list" role="menu" style="min-width:200px;">
           <div class="track-search-wrap" style="padding:8px 12px;border-bottom:1px solid var(--border);">
-            <input type="text" id="track-search" class="track-search" placeholder="Search languages..." aria-label="Search languages" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
+            <input type="text" id="track-search" class="track-search" placeholder="ভাষা অনুসন্ধান করুন..." aria-label="ভাষা অনুসন্ধান করুন" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
           </div>
           <div class="track-scroll" style="max-height:220px;overflow-y:auto;padding:4px;">
-            <button type="button" class="track-opt" data-track="" role="menuitem">Origin (default)</button>
+            <button type="button" class="track-opt" data-track="" role="menuitem">মূল (ডিফল্ট)</button>
             <button type="button" class="track-opt" data-track="en" role="menuitem">🇬🇧 English</button>
             <button type="button" class="track-opt" data-track="hi" role="menuitem">🇮🇳 Hindi</button>
             <button type="button" class="track-opt" data-track="en-IN" role="menuitem">🇮🇳 English (India)</button>
@@ -121,7 +121,7 @@
         </div>
       </details>
       <div class="spacer"></div>
-      <button id="convert-btn" type="submit">Convert</button>
+      <button id="convert-btn" type="submit">রূপান্তর করুন</button>
     </div>
     <div id="status" class="status hidden" aria-live="polite"></div>
   </form>
@@ -137,34 +137,34 @@
 <div class="content-with-sidebar">
   <div class="main-content">
 
-<section class="section"><div class="container"><h2>Bulk-convert every video in a playlist</h2><p>Paste any public YouTube playlist URL (for example ?list=PL…) and yt2mp3.lol queues every video individually. Each conversion runs in parallel where possible, so even long playlists finish quickly. You get one clean file per video, named with the original title.</p></div></section>
-<section class="section alt"><div class="container"><h2>Supports mixes and topic playlists</h2><p>Auto-generated mixes, Topic artist playlists, and user-curated playlists all work as long as they're set to Public or Unlisted. Private playlists won't resolve.</p></div></section>
-<section class="section"><div class="container"><h2>Picking the right format</h2><p>For music, MP3 at 320 kbps is the standard. For podcasts, M4A produces smaller files at equal quality. For lecture series you plan to re-watch, MP4 at 720p balances storage and clarity.</p></div></section>
-<section class="section alt"><div class="container"><h2>Format Comparison Table</h2><p><div style="overflow-x:auto;">
+<section class="section"><div class="container"><h2>প্লেলিস্টের প্রতিটি ভিডিও বাল্ক-রূপান্তর করুন</h2><p>যেকোনো পাবলিক YouTube প্লেলিস্ট URL পেস্ট করুন (উদাহরণস্বরূপ ?list=PL…) এবং yt2mp3.lol প্রতিটি ভিডিও আলাদাভাবে সারিবদ্ধ করে। প্রতিটি রূপান্তর যেখানে সম্ভব সমান্তরালভাবে চলে, তাই দীর্ঘ প্লেলিস্টগুলিও দ্রুত শেষ হয়। আপনি প্রতিটি ভিডিওর জন্য একটি পরিষ্কার ফাইল পাবেন, মূল শিরোনাম সহ নামকরণ করা।</p></div></section>
+<section class="section alt"><div class="container"><h2>মিক্স এবং টপিক প্লেলিস্ট সমর্থন করে</h2><p>স্বয়ংক্রিয়-উৎপন্ন মিক্স, টপিক শিল্পী প্লেলিস্ট এবং ব্যবহারকারী-কিউরেটেড প্লেলিস্ট সবই কাজ করে যতক্ষণ তারা পাবলিক বা আনলিস্টেড সেট করা থাকে। প্রাইভেট প্লেলিস্ট সমাধান হবে না।</p></div></section>
+<section class="section"><div class="container"><h2>সঠিক ফরম্যাট নির্বাচন করা</h2><p>সঙ্গীতের জন্য, 320 kbps এ MP3 হল মান। পডকাস্টের জন্য, M4A সমান গুণমানে ছোট ফাইল তৈরি করে। আপনি যে লেকচার সিরিজ পুনরায় দেখার পরিকল্পনা করছেন, তার জন্য 720p এ MP4 স্টোরেজ এবং স্পষ্টতার ভারসাম্য রাখে।</p></div></section>
+<section class="section alt"><div class="container"><h2>ফরম্যাট তুলনা টেবিল</h2><p><div style="overflow-x:auto;">
       <table style="width:100%; border-collapse: collapse; text-align: left;">
         <tr style="border-bottom: 1px solid var(--border);">
-          <th style="padding: 8px;">Format</th>
-          <th style="padding: 8px;">Best For</th>
-          <th style="padding: 8px;">Quality Options</th>
-          <th style="padding: 8px;">File Size</th>
+          <th style="padding: 8px;">ফরম্যাট</th>
+          <th style="padding: 8px;">সেরা জন্য</th>
+          <th style="padding: 8px;">গুণমান বিকল্প</th>
+          <th style="padding: 8px;">ফাইল সাইজ</th>
         </tr>
         <tr style="border-bottom: 1px solid var(--border);">
-          <td style="padding: 8px;">MP3</td><td style="padding: 8px;">Universal audio playback</td><td style="padding: 8px;">128 - 320 kbps</td><td style="padding: 8px;">Small</td>
+          <td style="padding: 8px;">MP3</td><td style="padding: 8px;">সর্বজনীন অডিও প্লেব্যাক</td><td style="padding: 8px;">128 - 320 kbps</td><td style="padding: 8px;">ছোট</td>
         </tr>
         <tr style="border-bottom: 1px solid var(--border);">
-          <td style="padding: 8px;">MP4</td><td style="padding: 8px;">Video playback everywhere</td><td style="padding: 8px;">360p - 2160p (4K)</td><td style="padding: 8px;">Large</td>
+          <td style="padding: 8px;">MP4</td><td style="padding: 8px;">সর্বত্র ভিডিও প্লেব্যাক</td><td style="padding: 8px;">360p - 2160p (4K)</td><td style="padding: 8px;">বড়</td>
         </tr>
         <tr style="border-bottom: 1px solid var(--border);">
-          <td style="padding: 8px;">WAV</td><td style="padding: 8px;">Lossless audio editing</td><td style="padding: 8px;">16-bit 44.1kHz</td><td style="padding: 8px;">Very Large</td>
+          <td style="padding: 8px;">WAV</td><td style="padding: 8px;">লসলেস অডিও এডিটিং</td><td style="padding: 8px;">16-bit 44.1kHz</td><td style="padding: 8px;">খুব বড়</td>
         </tr>
         <tr>
-          <td style="padding: 8px;">M4A</td><td style="padding: 8px;">Apple devices</td><td style="padding: 8px;">Native AAC</td><td style="padding: 8px;">Medium</td>
+          <td style="padding: 8px;">M4A</td><td style="padding: 8px;">Apple ডিভাইস</td><td style="padding: 8px;">নেটিভ AAC</td><td style="padding: 8px;">মাঝারি</td>
         </tr>
       </table>
     </div></p></div></section>
-<section class="section"><div class="container"><h2>Batch Conversion Masterclass</h2><p>Downloading videos one by one is incredibly tedious. Our YouTube Playlist Downloader is engineered for bulk operations. By parsing the playlist metadata, our servers generate individual conversion jobs for every single video in the list, allowing you to download an entire album, lecture series, or podcast backlog with minimal effort.</p></div></section>
-<section class="section alt"><div class="container"><h2>Preserve Original Order and Titles</h2><p>When you download a playlist, organization is key. Our system automatically grabs the original video titles and structures the downloads so you can easily maintain the intended order. This is perfect for sequential tutorials, multi-part documentaries, or chronologically ordered music albums.</p></div></section>
-<section class="section"><div class="container"><h2>Flexible Format Selection for Playlists</h2><p>You aren't locked into a single format. You can choose to download an entire music playlist as crisp 320kbps MP3s, or an entire educational course as 1080p MP4s. Our FFmpeg backend applies your selected format uniformly across all items in the batch.</p></div></section>
+<section class="section"><div class="container"><h2>ব্যাচ রূপান্তর মাস্টারক্লাস</h2><p>একের পর এক ভিডিও ডাউনলোড করা অবিশ্বাস্যভাবে ক্লান্তিকর। আমাদের YouTube প্লেলিস্ট ডাউনলোডার বাল্ক অপারেশনের জন্য ইঞ্জিনিয়ার করা হয়েছে। প্লেলিস্ট মেটাডেটা পার্স করে, আমাদের সার্ভার তালিকার প্রতিটি একক ভিডিওর জন্য পৃথক রূপান্তর কাজ তৈরি করে, যা আপনাকে ন্যূনতম প্রচেষ্টায় একটি সম্পূর্ণ অ্যালবাম, লেকচার সিরিজ বা পডকাস্ট ব্যাকলগ ডাউনলোড করতে দেয়।</p></div></section>
+<section class="section alt"><div class="container"><h2>মূল ক্রম এবং শিরোনাম সংরক্ষণ করুন</h2><p>যখন আপনি একটি প্লেলিস্ট ডাউনলোড করেন, সংগঠন মূল চাবিকাঠি। আমাদের সিস্টেম স্বয়ংক্রিয়ভাবে মূল ভিডিও শিরোনাম ধরে এবং ডাউনলোডগুলি গঠন করে যাতে আপনি সহজেই উদ্দিষ্ট ক্রম বজায় রাখতে পারেন। এটি ক্রমিক টিউটোরিয়াল, বহু-অংশ ডকুমেন্টারি বা কালানুক্রমিকভাবে সাজানো সঙ্গীত অ্যালবামের জন্য নিখুঁত।</p></div></section>
+<section class="section"><div class="container"><h2>প্লেলিস্টের জন্য নমনীয় ফরম্যাট নির্বাচন</h2><p>আপনি একটি একক ফরম্যাটে লক নন। আপনি একটি সম্পূর্ণ সঙ্গীত প্লেলিস্ট ক্রিস্প 320kbps MP3 হিসাবে ডাউনলোড করতে পারেন, বা একটি সম্পূর্ণ শিক্ষামূলক কোর্স 1080p MP4 হিসাবে। আমাদের FFmpeg ব্যাকএন্ড ব্যাচের সমস্ত আইটেম জুড়ে আপনার নির্বাচিত ফরম্যাট সমানভাবে প্রয়োগ করে।</p></div></section>
 
 <!-- Ad: In-Content -->
 <div class="ad-container ad-native ad-lazy" data-ad-type="in-content">
@@ -178,14 +178,14 @@
   <div id="container-2ccf98a24a20e1363cee99b6956d273e"></div>
 </div>
 
-<section class="section alt"><div class="container"><h2>High-Concurrency Processing</h2><p>We don't make you wait for one video to finish before starting the next. Our cloud infrastructure utilizes high-concurrency processing, meaning multiple videos from your playlist are downloaded and converted simultaneously. A 50-video playlist is processed significantly faster than doing it manually.</p></div></section>
-<section class="section"><div class="container"><h2>Support for Massive Playlists</h2><p>Whether it's a 10-track EP or a massive 300-video mega-mix, our tool is built to handle it. While extremely large playlists may take a few minutes to fully parse and render download buttons, our backend will not time out or crash during the operation.</p></div></section>
-<section class="section alt"><div class="container"><h2>Download Auto-Generated Mixes</h2><p>Did YouTube's algorithm create the perfect 'My Mix' or 'Discover Weekly' equivalent for you? Just copy the URL of that auto-generated playlist and paste it here. You can rip the entire curated mix to your local device for offline listening on road trips or flights.</p></div></section>
-<section class="section"><div class="container"><h2>Ideal for Educators and Students</h2><p>Many professors and online instructors organize their course modules into public YouTube playlists. Students can use our tool to download the entire semester's worth of lectures in MP4 format, ensuring they have access to study materials even without an internet connection.</p></div></section>
-<section class="section alt"><div class="container"><h2>Handling Unavailable or Private Videos</h2><p>Playlists often contain videos that have been deleted, made private, or restricted in your region. Our parser intelligently skips these dead links and continues processing the available videos, so your batch download isn't ruined by a single broken link.</p></div></section>
+<section class="section alt"><div class="container"><h2>উচ্চ-সমসাময়িক প্রক্রিয়াকরণ</h2><p>আমরা আপনাকে পরবর্তী শুরু করার আগে একটি ভিডিও শেষ হওয়ার জন্য অপেক্ষা করাই না। আমাদের ক্লাউড অবকাঠামো উচ্চ-সমসাময়িক প্রক্রিয়াকরণ ব্যবহার করে, যার অর্থ আপনার প্লেলিস্ট থেকে একাধিক ভিডিও একসাথে ডাউনলোড এবং রূপান্তরিত হয়। একটি 50-ভিডিও প্লেলিস্ট ম্যানুয়ালি করার চেয়ে উল্লেখযোগ্যভাবে দ্রুত প্রক্রিয়া করা হয়।</p></div></section>
+<section class="section"><div class="container"><h2>বিশাল প্লেলিস্টের জন্য সমর্থন</h2><p>এটি 10-ট্র্যাক EP হোক বা একটি বিশাল 300-ভিডিও মেগা-মিক্স, আমাদের টুল এটি পরিচালনা করার জন্য তৈরি। যদিও অত্যন্ত বড় প্লেলিস্টগুলি সম্পূর্ণরূপে পার্স এবং ডাউনলোড বোতাম রেন্ডার করতে কয়েক মিনিট সময় নিতে পারে, আমাদের ব্যাকএন্ড অপারেশনের সময় টাইম আউট বা ক্র্যাশ হবে না।</p></div></section>
+<section class="section alt"><div class="container"><h2>স্বয়ংক্রিয়-উৎপন্ন মিক্স ডাউনলোড করুন</h2><p>YouTube এর অ্যালগরিদম কি আপনার জন্য নিখুঁত 'My Mix' বা 'Discover Weekly' সমতুল্য তৈরি করেছে? শুধু সেই স্বয়ংক্রিয়-উৎপন্ন প্লেলিস্টের URL কপি করুন এবং এখানে পেস্ট করুন। আপনি রোড ট্রিপ বা ফ্লাইটে অফলাইন শোনার জন্য আপনার স্থানীয় ডিভাইসে সম্পূর্ণ কিউরেটেড মিক্স রিপ করতে পারেন।</p></div></section>
+<section class="section"><div class="container"><h2>শিক্ষাবিদ এবং শিক্ষার্থীদের জন্য আদর্শ</h2><p>অনেক অধ্যাপক এবং অনলাইন প্রশিক্ষক তাদের কোর্স মডিউলগুলি পাবলিক YouTube প্লেলিস্টে সংগঠিত করেন। শিক্ষার্থীরা আমাদের টুল ব্যবহার করে MP4 ফরম্যাটে সম্পূর্ণ সেমিস্টারের লেকচার ডাউনলোড করতে পারে, নিশ্চিত করে যে তাদের ইন্টারনেট সংযোগ ছাড়াই অধ্যয়ন উপকরণে অ্যাক্সেস আছে।</p></div></section>
+<section class="section alt"><div class="container"><h2>অনুপলব্ধ বা প্রাইভেট ভিডিও পরিচালনা</h2><p>প্লেলিস্টগুলিতে প্রায়শই এমন ভিডিও থাকে যা মুছে ফেলা হয়েছে, প্রাইভেট করা হয়েছে বা আপনার অঞ্চলে সীমাবদ্ধ। আমাদের পার্সার বুদ্ধিমানভাবে এই মৃত লিঙ্কগুলি এড়িয়ে যায় এবং উপলব্ধ ভিডিওগুলি প্রক্রিয়া করা চালিয়ে যায়, তাই আপনার ব্যাচ ডাউনলোড একটি একক ভাঙা লিঙ্ক দ্বারা নষ্ট হয় না।</p></div></section>
 
-<section class="section alt"><div class="container"><h2>How to Download a Full Playlist</h2><p>1. Navigate to the playlist on YouTube. Ensure the URL contains 'list=' (e.g., youtube.com/playlist?list=...). 2. Copy the URL. 3. Paste it into our converter. 4. Select your global format (MP3 or MP4). 5. Click Convert. 6. Wait for the parser to extract the videos, then click the individual download buttons as they appear.</p></div></section>
-<section class="section"><div class="container"><h2>FAQ</h2><details><summary>Is there a maximum playlist length?</summary><p>No hard cap, but very large playlists (500+ videos) may take several minutes to process in full.</p></details><details><summary>Are playlists downloaded in order?</summary><p>Yes. Original playlist ordering is preserved by default.</p></details><details><summary>Is there a limit to the number of videos in a playlist?</summary><p>We can theoretically parse playlists of any size, but for optimal performance and browser stability, we recommend downloading playlists with 200 videos or fewer at a time.</p></details><details><summary>Will it download as one giant file or separate files?</summary><p>Each video in the playlist is converted and downloaded as its own separate file. We do not merge them into a single massive audio/video file.</p></details><details><summary>Can I download a 'Watch Later' playlist?</summary><p>Your 'Watch Later' playlist is private to your account. Our servers cannot access it. You would need to move those videos to a Public or Unlisted playlist first.</p></details><details><summary>What happens if the playlist contains a live stream?</summary><p>If the live stream has ended and is available as a VOD, it will download normally. If the stream is currently live, the tool will skip it, as it has no finite length.</p></details><details><summary>How long does a 50-video playlist take to convert?</summary><p>Parsing the list takes only seconds. The conversion time depends on the total length of the videos and the chosen quality, but our concurrent processing usually finishes a typical music playlist in under 3 minutes.</p></details><details><summary>Do I have to click download 50 times?</summary><p>Currently, browser security restrictions prevent websites from automatically triggering 50 file downloads at once. You will need to click the download button for each generated file.</p></details><details><summary>Does it download the playlist thumbnail?</summary><p>The individual video files will have their respective video thumbnails embedded as metadata (for audio formats) or as the poster frame (for video formats).</p></details><details><summary>Can I download a channel's entire video list?</summary><p>If the channel has a 'Play All' button or a playlist containing all their uploads, yes. Just copy that specific playlist URL.</p></details><details><summary>Are the files numbered?</summary><p>The files retain their original YouTube titles. If the creator numbered the titles (e.g., 'Episode 1: ...'), that numbering will be in your downloaded file.</p></details><details><summary>Why did only half the videos appear?</summary><p>This usually means the missing videos are either Private, Deleted, or Region-Blocked. Our tool can only fetch publicly accessible media.</p></details></div></section>
+<section class="section alt"><div class="container"><h2>কীভাবে একটি সম্পূর্ণ প্লেলিস্ট ডাউনলোড করবেন</h2><p>1. YouTube এ প্লেলিস্টে নেভিগেট করুন। নিশ্চিত করুন যে URL এ 'list=' রয়েছে (যেমন, youtube.com/playlist?list=...)। 2. URL কপি করুন। 3. এটি আমাদের কনভার্টারে পেস্ট করুন। 4. আপনার গ্লোবাল ফরম্যাট (MP3 বা MP4) নির্বাচন করুন। 5. রূপান্তর করুন ক্লিক করুন। 6. পার্সার ভিডিওগুলি এক্সট্র্যাক্ট করার জন্য অপেক্ষা করুন, তারপর তারা উপস্থিত হওয়ার সাথে সাথে পৃথক ডাউনলোড বোতামগুলিতে ক্লিক করুন।</p></div></section>
+<section class="section"><div class="container"><h2>প্রায়শই জিজ্ঞাসিত প্রশ্ন</h2><details><summary>প্লেলিস্টের সর্বোচ্চ দৈর্ঘ্য আছে কি?</summary><p>কোন হার্ড ক্যাপ নেই, তবে খুব বড় প্লেলিস্ট (500+ ভিডিও) সম্পূর্ণরূপে প্রক্রিয়া করতে কয়েক মিনিট সময় নিতে পারে।</p></details><details><summary>প্লেলিস্ট কি ক্রমানুসারে ডাউনলোড হয়?</summary><p>হ্যাঁ। মূল প্লেলিস্ট ক্রম ডিফল্টভাবে সংরক্ষিত থাকে।</p></details><details><summary>প্লেলিস্টে ভিডিওর সংখ্যার সীমা আছে কি?</summary><p>আমরা তাত্ত্বিকভাবে যেকোনো আকারের প্লেলিস্ট পার্স করতে পারি, তবে সর্বোত্তম কর্মক্ষমতা এবং ব্রাউজার স্থিতিশীলতার জন্য, আমরা একবারে 200 বা তার কম ভিডিও সহ প্লেলিস্ট ডাউনলোড করার পরামর্শ দিই।</p></details><details><summary>এটি কি একটি বিশাল ফাইল বা আলাদা ফাইল হিসাবে ডাউনলোড হবে?</summary><p>প্লেলিস্টের প্রতিটি ভিডিও তার নিজস্ব আলাদা ফাইল হিসাবে রূপান্তরিত এবং ডাউনলোড হয়। আমরা তাদের একটি একক বিশাল অডিও/ভিডিও ফাইলে মার্জ করি না।</p></details><details><summary>আমি কি 'Watch Later' প্লেলিস্ট ডাউনলোড করতে পারি?</summary><p>আপনার 'Watch Later' প্লেলিস্ট আপনার অ্যাকাউন্টে প্রাইভেট। আমাদের সার্ভার এটি অ্যাক্সেস করতে পারে না। আপনাকে প্রথমে সেই ভিডিওগুলি একটি পাবলিক বা আনলিস্টেড প্লেলিস্টে সরাতে হবে।</p></details><details><summary>প্লেলিস্টে লাইভ স্ট্রিম থাকলে কী হয়?</summary><p>যদি লাইভ স্ট্রিম শেষ হয়ে যায় এবং VOD হিসাবে উপলব্ধ থাকে, এটি স্বাভাবিকভাবে ডাউনলোড হবে। যদি স্ট্রিম বর্তমানে লাইভ থাকে, টুল এটি এড়িয়ে যাবে, কারণ এর কোন সীমিত দৈর্ঘ্য নেই।</p></details><details><summary>50-ভিডিও প্লেলিস্ট রূপান্তর করতে কতক্ষণ সময় লাগে?</summary><p>তালিকা পার্স করতে মাত্র কয়েক সেকেন্ড সময় লাগে। রূপান্তর সময় ভিডিওগুলির মোট দৈর্ঘ্য এবং নির্বাচিত গুণমানের উপর নির্ভর করে, তবে আমাদের সমসাময়িক প্রক্রিয়াকরণ সাধারণত একটি সাধারণ সঙ্গীত প্লেলিস্ট 3 মিনিটের মধ্যে শেষ করে।</p></details><details><summary>আমাকে কি 50 বার ডাউনলোড ক্লিক করতে হবে?</summary><p>বর্তমানে, ব্রাউজার নিরাপত্তা সীমাবদ্ধতা ওয়েবসাইটগুলিকে একবারে 50টি ফাইল ডাউনলোড স্বয়ংক্রিয়ভাবে ট্রিগার করতে বাধা দেয়। আপনাকে প্রতিটি উৎপন্ন ফাইলের জন্য ডাউনলোড বোতামে ক্লিক করতে হবে।</p></details><details><summary>এটি কি প্লেলিস্ট থাম্বনেইল ডাউনলোড করে?</summary><p>পৃথক ভিডিও ফাইলগুলিতে তাদের নিজ নিজ ভিডিও থাম্বনেইল মেটাডেটা হিসাবে এম্বেড করা থাকবে (অডিও ফরম্যাটের জন্য) বা পোস্টার ফ্রেম হিসাবে (ভিডিও ফরম্যাটের জন্য)।</p></details><details><summary>আমি কি একটি চ্যানেলের সম্পূর্ণ ভিডিও তালিকা ডাউনলোড করতে পারি?</summary><p>যদি চ্যানেলে 'Play All' বোতাম থাকে বা তাদের সমস্ত আপলোড সম্বলিত একটি প্লেলিস্ট থাকে, হ্যাঁ। শুধু সেই নির্দিষ্ট প্লেলিস্ট URL কপি করুন।</p></details><details><summary>ফাইলগুলি কি নম্বরযুক্ত?</summary><p>ফাইলগুলি তাদের মূল YouTube শিরোনাম ধরে রাখে। যদি নির্মাতা শিরোনামগুলি নম্বর করে থাকেন (যেমন, 'Episode 1: ...'), সেই নম্বরিং আপনার ডাউনলোড করা ফাইলে থাকবে।</p></details><details><summary>কেন শুধুমাত্র অর্ধেক ভিডিও উপস্থিত হয়েছে?</summary><p>এর সাধারণত মানে হল অনুপস্থিত ভিডিওগুলি হয় প্রাইভেট, মুছে ফেলা বা অঞ্চল-ব্লক করা। আমাদের টুল শুধুমাত্র সর্বজনীনভাবে অ্যাক্সেসযোগ্য মিডিয়া আনতে পারে।</p></details></div></section>
 
   </div>
 

@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3f4f9" media="(prefers-color-scheme: light)">
-<title>YouTube Playlist Downloader (MP3 &amp; MP4 Batch) - yt2mp3.lol</title>
-<meta name="description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
-<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter">
+<title>YouTube Playlist Downloader (MP3 at MP4 Batch) - yt2mp3.lol</title>
+<meta name="description" content="I-convert ang buong YouTube playlist sa MP3 o MP4 sa isang click. Bawat video ay nag-download bilang sariling file.">
+<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter, youtube playlist download, playlist sa mp3">
 <link rel="canonical" href="https://yt2mp3.lol/fil/youtube-playlist-downloader">
-<meta property="og:title" content="YouTube Playlist Downloader (MP3 &amp; MP4 Batch)">
-<meta property="og:description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
+<meta property="og:title" content="YouTube Playlist Downloader (MP3 at MP4 Batch)">
+<meta property="og:description" content="I-convert ang buong YouTube playlist sa MP3 o MP4 sa isang click. Bawat video ay nag-download bilang sariling file.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yt2mp3.lol/fil/youtube-playlist-downloader">
 <meta name="twitter:card" content="summary_large_image">
@@ -58,26 +58,26 @@
   <div class="container">
     <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/fil/">&larr; Home</a></p>
     <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">YouTube Playlist Downloader</h1>
-    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.</p>
+    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">I-convert ang buong YouTube playlist sa MP3 o MP4 sa isang click. Bawat video ay nag-download bilang sariling file.</p>
     <div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
-  <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
+  <h2 class="converter-title">YT2MP3 - YouTube sa MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
-      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
-      <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
+      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="I-paste ang YouTube URL o maghanap ng keywords" aria-label="I-paste ang YouTube link" required autocomplete="off" spellcheck="false">
+      <button type="button" id="paste-btn" aria-label="I-paste mula sa clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
     </div>
     <div class="controls-row">
       <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
-      <label for="quality" class="sr-only">Quality</label>
-      <select id="quality" class="select-pill" aria-label="Quality"></select>
+      <label for="quality" class="sr-only">Kalidad</label>
+      <select id="quality" class="select-pill" aria-label="Kalidad"></select>
       <details class="track-menu">
-        <summary class="track-pill" role="button" aria-label="Audio track"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Origin</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <summary class="track-pill" role="button" aria-label="Audio track"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Orihinal</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="track-list" role="menu" style="min-width:200px;">
           <div class="track-search-wrap" style="padding:8px 12px;border-bottom:1px solid var(--border);">
-            <input type="text" id="track-search" class="track-search" placeholder="Search languages..." aria-label="Search languages" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
+            <input type="text" id="track-search" class="track-search" placeholder="Maghanap ng mga wika..." aria-label="Maghanap ng mga wika" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
           </div>
           <div class="track-scroll" style="max-height:220px;overflow-y:auto;padding:4px;">
-            <button type="button" class="track-opt" data-track="" role="menuitem">Origin (default)</button>
+            <button type="button" class="track-opt" data-track="" role="menuitem">Orihinal (default)</button>
             <button type="button" class="track-opt" data-track="en" role="menuitem">🇬🇧 English</button>
             <button type="button" class="track-opt" data-track="hi" role="menuitem">🇮🇳 Hindi</button>
             <button type="button" class="track-opt" data-track="en-IN" role="menuitem">🇮🇳 English (India)</button>
@@ -121,7 +121,7 @@
         </div>
       </details>
       <div class="spacer"></div>
-      <button id="convert-btn" type="submit">Convert</button>
+      <button id="convert-btn" type="submit">I-convert</button>
     </div>
     <div id="status" class="status hidden" aria-live="polite"></div>
   </form>
@@ -137,34 +137,34 @@
 <div class="content-with-sidebar">
   <div class="main-content">
 
-<section class="section"><div class="container"><h2>Bulk-convert every video in a playlist</h2><p>Paste any public YouTube playlist URL (for example ?list=PL…) and yt2mp3.lol queues every video individually. Each conversion runs in parallel where possible, so even long playlists finish quickly. You get one clean file per video, named with the original title.</p></div></section>
-<section class="section alt"><div class="container"><h2>Supports mixes and topic playlists</h2><p>Auto-generated mixes, Topic artist playlists, and user-curated playlists all work as long as they're set to Public or Unlisted. Private playlists won't resolve.</p></div></section>
-<section class="section"><div class="container"><h2>Picking the right format</h2><p>For music, MP3 at 320 kbps is the standard. For podcasts, M4A produces smaller files at equal quality. For lecture series you plan to re-watch, MP4 at 720p balances storage and clarity.</p></div></section>
-<section class="section alt"><div class="container"><h2>Format Comparison Table</h2><p><div style="overflow-x:auto;">
+<section class="section"><div class="container"><h2>Bulk-convert bawat video sa playlist</h2><p>I-paste ang anumang pampublikong YouTube playlist URL (halimbawa ?list=PL…) at yt2mp3.lol ay mag-queue ng bawat video nang hiwalay. Bawat conversion ay tumatakbo nang sabay-sabay kung posible, kaya kahit mahabang playlists ay mabilis na matapos. Makakakuha ka ng isang malinis na file bawat video, na pinangalanan sa orihinal na pamagat.</p></div></section>
+<section class="section alt"><div class="container"><h2>Sumusuporta sa mixes at topic playlists</h2><p>Ang auto-generated mixes, Topic artist playlists, at user-curated playlists ay gumagana basta nakatakda sa Public o Unlisted. Ang private playlists ay hindi malulutas.</p></div></section>
+<section class="section"><div class="container"><h2>Pagpili ng tamang format</h2><p>Para sa musika, ang MP3 sa 320 kbps ay standard. Para sa podcasts, ang M4A ay gumagawa ng mas maliit na files sa parehong kalidad. Para sa lecture series na balak mong panoorin muli, ang MP4 sa 720p ay nagbabalanse ng storage at kalinawan.</p></div></section>
+<section class="section alt"><div class="container"><h2>Talahanayan ng Paghahambing ng Format</h2><p><div style="overflow-x:auto;">
       <table style="width:100%; border-collapse: collapse; text-align: left;">
         <tr style="border-bottom: 1px solid var(--border);">
           <th style="padding: 8px;">Format</th>
-          <th style="padding: 8px;">Best For</th>
-          <th style="padding: 8px;">Quality Options</th>
-          <th style="padding: 8px;">File Size</th>
+          <th style="padding: 8px;">Pinakamahusay Para sa</th>
+          <th style="padding: 8px;">Mga Opsyon sa Kalidad</th>
+          <th style="padding: 8px;">Laki ng File</th>
         </tr>
         <tr style="border-bottom: 1px solid var(--border);">
-          <td style="padding: 8px;">MP3</td><td style="padding: 8px;">Universal audio playback</td><td style="padding: 8px;">128 - 320 kbps</td><td style="padding: 8px;">Small</td>
+          <td style="padding: 8px;">MP3</td><td style="padding: 8px;">Universal audio playback</td><td style="padding: 8px;">128 - 320 kbps</td><td style="padding: 8px;">Maliit</td>
         </tr>
         <tr style="border-bottom: 1px solid var(--border);">
-          <td style="padding: 8px;">MP4</td><td style="padding: 8px;">Video playback everywhere</td><td style="padding: 8px;">360p - 2160p (4K)</td><td style="padding: 8px;">Large</td>
+          <td style="padding: 8px;">MP4</td><td style="padding: 8px;">Video playback kahit saan</td><td style="padding: 8px;">360p - 2160p (4K)</td><td style="padding: 8px;">Malaki</td>
         </tr>
         <tr style="border-bottom: 1px solid var(--border);">
-          <td style="padding: 8px;">WAV</td><td style="padding: 8px;">Lossless audio editing</td><td style="padding: 8px;">16-bit 44.1kHz</td><td style="padding: 8px;">Very Large</td>
+          <td style="padding: 8px;">WAV</td><td style="padding: 8px;">Lossless audio editing</td><td style="padding: 8px;">16-bit 44.1kHz</td><td style="padding: 8px;">Napakala ki</td>
         </tr>
         <tr>
-          <td style="padding: 8px;">M4A</td><td style="padding: 8px;">Apple devices</td><td style="padding: 8px;">Native AAC</td><td style="padding: 8px;">Medium</td>
+          <td style="padding: 8px;">M4A</td><td style="padding: 8px;">Apple devices</td><td style="padding: 8px;">Native AAC</td><td style="padding: 8px;">Katamtaman</td>
         </tr>
       </table>
     </div></p></div></section>
-<section class="section"><div class="container"><h2>Batch Conversion Masterclass</h2><p>Downloading videos one by one is incredibly tedious. Our YouTube Playlist Downloader is engineered for bulk operations. By parsing the playlist metadata, our servers generate individual conversion jobs for every single video in the list, allowing you to download an entire album, lecture series, or podcast backlog with minimal effort.</p></div></section>
-<section class="section alt"><div class="container"><h2>Preserve Original Order and Titles</h2><p>When you download a playlist, organization is key. Our system automatically grabs the original video titles and structures the downloads so you can easily maintain the intended order. This is perfect for sequential tutorials, multi-part documentaries, or chronologically ordered music albums.</p></div></section>
-<section class="section"><div class="container"><h2>Flexible Format Selection for Playlists</h2><p>You aren't locked into a single format. You can choose to download an entire music playlist as crisp 320kbps MP3s, or an entire educational course as 1080p MP4s. Our FFmpeg backend applies your selected format uniformly across all items in the batch.</p></div></section>
+<section class="section"><div class="container"><h2>Batch Conversion Masterclass</h2><p>Ang pag-download ng mga video isa-isa ay lubhang nakakapagod. Ang aming YouTube Playlist Downloader ay dinisenyo para sa bulk operations. Sa pag-parse ng playlist metadata, ang aming mga server ay bumubuo ng indibidwal na conversion jobs para sa bawat video sa listahan, na nagpapahintulot sa iyo na mag-download ng buong album, lecture series, o podcast backlog na may kaunting pagsisikap.</p></div></section>
+<section class="section alt"><div class="container"><h2>Panatilihin ang Orihinal na Pagkakasunod-sunod at Mga Pamagat</h2><p>Kapag nag-download ka ng playlist, ang organisasyon ay susi. Ang aming system ay awtomatikong kumukuha ng orihinal na mga pamagat ng video at nag-istruktura ng mga download upang madali mong mapanatili ang nilayong pagkakasunod-sunod. Ito ay perpekto para sa sequential tutorials, multi-part documentaries, o chronologically ordered music albums.</p></div></section>
+<section class="section"><div class="container"><h2>Flexible Format Selection para sa Playlists</h2><p>Hindi ka nakalock sa isang format. Maaari mong piliin na i-download ang buong music playlist bilang crisp 320kbps MP3s, o isang buong educational course bilang 1080p MP4s. Ang aming FFmpeg backend ay nag-aaply ng iyong napiling format nang pantay-pantay sa lahat ng items sa batch.</p></div></section>
 
 <!-- Ad: In-Content -->
 <div class="ad-container ad-native ad-lazy" data-ad-type="in-content">
@@ -178,14 +178,14 @@
   <div id="container-2ccf98a24a20e1363cee99b6956d273e"></div>
 </div>
 
-<section class="section alt"><div class="container"><h2>High-Concurrency Processing</h2><p>We don't make you wait for one video to finish before starting the next. Our cloud infrastructure utilizes high-concurrency processing, meaning multiple videos from your playlist are downloaded and converted simultaneously. A 50-video playlist is processed significantly faster than doing it manually.</p></div></section>
-<section class="section"><div class="container"><h2>Support for Massive Playlists</h2><p>Whether it's a 10-track EP or a massive 300-video mega-mix, our tool is built to handle it. While extremely large playlists may take a few minutes to fully parse and render download buttons, our backend will not time out or crash during the operation.</p></div></section>
-<section class="section alt"><div class="container"><h2>Download Auto-Generated Mixes</h2><p>Did YouTube's algorithm create the perfect 'My Mix' or 'Discover Weekly' equivalent for you? Just copy the URL of that auto-generated playlist and paste it here. You can rip the entire curated mix to your local device for offline listening on road trips or flights.</p></div></section>
-<section class="section"><div class="container"><h2>Ideal for Educators and Students</h2><p>Many professors and online instructors organize their course modules into public YouTube playlists. Students can use our tool to download the entire semester's worth of lectures in MP4 format, ensuring they have access to study materials even without an internet connection.</p></div></section>
-<section class="section alt"><div class="container"><h2>Handling Unavailable or Private Videos</h2><p>Playlists often contain videos that have been deleted, made private, or restricted in your region. Our parser intelligently skips these dead links and continues processing the available videos, so your batch download isn't ruined by a single broken link.</p></div></section>
+<section class="section alt"><div class="container"><h2>High-Concurrency Processing</h2><p>Hindi ka namin pinapaghintay na matapos ang isang video bago magsimula ang susunod. Ang aming cloud infrastructure ay gumagamit ng high-concurrency processing, ibig sabihin ay maraming video mula sa iyong playlist ang dina-download at kino-convert nang sabay-sabay. Ang 50-video playlist ay napoproseso nang mas mabilis kaysa sa manu-manong paggawa.</p></div></section>
+<section class="section"><div class="container"><h2>Suporta para sa Malalaking Playlists</h2><p>Maging 10-track EP man o isang malaking 300-video mega-mix, ang aming tool ay binuo upang hawakan ito. Bagaman ang napakalalaking playlists ay maaaring tumagal ng ilang minuto upang ganap na ma-parse at mag-render ng download buttons, ang aming backend ay hindi mag-time out o mag-crash sa panahon ng operasyon.</p></div></section>
+<section class="section alt"><div class="container"><h2>I-download ang Auto-Generated Mixes</h2><p>Gumawa ba ang algorithm ng YouTube ng perpektong 'My Mix' o 'Discover Weekly' equivalent para sa iyo? I-copy lang ang URL ng auto-generated playlist na iyon at i-paste dito. Maaari mong i-rip ang buong curated mix sa iyong local device para sa offline listening sa road trips o flights.</p></div></section>
+<section class="section"><div class="container"><h2>Ideal para sa mga Guro at Estudyante</h2><p>Maraming propesor at online instructors ang nag-oorganisa ng kanilang course modules sa pampublikong YouTube playlists. Ang mga estudyante ay maaaring gumamit ng aming tool upang i-download ang buong semester na halaga ng mga lecture sa MP4 format, na tinitiyak na mayroon silang access sa study materials kahit walang internet connection.</p></div></section>
+<section class="section alt"><div class="container"><h2>Paghawak ng Hindi Available o Private na Videos</h2><p>Ang mga playlist ay madalas na naglalaman ng mga video na na-delete, ginawang private, o restricted sa iyong rehiyon. Ang aming parser ay matalinong lumaktaw sa mga patay na link at patuloy na nagpoproseso ng available na videos, kaya ang iyong batch download ay hindi nasira ng isang sirang link.</p></div></section>
 
-<section class="section alt"><div class="container"><h2>How to Download a Full Playlist</h2><p>1. Navigate to the playlist on YouTube. Ensure the URL contains 'list=' (e.g., youtube.com/playlist?list=...). 2. Copy the URL. 3. Paste it into our converter. 4. Select your global format (MP3 or MP4). 5. Click Convert. 6. Wait for the parser to extract the videos, then click the individual download buttons as they appear.</p></div></section>
-<section class="section"><div class="container"><h2>FAQ</h2><details><summary>Is there a maximum playlist length?</summary><p>No hard cap, but very large playlists (500+ videos) may take several minutes to process in full.</p></details><details><summary>Are playlists downloaded in order?</summary><p>Yes. Original playlist ordering is preserved by default.</p></details><details><summary>Is there a limit to the number of videos in a playlist?</summary><p>We can theoretically parse playlists of any size, but for optimal performance and browser stability, we recommend downloading playlists with 200 videos or fewer at a time.</p></details><details><summary>Will it download as one giant file or separate files?</summary><p>Each video in the playlist is converted and downloaded as its own separate file. We do not merge them into a single massive audio/video file.</p></details><details><summary>Can I download a 'Watch Later' playlist?</summary><p>Your 'Watch Later' playlist is private to your account. Our servers cannot access it. You would need to move those videos to a Public or Unlisted playlist first.</p></details><details><summary>What happens if the playlist contains a live stream?</summary><p>If the live stream has ended and is available as a VOD, it will download normally. If the stream is currently live, the tool will skip it, as it has no finite length.</p></details><details><summary>How long does a 50-video playlist take to convert?</summary><p>Parsing the list takes only seconds. The conversion time depends on the total length of the videos and the chosen quality, but our concurrent processing usually finishes a typical music playlist in under 3 minutes.</p></details><details><summary>Do I have to click download 50 times?</summary><p>Currently, browser security restrictions prevent websites from automatically triggering 50 file downloads at once. You will need to click the download button for each generated file.</p></details><details><summary>Does it download the playlist thumbnail?</summary><p>The individual video files will have their respective video thumbnails embedded as metadata (for audio formats) or as the poster frame (for video formats).</p></details><details><summary>Can I download a channel's entire video list?</summary><p>If the channel has a 'Play All' button or a playlist containing all their uploads, yes. Just copy that specific playlist URL.</p></details><details><summary>Are the files numbered?</summary><p>The files retain their original YouTube titles. If the creator numbered the titles (e.g., 'Episode 1: ...'), that numbering will be in your downloaded file.</p></details><details><summary>Why did only half the videos appear?</summary><p>This usually means the missing videos are either Private, Deleted, or Region-Blocked. Our tool can only fetch publicly accessible media.</p></details></div></section>
+<section class="section alt"><div class="container"><h2>Paano Mag-download ng Buong Playlist</h2><p>1. Mag-navigate sa playlist sa YouTube. Tiyaking naglalaman ang URL ng 'list=' (hal., youtube.com/playlist?list=...). 2. I-copy ang URL. 3. I-paste ito sa aming converter. 4. Piliin ang iyong global format (MP3 o MP4). 5. I-click ang I-convert. 6. Maghintay para sa parser na mag-extract ng mga video, pagkatapos ay i-click ang indibidwal na download buttons habang lumalabas ang mga ito.</p></div></section>
+<section class="section"><div class="container"><h2>FAQ</h2><details><summary>May maximum playlist length ba?</summary><p>Walang hard cap, ngunit ang napakalalaking playlists (500+ videos) ay maaaring tumagal ng ilang minuto upang maproseso nang buo.</p></details><details><summary>Ang mga playlist ba ay dina-download nang may pagkakasunod-sunod?</summary><p>Oo. Ang orihinal na pagkakasunod-sunod ng playlist ay napapanatili by default.</p></details><details><summary>May limitasyon ba sa bilang ng mga video sa playlist?</summary><p>Maaari kaming teoretikal na mag-parse ng playlists ng anumang laki, ngunit para sa optimal performance at browser stability, inirerekomenda namin ang pag-download ng playlists na may 200 videos o mas kaunti sa isang pagkakataon.</p></details><details><summary>Ito ba ay mag-download bilang isang malaking file o hiwalay na files?</summary><p>Bawat video sa playlist ay kino-convert at dina-download bilang sariling hiwalay na file. Hindi namin pinagsasama ang mga ito sa isang malaking audio/video file.</p></details><details><summary>Maaari ko bang i-download ang 'Watch Later' playlist?</summary><p>Ang iyong 'Watch Later' playlist ay pribado sa iyong account. Ang aming mga server ay hindi maaaring ma-access ito. Kailangan mong ilipat muna ang mga video na iyon sa isang Public o Unlisted playlist.</p></details><details><summary>Ano ang mangyayari kung ang playlist ay naglalaman ng live stream?</summary><p>Kung ang live stream ay natapos na at available bilang VOD, ito ay normal na mag-download. Kung ang stream ay kasalukuyang live, ang tool ay lalaktaw dito, dahil wala itong finite length.</p></details><details><summary>Gaano katagal ang 50-video playlist upang ma-convert?</summary><p>Ang pag-parse ng listahan ay tumatagal lamang ng ilang segundo. Ang conversion time ay depende sa kabuuang haba ng mga video at sa napiling kalidad, ngunit ang aming concurrent processing ay karaniwang nagtatapos ng isang typical music playlist sa loob ng 3 minuto.</p></details><details><summary>Kailangan ko bang mag-click ng download 50 beses?</summary><p>Sa kasalukuyan, ang mga browser security restrictions ay pumipigil sa mga website na awtomatikong mag-trigger ng 50 file downloads nang sabay-sabay. Kailangan mong i-click ang download button para sa bawat generated file.</p></details><details><summary>Dina-download ba nito ang playlist thumbnail?</summary><p>Ang indibidwal na video files ay magkakaroon ng kani-kanilang video thumbnails na naka-embed bilang metadata (para sa audio formats) o bilang poster frame (para sa video formats).</p></details><details><summary>Maaari ko bang i-download ang buong video list ng channel?</summary><p>Kung ang channel ay may 'Play All' button o isang playlist na naglalaman ng lahat ng kanilang uploads, oo. I-copy lang ang specific playlist URL na iyon.</p></details><details><summary>Ang mga file ba ay may numero?</summary><p>Ang mga file ay pinapanatili ang kanilang orihinal na YouTube titles. Kung ang creator ay nag-numero ng mga pamagat (hal., 'Episode 1: ...'), ang numerong iyon ay magiging nasa iyong na-download na file.</p></details><details><summary>Bakit kalahati lang ng mga video ang lumabas?</summary><p>Ito ay karaniwang nangangahulugan na ang mga nawawalang video ay Private, Deleted, o Region-Blocked. Ang aming tool ay maaari lamang kumuha ng publicly accessible media.</p></details></div></section>
 
   </div>
 
