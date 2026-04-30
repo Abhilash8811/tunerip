@@ -3,7 +3,7 @@
 (function() {
   'use strict';
 
-  // Adsterra Configuration - Add your ad codes here
+  // Adsterra Configuration - All ad zones
   const ADSTERRA_ZONES = {
     // Desktop banners (728x90)
     banner_728x90: {
@@ -12,14 +12,38 @@
       height: 90,
       width: 728
     },
-    // Add more zones as you get them from Adsterra
-    // Example for 300x250:
-    // rectangle_300x250: {
-    //   key: 'YOUR_KEY_HERE',
-    //   format: 'iframe',
-    //   height: 250,
-    //   width: 300
-    // }
+    
+    // Rectangle (300x250) - Sidebar & in-content
+    rectangle_300x250: {
+      key: 'cd9a18b58b4948fba1f22f6a32d732ed',
+      format: 'iframe',
+      height: 250,
+      width: 300
+    },
+    
+    // Mobile sticky (320x50)
+    mobile_320x50: {
+      key: 'cf4348e6aabf00dbeec372cda8e938bc',
+      format: 'iframe',
+      height: 50,
+      width: 320
+    },
+    
+    // Skyscraper (160x300)
+    skyscraper_160x300: {
+      key: '27d800a565a324b34bd8f1f65f784ff7',
+      format: 'iframe',
+      height: 300,
+      width: 160
+    },
+    
+    // Wide skyscraper (160x600)
+    wide_skyscraper_160x600: {
+      key: 'f3c7986a3f17b702370bfa109dd89801',
+      format: 'iframe',
+      height: 600,
+      width: 160
+    }
   };
 
   const AD_CONFIG = {
@@ -41,15 +65,32 @@
 
   // Get appropriate ad config based on device and ad type
   function getAdConfig(adType) {
-    // For now, use 728x90 banner for desktop banners
+    // Desktop top/bottom banners - 728x90
     if (!isMobile && (adType === 'banner-top' || adType === 'banner-bottom')) {
       return ADSTERRA_ZONES.banner_728x90;
     }
     
-    // Add more mappings as you get more zone codes
-    // For mobile, sidebar, etc.
+    // Desktop sidebar - Use wide skyscraper (160x600) for better visibility
+    if (!isMobile && adType === 'sidebar') {
+      return ADSTERRA_ZONES.wide_skyscraper_160x600;
+    }
     
-    return null; // No ad config for this type yet
+    // In-content ads - 300x250 rectangle (works on all devices)
+    if (adType === 'in-content') {
+      return ADSTERRA_ZONES.rectangle_300x250;
+    }
+    
+    // Mobile top/bottom banners - Use 300x250 rectangle
+    if (isMobile && (adType === 'banner-top' || adType === 'banner-bottom')) {
+      return ADSTERRA_ZONES.rectangle_300x250;
+    }
+    
+    // Mobile sticky bottom - 320x50
+    if (isMobile && adType === 'sticky') {
+      return ADSTERRA_ZONES.mobile_320x50;
+    }
+    
+    return null; // No ad config for this type
   }
 
   // Load ads immediately
