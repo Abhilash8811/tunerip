@@ -424,6 +424,49 @@ def download(job_id: str) -> FileResponse:
     )
 
 
+@app.get("/api/playlist")
+def playlist_info(url: str) -> JSONResponse:
+    if not YOUTUBE_URL_RE.match(url):
+        raise HTTPException(status_code=400, detail="Invalid YouTube URL")
+    
+    opts = {
+        "quiet": True,
+        "no_warnings": True,
+        "extract_flat": True,
+        "nocheckcertificate": True,
+    }
+    if PROXY:
+        opts["proxy"] = PROXY
+    if COOKIES_FILE and os.path.exists(COOKIES_FILE):
+        opts["cookiefile"] = COOKIES_FILE
+        
+    try:
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            data = ydl.extract_info(url, download=False)
+            if "entries" not in data:
+                return JSONResponse({"status": "error", "error": "Not a playlist or no entries found"})
+            
+            results = []
+            for entry in data["entries"]:
+                if not entry: continue
+                vid_id = entry.get("id")
+                results.append({
+                    "id": vid_id,
+                    "title": entry.get("title"),
+                    "url": entry.get("url") or f"https://www.youtube.com/watch?v={vid_id}",
+                    "duration": entry.get("duration"),
+                    "thumbnail": entry.get("thumbnail") or (f"https://img.youtube.com/vi/{vid_id}/mqdefault.jpg" if vid_id else None),
+                    "uploader": entry.get("uploader") or entry.get("channel"),
+                })
+            return JSONResponse({
+                "status": "ok",
+                "title": data.get("title"),
+                "results": results
+            })
+    except Exception as e:
+        return JSONResponse({"status": "error", "error": str(e)})
+
+
 async def _periodic_cleanup() -> None:
     while True:
         try:
