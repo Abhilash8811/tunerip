@@ -6,7 +6,7 @@
     var m = location.search.match(/[?&]api=([^&]+)/);
     if (m) return decodeURIComponent(m[1]).replace(/\/+$/, "");
     if (window.__API_BASE__) return String(window.__API_BASE__).replace(/\/+$/, "");
-    return "https://c47b3225d773ae.lhr.life";
+    return "https://api.yt2mp3.lol";
   })();
 
   var AUDIO_FORMATS = ["mp3", "m4a", "wav", "ogg", "opus"];
