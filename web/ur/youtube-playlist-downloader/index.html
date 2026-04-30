@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -23,21 +23,33 @@
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a maximum playlist length?","acceptedAnswer":{"@type":"Answer","text":"No hard cap, but very large playlists (500+ videos) may take several minutes to process in full."}},{"@type":"Question","name":"Are playlists downloaded in order?","acceptedAnswer":{"@type":"Answer","text":"Yes. Original playlist ordering is preserved by default."}},{"@type":"Question","name":"Is there a limit to the number of videos in a playlist?","acceptedAnswer":{"@type":"Answer","text":"We can theoretically parse playlists of any size, but for optimal performance and browser stability, we recommend downloading playlists with 200 videos or fewer at a time."}},{"@type":"Question","name":"Will it download as one giant file or separate files?","acceptedAnswer":{"@type":"Answer","text":"Each video in the playlist is converted and downloaded as its own separate file. We do not merge them into a single massive audio/video file."}},{"@type":"Question","name":"Can I download a 'Watch Later' playlist?","acceptedAnswer":{"@type":"Answer","text":"Your 'Watch Later' playlist is private to your account. Our servers cannot access it. You would need to move those videos to a Public or Unlisted playlist first."}},{"@type":"Question","name":"What happens if the playlist contains a live stream?","acceptedAnswer":{"@type":"Answer","text":"If the live stream has ended and is available as a VOD, it will download normally. If the stream is currently live, the tool will skip it, as it has no finite length."}},{"@type":"Question","name":"How long does a 50-video playlist take to convert?","acceptedAnswer":{"@type":"Answer","text":"Parsing the list takes only seconds. The conversion time depends on the total length of the videos and the chosen quality, but our concurrent processing usually finishes a typical music playlist in under 3 minutes."}},{"@type":"Question","name":"Do I have to click download 50 times?","acceptedAnswer":{"@type":"Answer","text":"Currently, browser security restrictions prevent websites from automatically triggering 50 file downloads at once. You will need to click the download button for each generated file."}},{"@type":"Question","name":"Does it download the playlist thumbnail?","acceptedAnswer":{"@type":"Answer","text":"The individual video files will have their respective video thumbnails embedded as metadata (for audio formats) or as the poster frame (for video formats)."}},{"@type":"Question","name":"Can I download a channel's entire video list?","acceptedAnswer":{"@type":"Answer","text":"If the channel has a 'Play All' button or a playlist containing all their uploads, yes. Just copy that specific playlist URL."}},{"@type":"Question","name":"Are the files numbered?","acceptedAnswer":{"@type":"Answer","text":"The files retain their original YouTube titles. If the creator numbered the titles (e.g., 'Episode 1: ...'), that numbering will be in your downloaded file."}},{"@type":"Question","name":"Why did only half the videos appear?","acceptedAnswer":{"@type":"Answer","text":"This usually means the missing videos are either Private, Deleted, or Region-Blocked. Our tool can only fetch publicly accessible media."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to convert using yt2mp3.lol","step":[{"@type":"HowToStep","name":"Copy link","text":"Copy the video URL from your browser or app."},{"@type":"HowToStep","name":"Paste and select format","text":"Paste the link and choose your preferred format and quality."},{"@type":"HowToStep","name":"Download","text":"Click Convert and download the file."}]}</script>
+
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; }
+  .steps li, .ticks li, p, h2, h3 { text-align: right; }
+  .grid-2, .grid-3 { direction: rtl; }
+</style>
 </head>
 <body class="has-sticky-ad">
 <a href="#converter" class="skip">Skip to converter</a>
-<header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="yt2mp3.lol home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">اردو</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="#" class="lang-active">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>
+<header class="site-header"><div class="container header-row"><a class="brand" href="/ur/" aria-label="yt2mp3.lol home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">English</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="/youtube-playlist-downloader">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>
 <main>
+
+<!-- Ad: Top Banner -->
+<div class="ad-container ad-top-banner ad-lazy" data-ad-type="banner-top">
+  <div class="ad-label">Advertisement</div>
+</div>
+
 <section class="hero">
   <div class="container">
-    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/">&larr; Home</a></p>
+    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/ur/">&larr; Home</a></p>
     <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">YouTube Playlist Downloader</h1>
     <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.</p>
     <div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
   <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
-      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="لنک یہاں ڈالیں..." aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
+      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
       <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
     </div>
     <div class="controls-row">
@@ -95,13 +107,22 @@
         </div>
       </details>
       <div class="spacer"></div>
-      <button id="convert-btn" type="submit">مفت ڈاؤن لوڈ</button>
+      <button id="convert-btn" type="submit">Convert</button>
     </div>
     <div id="status" class="status hidden" aria-live="polite"></div>
   </form>
 </div>
   </div>
 </section>
+
+<!-- Ad: Below Converter -->
+<div class="ad-container ad-below-converter ad-lazy" data-ad-type="banner-bottom">
+  <div class="ad-label">Advertisement</div>
+</div>
+
+<div class="content-with-sidebar">
+  <div class="main-content">
+
 <section class="section"><div class="container"><h2>Bulk-convert every video in a playlist</h2><p>Paste any public YouTube playlist URL (for example ?list=PL…) and yt2mp3.lol queues every video individually. Each conversion runs in parallel where possible, so even long playlists finish quickly. You get one clean file per video, named with the original title.</p></div></section>
 <section class="section alt"><div class="container"><h2>Supports mixes and topic playlists</h2><p>Auto-generated mixes, Topic artist playlists, and user-curated playlists all work as long as they're set to Public or Unlisted. Private playlists won't resolve.</p></div></section>
 <section class="section"><div class="container"><h2>Picking the right format</h2><p>For music, MP3 at 320 kbps is the standard. For podcasts, M4A produces smaller files at equal quality. For lecture series you plan to re-watch, MP4 at 720p balances storage and clarity.</p></div></section>
@@ -130,6 +151,19 @@
 <section class="section"><div class="container"><h2>Batch Conversion Masterclass</h2><p>Downloading videos one by one is incredibly tedious. Our YouTube Playlist Downloader is engineered for bulk operations. By parsing the playlist metadata, our servers generate individual conversion jobs for every single video in the list, allowing you to download an entire album, lecture series, or podcast backlog with minimal effort.</p></div></section>
 <section class="section alt"><div class="container"><h2>Preserve Original Order and Titles</h2><p>When you download a playlist, organization is key. Our system automatically grabs the original video titles and structures the downloads so you can easily maintain the intended order. This is perfect for sequential tutorials, multi-part documentaries, or chronologically ordered music albums.</p></div></section>
 <section class="section"><div class="container"><h2>Flexible Format Selection for Playlists</h2><p>You aren't locked into a single format. You can choose to download an entire music playlist as crisp 320kbps MP3s, or an entire educational course as 1080p MP4s. Our FFmpeg backend applies your selected format uniformly across all items in the batch.</p></div></section>
+
+<!-- Ad: In-Content -->
+<div class="ad-container ad-native ad-lazy" data-ad-type="in-content">
+  <div class="ad-label">Sponsored</div>
+</div>
+
+<!-- Adsterra Native Banner -->
+<div style="text-align: center; margin: 40px auto; max-width: 1200px;">
+  <div style="font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; opacity: 0.7;">Sponsored Content</div>
+  <script async="async" data-cfasync="false" src="https://pl29304694.profitablecpmratenetwork.com/2ccf98a24a20e1363cee99b6956d273e/invoke.js"></script>
+  <div id="container-2ccf98a24a20e1363cee99b6956d273e"></div>
+</div>
+
 <section class="section alt"><div class="container"><h2>High-Concurrency Processing</h2><p>We don't make you wait for one video to finish before starting the next. Our cloud infrastructure utilizes high-concurrency processing, meaning multiple videos from your playlist are downloaded and converted simultaneously. A 50-video playlist is processed significantly faster than doing it manually.</p></div></section>
 <section class="section"><div class="container"><h2>Support for Massive Playlists</h2><p>Whether it's a 10-track EP or a massive 300-video mega-mix, our tool is built to handle it. While extremely large playlists may take a few minutes to fully parse and render download buttons, our backend will not time out or crash during the operation.</p></div></section>
 <section class="section alt"><div class="container"><h2>Download Auto-Generated Mixes</h2><p>Did YouTube's algorithm create the perfect 'My Mix' or 'Discover Weekly' equivalent for you? Just copy the URL of that auto-generated playlist and paste it here. You can rip the entire curated mix to your local device for offline listening on road trips or flights.</p></div></section>
@@ -138,8 +172,20 @@
 
 <section class="section alt"><div class="container"><h2>How to Download a Full Playlist</h2><p>1. Navigate to the playlist on YouTube. Ensure the URL contains 'list=' (e.g., youtube.com/playlist?list=...). 2. Copy the URL. 3. Paste it into our converter. 4. Select your global format (MP3 or MP4). 5. Click Convert. 6. Wait for the parser to extract the videos, then click the individual download buttons as they appear.</p></div></section>
 <section class="section"><div class="container"><h2>FAQ</h2><details><summary>Is there a maximum playlist length?</summary><p>No hard cap, but very large playlists (500+ videos) may take several minutes to process in full.</p></details><details><summary>Are playlists downloaded in order?</summary><p>Yes. Original playlist ordering is preserved by default.</p></details><details><summary>Is there a limit to the number of videos in a playlist?</summary><p>We can theoretically parse playlists of any size, but for optimal performance and browser stability, we recommend downloading playlists with 200 videos or fewer at a time.</p></details><details><summary>Will it download as one giant file or separate files?</summary><p>Each video in the playlist is converted and downloaded as its own separate file. We do not merge them into a single massive audio/video file.</p></details><details><summary>Can I download a 'Watch Later' playlist?</summary><p>Your 'Watch Later' playlist is private to your account. Our servers cannot access it. You would need to move those videos to a Public or Unlisted playlist first.</p></details><details><summary>What happens if the playlist contains a live stream?</summary><p>If the live stream has ended and is available as a VOD, it will download normally. If the stream is currently live, the tool will skip it, as it has no finite length.</p></details><details><summary>How long does a 50-video playlist take to convert?</summary><p>Parsing the list takes only seconds. The conversion time depends on the total length of the videos and the chosen quality, but our concurrent processing usually finishes a typical music playlist in under 3 minutes.</p></details><details><summary>Do I have to click download 50 times?</summary><p>Currently, browser security restrictions prevent websites from automatically triggering 50 file downloads at once. You will need to click the download button for each generated file.</p></details><details><summary>Does it download the playlist thumbnail?</summary><p>The individual video files will have their respective video thumbnails embedded as metadata (for audio formats) or as the poster frame (for video formats).</p></details><details><summary>Can I download a channel's entire video list?</summary><p>If the channel has a 'Play All' button or a playlist containing all their uploads, yes. Just copy that specific playlist URL.</p></details><details><summary>Are the files numbered?</summary><p>The files retain their original YouTube titles. If the creator numbered the titles (e.g., 'Episode 1: ...'), that numbering will be in your downloaded file.</p></details><details><summary>Why did only half the videos appear?</summary><p>This usually means the missing videos are either Private, Deleted, or Region-Blocked. Our tool can only fetch publicly accessible media.</p></details></div></section>
+
+  </div>
+
+  <!-- Ad: Sidebar (Desktop Only) -->
+  <aside class="sidebar">
+    <div class="ad-container ad-sidebar ad-lazy" data-ad-type="sidebar">
+      <div class="ad-label">Advertisement</div>
+    </div>
+  </aside>
+
+</div>
+
 </main>
-<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> yt2mp3.lol. Not affiliated with YouTube or Google.</p></div></footer>
+<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/ur/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> yt2mp3.lol. Not affiliated with YouTube or Google.</p></div></footer>
 <script>window.__DEFAULT_FORMAT__="mp3";window.__DEFAULT_QUALITY__="320";</script>
 <script src="/assets/app.js?v=2" defer></script>
 <script src="/assets/ads-adsterra.js" defer></script>
