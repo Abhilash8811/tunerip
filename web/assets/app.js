@@ -292,12 +292,20 @@
       body: JSON.stringify({ url: url, format: fmt, quality: qual }),
     })
       .then(function (r) {
-        if (!r.ok) return r.json().then(function (j) { throw new Error(j.detail || "Request failed"); });
+        if (!r.ok) {
+          return r.json().then(function (j) { 
+            var msg = typeof j.detail === "string" ? j.detail : JSON.stringify(j.detail);
+            throw new Error(msg || "Request failed"); 
+          }).catch(function() {
+            throw new Error("Server error (Status: " + r.status + ")");
+          });
+        }
         return r.json();
       })
       .then(function (j) { pollStatus(j.job_id); })
       .catch(function (err) {
-        showStatus('<div class="error">' + escapeHtml(err.message || "Failed to start conversion.") + "</div>");
+        var msg = err.message || "Failed to start conversion.";
+        showStatus('<div class="error">' + escapeHtml(msg) + "</div>");
         convertBtn.disabled = false;
       });
   });
