@@ -21,6 +21,7 @@ from fastapi import BackgroundTasks, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, field_validator
+import json
 
 # Add local bin to PATH for Deno
 bin_path = os.path.join(os.path.dirname(__file__), "bin", "bin")
@@ -64,8 +65,33 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# In-memory job store
-JOBS: dict[str, dict] = {}
+# Shared job store (file-based for multi-worker support)
+JOBS_FILE = STORAGE_DIR / "jobs.json"
+
+def _get_jobs() -> dict:
+    if not JOBS_FILE.exists():
+        return {}
+    try:
+        with open(JOBS_FILE, "r") as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+def _save_job(jid: str, data: dict) -> None:
+    jobs = _get_jobs()
+    jobs[jid] = data
+    with open(JOBS_FILE, "w") as f:
+        json.dump(jobs, f)
+
+def _update_job(jid: str, **kwargs) -> None:
+    jobs = _get_jobs()
+    if jid in jobs:
+        jobs[jid].update(kwargs)
+        with open(JOBS_FILE, "w") as f:
+            json.dump(jobs, f)
+
+def _get_job(jid: str) -> dict | None:
+    return _get_jobs().get(jid)
 
 
 class ConvertRequest(BaseModel):
@@ -97,27 +123,34 @@ def _cleanup_old_files() -> None:
                 shutil.rmtree(entry, ignore_errors=True)
         except OSError:
             continue
-    for jid in list(JOBS.keys()):
-        if now - JOBS[jid].get("updated_at", now) > FILE_TTL_SECONDS:
-            JOBS.pop(jid, None)
+    
+    # Cleanup jobs.json
+    jobs = _get_jobs()
+    changed = False
+    for jid in list(jobs.keys()):
+        if now - jobs[jid].get("updated_at", now) > FILE_TTL_SECONDS:
+            jobs.pop(jid, None)
+            changed = True
+    if changed:
+        with open(JOBS_FILE, "w") as f:
+            json.dump(jobs, f)
 
 
 def _progress_hook(job_id: str):
     def hook(d: dict) -> None:
-        job = JOBS.get(job_id)
+        job = _get_job(job_id)
         if not job:
             return
         status = d.get("status")
-        job["updated_at"] = time.time()
+        now = time.time()
         if status == "downloading":
             total = d.get("total_bytes") or d.get("total_bytes_estimate") or 0
             downloaded = d.get("downloaded_bytes") or 0
             pct = int((downloaded / total) * 90) if total else 10
-            job["progress"] = min(90, max(job.get("progress", 0), pct))
-            job["state"] = "downloading"
+            new_pct = min(90, max(job.get("progress", 0), pct))
+            _update_job(job_id, progress=new_pct, state="downloading", updated_at=now)
         elif status == "finished":
-            job["progress"] = 95
-            job["state"] = "processing"
+            _update_job(job_id, progress=95, state="processing", updated_at=now)
     return hook
 
 
@@ -184,7 +217,8 @@ def _ydl_opts_video(job_id: str, out_dir: Path, height: str) -> dict:
 
 
 def _run_conversion(job_id: str, url: str, fmt: str, quality: str) -> None:
-    job = JOBS[job_id]
+    job = _get_job(job_id)
+    if not job: return
     out_dir = STORAGE_DIR / job_id
     out_dir.mkdir(parents=True, exist_ok=True)
     try:
@@ -207,10 +241,8 @@ def _run_conversion(job_id: str, url: str, fmt: str, quality: str) -> None:
                     f"Video is too long ({duration}s). Max {MAX_DURATION_SECONDS}s."
                 )
             
-            job["title"] = info.get("title") or "video"
-            job["thumbnail"] = info.get("thumbnail")
-            job["duration"] = duration
-            job["updated_at"] = time.time()
+            now = time.time()
+            _update_job(job_id, title=info.get("title") or "video", thumbnail=info.get("thumbnail"), duration=duration, updated_at=now)
 
             # Use the actual video URL for the final download
             final_url = info.get("webpage_url") or info.get("url") or url
@@ -220,24 +252,16 @@ def _run_conversion(job_id: str, url: str, fmt: str, quality: str) -> None:
         if not files:
             raise RuntimeError("Conversion produced no file")
         final = files[0]
-        job["file"] = str(final)
-        job["filename"] = final.name
-        job["size"] = final.stat().st_size
-        job["progress"] = 100
-        job["state"] = "done"
-        job["updated_at"] = time.time()
+        now = time.time()
+        _update_job(job_id, file=str(final), filename=final.name, size=final.stat().st_size, progress=100, state="done", updated_at=now)
     except Exception as e:  # noqa: BLE001
         msg = re.sub(r"\x1b\[[0-9;]*m", "", str(e))
         msg = re.sub(r"ERROR:\s*", "", msg)
         if "Sign in to confirm" in msg or "bot" in msg.lower():
             msg = (
-                "YouTube rate-limited this server. Retry in a minute, or configure "
-                "YTDLP_PROXY (residential proxy) / YTDLP_COOKIES_FILE on the backend "
-                "to bypass bot detection."
+                "YouTube rate-limited this server. Retry in a minute."
             )
-        job["state"] = "error"
-        job["error"] = msg
-        job["updated_at"] = time.time()
+        _update_job(job_id, state="error", error=msg, updated_at=time.time())
 
 
 @app.get("/healthz")
@@ -274,6 +298,41 @@ def debug(q: str = "hello") -> JSONResponse:
             return JSONResponse({"status": "ok", "info_title": info.get("title"), "deno": deno_version})
     except Exception as e:
         return JSONResponse({"status": "error", "error": str(e), "deno": deno_version, "ffmpeg": ffmpeg_version})
+
+
+@app.get("/api/search")
+def search(q: str) -> JSONResponse:
+    if not q:
+        return JSONResponse({"status": "error", "error": "Query is empty"})
+    
+    url = f"ytsearch10:{q}"
+    opts = {
+        "quiet": True,
+        "no_warnings": True,
+        "skip_download": True,
+        "extract_flat": True,
+        "nocheckcertificate": True,
+        "extractor_args": {"youtube": {"client": ["tv_embedded"]}},
+    }
+    
+    try:
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            info = ydl.extract_info(url, download=False)
+            results = []
+            if "entries" in info:
+                for entry in info["entries"]:
+                    if not entry: continue
+                    results.append({
+                        "id": entry.get("id"),
+                        "title": entry.get("title"),
+                        "thumbnail": entry.get("thumbnail"),
+                        "duration": entry.get("duration"),
+                        "uploader": entry.get("uploader"),
+                        "url": entry.get("url") or f"https://www.youtube.com/watch?v={entry.get('id')}"
+                    })
+            return JSONResponse({"status": "ok", "results": results})
+    except Exception as e:
+        return JSONResponse({"status": "error", "error": str(e)})
 
 
 @app.get("/api/info")
@@ -323,7 +382,7 @@ def convert(req: ConvertRequest, background_tasks: BackgroundTasks) -> dict:
         raise HTTPException(status_code=400, detail="Bad height for video format")
 
     job_id = uuid.uuid4().hex[:16]
-    JOBS[job_id] = {
+    job_data = {
         "id": job_id,
         "state": "queued",
         "progress": 0,
@@ -333,31 +392,22 @@ def convert(req: ConvertRequest, background_tasks: BackgroundTasks) -> dict:
         "quality": req.quality,
         "url": req.url,
     }
+    _save_job(job_id, job_data)
     background_tasks.add_task(_run_conversion, job_id, req.url, fmt, req.quality)
     return {"job_id": job_id}
 
 
 @app.get("/api/status/{job_id}")
 def status(job_id: str) -> dict:
-    job = JOBS.get(job_id)
+    job = _get_job(job_id)
     if not job:
         raise HTTPException(status_code=404, detail="Unknown job")
-    return {
-        "id": job["id"],
-        "state": job.get("state"),
-        "progress": job.get("progress", 0),
-        "title": job.get("title"),
-        "thumbnail": job.get("thumbnail"),
-        "duration": job.get("duration"),
-        "size": job.get("size"),
-        "filename": job.get("filename"),
-        "error": job.get("error"),
-    }
+    return job
 
 
 @app.get("/api/download/{job_id}")
 def download(job_id: str) -> FileResponse:
-    job = JOBS.get(job_id)
+    job = _get_job(job_id)
     if not job or job.get("state") != "done":
         raise HTTPException(status_code=404, detail="File not ready")
     path = job.get("file")

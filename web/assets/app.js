@@ -217,17 +217,57 @@
     tick();
   }
 
+  function renderSearchResults(results) {
+    var html = '<div class="search-results-grid">';
+    results.forEach(function (item) {
+      var dur = fmtDuration(item.duration);
+      html += 
+        '<div class="search-item" onclick="window.__START_CONVERSION__(\'' + escapeHtml(item.url) + '\')">' +
+          '<div class="search-thumb">' +
+            '<img src="' + escapeHtml(item.thumbnail) + '" loading="lazy">' +
+            '<span class="search-duration">' + dur + '</span>' +
+          '</div>' +
+          '<div class="search-info">' +
+            '<div class="search-title">' + escapeHtml(item.title) + '</div>' +
+            '<div class="search-uploader">' + escapeHtml(item.uploader || "") + '</div>' +
+          '</div>' +
+        '</div>';
+    });
+    html += '</div>';
+    showStatus(html);
+  }
+
+  window.__START_CONVERSION__ = function(url) {
+    urlInput.value = url;
+    form.dispatchEvent(new Event("submit"));
+  };
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var url = (urlInput.value || "").trim();
-    if (!isYouTubeUrl(url)) {
-      if (url.length > 0 && !url.match(/^https?:\/\//i)) {
-        url = "ytsearch1:" + url;
-      } else {
-        showStatus('<div class="error">Please paste a valid YouTube link (youtube.com or youtu.be) or enter a search keyword.</div>');
-        return;
-      }
+    
+    // If it's a keyword (not a URL), perform search first
+    if (!isYouTubeUrl(url) && !url.startsWith("ytsearch")) {
+      convertBtn.disabled = true;
+      showStatus('<div class="status-meta"><span>Searching YouTube…</span></div>');
+      
+      fetch(API_BASE + "/api/search?q=" + encodeURIComponent(url))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          convertBtn.disabled = false;
+          if (data.status === "ok" && data.results.length > 0) {
+            renderSearchResults(data.results);
+          } else {
+            showStatus('<div class="error">No results found for "' + escapeHtml(url) + '"</div>');
+          }
+        })
+        .catch(function() {
+          showStatus('<div class="error">Search failed. Please check your connection.</div>');
+          convertBtn.disabled = false;
+        });
+      return;
     }
+
     convertBtn.disabled = true;
     showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
 
