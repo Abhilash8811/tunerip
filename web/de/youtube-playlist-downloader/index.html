@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3f4f9" media="(prefers-color-scheme: light)">
-<title>YouTube Playlist Downloader (MP3 &amp; MP4 Batch) - yt2mp3.lol</title>
-<meta name="description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
-<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter">
+<title>YouTube Playlist Downloader (MP3 & MP4 Batch) - yt2mp3.lol</title>
+<meta name="description" content="Konvertieren Sie eine gesamte YouTube-Playlist mit einem Klick in MP3 oder MP4. Jedes Video wird als eigene Datei heruntergeladen.">
+<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter, youtube playlist herunterladen">
 <link rel="canonical" href="https://yt2mp3.lol/de/youtube-playlist-downloader">
-<meta property="og:title" content="YouTube Playlist Downloader (MP3 &amp; MP4 Batch)">
-<meta property="og:description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
+<meta property="og:title" content="YouTube Playlist Downloader (MP3 & MP4 Batch)">
+<meta property="og:description" content="Konvertieren Sie eine gesamte YouTube-Playlist mit einem Klick in MP3 oder MP4. Jedes Video wird als eigene Datei heruntergeladen.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yt2mp3.lol/de/youtube-playlist-downloader">
 <meta name="twitter:card" content="summary_large_image">
@@ -56,28 +56,28 @@
 
 <section class="hero">
   <div class="container">
-    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/de/">&larr; Home</a></p>
+    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/de/">&larr; Startseite</a></p>
     <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">YouTube Playlist Downloader</h1>
-    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.</p>
-    <div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
-  <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
+    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Konvertieren Sie eine gesamte YouTube-Playlist mit einem Klick in MP3 oder MP4. Jedes Video wird als eigene Datei heruntergeladen.</p>
+    <div id="converter" class="converter-card" role="region" aria-label="YouTube-Konverter">
+  <h2 class="converter-title">YT2MP3 - YouTube zu MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
-      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
-      <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
+      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="YouTube-URL einfügen oder suchen" aria-label="YouTube-Link einfügen" required autocomplete="off" spellcheck="false">
+      <button type="button" id="paste-btn" aria-label="Aus Zwischenablage einfügen" title="Einfügen"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
     </div>
     <div class="controls-row">
-      <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
-      <label for="quality" class="sr-only">Quality</label>
-      <select id="quality" class="select-pill" aria-label="Quality"></select>
+      <div class="seg" role="tablist" aria-label="Ausgabeformat"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
+      <label for="quality" class="sr-only">Qualität</label>
+      <select id="quality" class="select-pill" aria-label="Qualität"></select>
       <details class="track-menu">
-        <summary class="track-pill" role="button" aria-label="Audio track"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Origin</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <summary class="track-pill" role="button" aria-label="Audiospur"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Original</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="track-list" role="menu" style="min-width:200px;">
           <div class="track-search-wrap" style="padding:8px 12px;border-bottom:1px solid var(--border);">
-            <input type="text" id="track-search" class="track-search" placeholder="Search languages..." aria-label="Search languages" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
+            <input type="text" id="track-search" class="track-search" placeholder="Sprachen suchen..." aria-label="Sprachen suchen" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
           </div>
           <div class="track-scroll" style="max-height:220px;overflow-y:auto;padding:4px;">
-            <button type="button" class="track-opt" data-track="" role="menuitem">Origin (default)</button>
+            <button type="button" class="track-opt" data-track="" role="menuitem">Original (Standard)</button>
             <button type="button" class="track-opt" data-track="en" role="menuitem">🇬🇧 English</button>
             <button type="button" class="track-opt" data-track="hi" role="menuitem">🇮🇳 Hindi</button>
             <button type="button" class="track-opt" data-track="en-IN" role="menuitem">🇮🇳 English (India)</button>
