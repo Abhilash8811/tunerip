@@ -619,6 +619,12 @@
         var item = playlistState.items.find(function(i) { return i.id === id; });
         if (item) {
           item.format = sel.value;
+          // Reset quality to default when format changes
+          if (sel.value === "mp4") {
+            item.quality = "1080"; // Default video quality
+          } else {
+            item.quality = "320"; // Default audio quality
+          }
           // Update quality options
           updatePlaylistUI();
         }
