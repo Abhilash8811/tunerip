@@ -1,5 +1,6 @@
 // Ad Management System for yt2mp3.lol
 // Priority: User Experience First, Revenue Second
+// Note: Ad network handles auto-refresh (30s), no manual refresh needed
 (function() {
   'use strict';
 
@@ -13,7 +14,6 @@
 
   const AD_CONFIG = {
     provider: 'https://a.magsrv.com/ad-provider.js',
-    refreshInterval: 45000, // 45 seconds (less aggressive)
     lazyLoadMargin: '300px', // Load earlier for smoother experience
     maxAdsPerPage: {
       mobile: 3,  // Maximum 3 ads on mobile
@@ -28,21 +28,8 @@
 
   // Track session
   const session = {
-    lastActivity: Date.now(),
     adsLoaded: 0
   };
-
-  // Update last activity
-  ['mousemove', 'scroll', 'keypress', 'click', 'touchstart'].forEach(event => {
-    document.addEventListener(event, () => {
-      session.lastActivity = Date.now();
-    }, { passive: true });
-  });
-
-  // Check if user is active
-  function isUserActive() {
-    return Date.now() - session.lastActivity < 10000 && !document.hidden;
-  }
 
   // Get appropriate zone ID based on device and ad type
   function getZoneId(adType) {
@@ -115,40 +102,6 @@
     }, 1000);
   }
 
-  // Setup ad refresh (only for non-intrusive ads)
-  function setupAdRefresh() {
-    const refreshableAds = document.querySelectorAll('.ad-refresh');
-    
-    refreshableAds.forEach(ad => {
-      setInterval(() => {
-        // Only refresh if user is active and ad is visible
-        if (isUserActive() && ad.dataset.loaded === 'true' && isElementInViewport(ad)) {
-          const ins = ad.querySelector('ins');
-          if (ins && window.AdProvider) {
-            // Refresh ad
-            ins.remove();
-            const newIns = document.createElement('ins');
-            newIns.className = 'eas6a97888e2';
-            newIns.setAttribute('data-zoneid', ad.dataset.zoneId);
-            ad.appendChild(newIns);
-            window.AdProvider.push({ serve: {} });
-          }
-        }
-      }, AD_CONFIG.refreshInterval);
-    });
-  }
-
-  // Check if element is in viewport
-  function isElementInViewport(el) {
-    const rect = el.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
-
   // Close mobile sticky ad
   function setupStickyAdClose() {
     const stickyAd = document.querySelector('.ad-sticky-bottom');
@@ -195,13 +148,13 @@
   function init() {
     checkPageType();
     setupLazyLoading();
-    setupAdRefresh();
     setupStickyAdClose();
     
     // Log device type for debugging
     console.log('Ad System Initialized:', {
       device: isMobile ? 'mobile' : (isTablet ? 'tablet' : 'desktop'),
-      maxAds: isMobile ? AD_CONFIG.maxAdsPerPage.mobile : AD_CONFIG.maxAdsPerPage.desktop
+      maxAds: isMobile ? AD_CONFIG.maxAdsPerPage.mobile : AD_CONFIG.maxAdsPerPage.desktop,
+      autoRefresh: 'Handled by ad network (30s)'
     });
   }
 
