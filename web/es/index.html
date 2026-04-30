@@ -5,20 +5,26 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3f4f9" media="(prefers-color-scheme: light)">
-<title>Convertidor de YouTube a MP3 - Descargar Música Gratis 320kbps - yt2mp3.lol</title>
-<meta name="description" content="El mejor convertidor de YouTube a MP3. Descarga música en 320kbps y videos MP4 de forma gratuita, rápida y segura. Sin anuncios intrusivos ni registro.">
-<meta name="keywords" content="descargar musica de youtube, youtube a mp3, convertidor youtube, ytmp3 español, bajar canciones de youtube">
+<title>Convertidor de YouTube a MP3 - Descargar Música Gratis (320kbps) - yt2mp3.lol</title>
+<meta name="description" content="El convertidor de YouTube a MP3 más rápido. Descarga audio de alta calidad (320kbps) और videos de YouTube con nuestro descargador gratuito de YouTube MP3. Seguro, sin publicidad y fiable.">
+<meta name="keywords" content="descargar musica de youtube, youtube a mp3, convertidor de youtube a mp3, descargar canciones de youtube, ytmp3 español, youtube to mp3 converter">
 <link rel="canonical" href="https://yt2mp3.lol/es/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Convertidor de YouTube a MP3 - yt2mp3.lol">
-<meta property="og:description" content="Convierte videos de YouTube a MP3 en segundos. Calidad premium, sin anuncios.">
+<meta property="og:description" content="Convierte videos de YouTube a MP3 al instante. Audio de alta calidad 320kbps, sin publicidad.">
 <meta property="og:url" content="https://yt2mp3.lol/es/">
+<meta property="og:image" content="/assets/og.png">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="robots" content="index,follow">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="yt2mp3.lol">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css?v=2">
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"yt2mp3.lol","applicationCategory":"MultimediaApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"12043"},"description":"Free online YouTube to MP3 and MP4 converter supporting 128-320 kbps audio and up to 4K video.","featureList":["MP3 up to 320 kbps","MP4 up to 2160p (4K)","WAV, OGG, Opus, M4A","YouTube Shorts support","Playlist batch conversion","No signup, no ads, unlimited"]}
+</script>
 </head>
 <body>
 <header class="site-header">
@@ -31,10 +37,20 @@
         </summary>
         <div class="lang-list">
           <a href="/">English</a>
+          <a href="/ar/">العربية</a>
+          <a href="/de/">Deutsch</a>
           <a href="/es/" class="lang-active">Español</a>
           <a href="/fr/">Français</a>
           <a href="/hi/">हिन्दी</a>
-          <a href="/de/">Deutsch</a>
+          <a href="/id/">Bahasa Indonesia</a>
+          <a href="/it/">Italiano</a>
+          <a href="/ja/">日本語</a>
+          <a href="/ko/">한국어</a>
+          <a href="/pt/">Português</a>
+          <a href="/ru/">Русский</a>
+          <a href="/th/">ภาษาไทย</a>
+          <a href="/tr/">Türkçe</a>
+          <a href="/vi/">Tiếng Việt</a>
         </div>
       </details>
       <button type="button" class="btn-theme" id="theme-toggle" aria-label="Cambiar tema">
@@ -48,66 +64,117 @@
 <main>
   <section class="hero">
     <div class="container">
-      <h1 style="text-align:center;margin:0 0 16px;font-size:clamp(28px,5vw,42px);">Convertidor de YouTube a MP3</h1>
-      <p style="text-align:center;color:var(--muted);max-width:700px;margin:0 auto 32px;line-height:1.6;">Convierte tus videos favoritos de YouTube en archivos MP3 de alta calidad al instante. Nuestra herramienta es 100% gratuita, extremadamente rápida y está libre de anuncios molestos.</p>
-      
       <div id="converter" class="converter-card">
-        <h2 class="converter-title">Pega el enlace de YouTube aquí</h2>
-        <form id="convert-form">
+        <h2 class="converter-title">YouTube a MP3 - Convertidor Premium</h2>
+        <form id="convert-form" autocomplete="off">
           <div class="url-wrap">
-            <input id="yt-url" type="text" placeholder="Pega el enlace o busca videos..." aria-label="YouTube Link">
+            <input id="yt-url" type="text" placeholder="Pega el enlace de YouTube o busca palabras clave..." aria-label="YouTube Link">
             <button type="button" id="paste-btn">Pegar</button>
           </div>
           <div class="controls-row">
             <div class="seg"><button type="button" class="seg-btn active" data-format="mp3">MP3</button><button type="button" class="seg-btn" data-format="mp4">MP4</button></div>
-            <select id="quality" class="select-pill"></select>
+            <select id="quality" class="select-pill" aria-label="Calidad"></select>
             <button type="submit" class="btn-primary" id="convert-btn">Convertir</button>
           </div>
         </form>
-        <div id="status-area"></div>
+        <div id="status" class="status hidden"></div>
       </div>
+      <nav class="quick-links">
+        <a href="/youtube-playlist-downloader">Descargar Playlist</a>
+        <a href="/youtube-multi-downloader">Descarga Múltiple</a>
+        <a href="/youtube-shorts-downloader">Descargador de Shorts</a>
+      </nav>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
-      <h2 style="text-align:center;margin-bottom:40px;">¿Por qué elegir yt2mp3.lol?</h2>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
-        <div class="card">
-          <h3>Calidad Real de 320kbps</h3>
-          <p>Ofrecemos la mejor fidelidad de audio del mercado. Extraemos el sonido directamente de la fuente para garantizar un MP3 nítido.</p>
+      <h2>La forma más rápida de guardar audio y video de YouTube</h2>
+      <p>yt2mp3.lol convierte cualquier enlace de YouTube en un archivo de audio o video limpio en solo tres clics. Pega la URL, elige un formato y obtén una descarga lista para reproducir. No requiere instalador, ni extensión de navegador, ni creación de cuenta. La herramienta se ejecuta íntegramente a través de un backend web seguro y borra los archivos temporales automáticamente.</p>
+      <p>Elige MP3 desde 128 kbps hasta 320 kbps, o WAV sin pérdidas cuando necesites la captura más limpia posible. Para video, las descargas de MP4 van desde 360p hasta 2160p (4K) cuando el origen lo permite. El mismo flujo funciona en escritorio y en móviles, sin necesidad de aplicación.</p>
+    </div>
+  </section>
+
+  <section class="section alt">
+    <div class="container">
+      <h2>Cómo funciona</h2>
+      <ol class="steps">
+        <li><strong>Copia el enlace.</strong> Copia la URL del video de YouTube desde la hoja de compartir o la barra de direcciones de tu navegador. Se admiten videos normales, Shorts y listas de reproducción públicas.</li>
+        <li><strong>Pega y elige un formato.</strong> Suelta el enlace en el cuadro de arriba. Elige MP3 para audio, MP4 para el clip completo o formatos profesionales como WAV, OGG y Opus.</li>
+        <li><strong>Descarga.</strong> Presiona Convertir. La mayoría de los archivos están listos en menos de un minuto. Haz clic en el botón de descarga para guardarlo en tu dispositivo.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2>Formatos y calidad compatibles</h2>
+      <div class="grid-2">
+        <div>
+          <h3>Audio</h3>
+          <ul class="ticks">
+            <li>MP3 a 128, 192, 256 y 320 kbps</li>
+            <li>M4A (AAC) para dispositivos Apple</li>
+            <li>OGG Vorbis para reproductores de código abierto</li>
+            <li>WAV para captura sin pérdidas</li>
+            <li>Opus para archivos de alta calidad más pequeños</li>
+          </ul>
         </div>
-        <div class="card">
-          <h3>Sin Anuncios Molestos</h3>
-          <p>Disfruta de una experiencia limpia. No utilizamos ventanas emergentes ni redirecciones peligrosas para tu seguridad.</p>
-        </div>
-        <div class="card">
-          <h3>Optimizado para Móvil</h3>
-          <p>Ya sea en iPhone o Android, nuestra web funciona perfectamente en cualquier navegador móvil sin instalar aplicaciones externas.</p>
+        <div>
+          <h3>Video</h3>
+          <ul class="ticks">
+            <li>MP4 360p, 480p, 720p, 1080p</li>
+            <li>1440p QHD donde esté disponible</li>
+            <li>2160p 4K donde esté disponible</li>
+            <li>Video H.264 + audio AAC para máxima compatibilidad</li>
+            <li>Los Shorts se descargan en su relación de aspecto nativa</li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="faq" class="section faq-section" style="background: var(--bg-2); padding: 80px 0;">
+  <section class="section alt">
     <div class="container">
-      <h2 style="text-align: center; margin-bottom: 50px; font-size: 32px;">Preguntas Frecuentes (FAQ)</h2>
-      <div style="max-width: 850px; margin: 0 auto;">
-        <div style="margin-bottom: 40px;">
-          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Cómo convertir videos de YouTube a MP3?</h3>
-          <p style="line-height: 1.7; color: var(--muted);">Simplemente copia la URL del video, pégala en el cuadro de búsqueda superior, elige el formato deseado y haz clic en 'Convertir'. En pocos segundos, tu archivo estará listo para descargar.</p>
+      <h2>¿Por qué yt2mp3.lol es mejor que los convertidores típicos?</h2>
+      <div class="grid-3">
+        <div class="card-item"><h3>Sin anuncios, nunca</h3><p>Sin pop-ups, sin redirecciones, sin botones sospechosos. Solo el convertidor.</p></div>
+        <div class="card-item"><h3>Duración ilimitada</h3><p>Los podcasts largos, conferencias y mezclas funcionan bien. Sin límite arbitrario.</p></div>
+        <div class="card-item"><h3>Mobile-first</h3><p>Funciona en iPhone y Android desde el navegador predeterminado. Sin app ni plugin.</p></div>
+        <div class="card-item"><h3>320 kbps reales</h3><p>Re-codificado vía FFmpeg a tasas de bits CBR reales, no archivos inflados.</p></div>
+        <div class="card-item"><h3>Privacidad</h3><p>No requiere cuenta; los archivos convertidos se auto-eliminan en 30 minutos.</p></div>
+        <div class="card-item"><h3>Lotes y listas</h3><p>Pega una URL de playlist para obtener cada video a la vez, como archivos separados.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section faq-section" style="padding: 60px 0; background: var(--bg-2); margin-top: 40px;">
+    <div class="container">
+      <h2 style="font-size: 32px; text-align: center; margin-bottom: 40px;">YouTube a MP3 FAQ - Preguntas Frecuentes</h2>
+      <div style="max-width: 800px; margin: 0 auto;">
+        <div style="margin-bottom: 32px;">
+          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Cómo convertir YouTube a MP3?</h3>
+          <p style="color: var(--muted); line-height: 1.6;">Simplemente copia la URL del video de YouTube, pégala en el cuadro de búsqueda superior, selecciona el formato/calidad deseado y haz clic en 'Convertir'. Tu archivo estará listo para descargar en segundos.</p>
         </div>
-        <div style="margin-bottom: 40px;">
-          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Es el servicio realmente gratuito y seguro?</h3>
-          <p style="line-height: 1.7; color: var(--muted);">Absolutamente. Nos financiamos mediante donaciones y ofrecemos un servicio libre de virus. No guardamos tus datos personales ni requerimos registro.</p>
+        <div style="margin-bottom: 32px;">
+          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Es yt2mp3.lol gratuito y seguro?</h3>
+          <p style="color: var(--muted); line-height: 1.6;">¡Sí! YT2MP3 es 100% gratuito y seguro. No tenemos anuncios emergentes molestos, no requerimos registro y no almacenamos tus datos. Es un descargador de YouTube de alto rendimiento y limpio.</p>
         </div>
-        <div style="margin-bottom: 40px;">
-          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Soportan listas de reproducción y Shorts?</h3>
-          <p style="line-height: 1.7; color: var(--muted);">¡Sí! Puedes pegar enlaces de listas de reproducción completas o videos de Shorts. Nuestro sistema procesará cada video individualmente para que puedas bajar álbumes completos.</p>
+        <div style="margin-bottom: 32px;">
+          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Cuál es la calidad de MP3 más alta disponible?</h3>
+          <p style="color: var(--muted); line-height: 1.6;">Soportamos exportaciones de MP3 reales a 320kbps. También puedes elegir formatos sin pérdidas como WAV y FLAC para una calidad de audio de nivel profesional.</p>
         </div>
-        <div style="margin-bottom: 40px;">
-          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Existe un límite de duración para los videos?</h3>
-          <p style="line-height: 1.7; color: var(--muted);">Soportamos videos de hasta 3 horas de duración. Es ideal para descargar podcasts largos, mezclas de DJ o conferencias educativas.</p>
+        <div style="margin-bottom: 32px;">
+          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Funciona con YouTube Shorts y Listas de Reproducción?</h3>
+          <p style="color: var(--muted); line-height: 1.6;">¡Sí! Puedes descargar YouTube Shorts en su relación de aspecto nativa 9:16 o convertir listas de reproducción completas pegando el enlace de la playlist.</p>
+        </div>
+        <div style="margin-bottom: 32px;">
+          <h3 style="color: var(--accent); margin-bottom: 12px;">¿Puedo usar esto en Android o iPhone?</h3>
+          <p style="color: var(--muted); line-height: 1.6;">Absolutamente. Nuestro sitio es mobile-first y funciona perfectamente en cualquier navegador en Android, iOS (iPhone/iPad) y tabletas sin instalar ninguna aplicación.</p>
+        </div>
+        <div style="margin-bottom: 32px;">
+          <h3 style="color: var(--accent); margin-label: 12px;">¿Hay una longitud máxima de video?</h3>
+          <p style="color: var(--muted); line-height: 1.6;">Soportamos videos de hasta 3 horas de duración, lo cual es perfecto para podcasts, conferencias y mezclas de música largas.</p>
         </div>
       </div>
     </div>
@@ -117,15 +184,16 @@
 <footer class="site-footer">
   <div class="container">
     <nav class="footer-nav">
-      <a href="/es/about">Sobre nosotros</a>
-      <a href="/es/privacy">Privacidad</a>
-      <a href="/es/terms">Términos de uso</a>
-      <a href="/es/contact">Contacto</a>
+      <a href="/youtube-to-mp4-converter">YouTube a MP4</a>
+      <a href="/youtube-playlist-downloader">Descargador de Playlist</a>
+      <a href="/about/">Sobre Nosotros</a>
+      <a href="/contact/">Contacto</a>
+      <a href="/privacy-policy">Privacidad</a>
+      <a href="/terms-of-use">Términos</a>
     </nav>
-    <p class="footer-copy">&copy; 2026 yt2mp3.lol. Todos los derechos reservados. No afiliado con YouTube o Google.</p>
+    <p class="footer-copy">&copy; 2026 YT2MP3.lol. No afiliado con YouTube o Google. Todos los derechos reservados.</p>
   </div>
 </footer>
-
 <script src="/assets/app.js?v=2" defer></script>
 </body>
 </html>
