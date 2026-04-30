@@ -1,9 +1,12 @@
-import os
 from pathlib import Path
 
-# Configuration
 BASE_DIR = Path("web")
-TEMPLATE_FILE = BASE_DIR / "index.html"
+MAIN_TEMPLATE_FILE = BASE_DIR / "index.html"
+SECONDARY_TOOL_SLUGS = [
+    "youtube-playlist-downloader",
+    "youtube-multi-downloader",
+    "youtube-shorts-downloader",
+]
 
 # GOD-LEVEL SEO MASTER DATA (FULL 17 LANGUAGES)
 LANGS = {
@@ -26,58 +29,85 @@ LANGS = {
     "fil": {"name": "Filipino", "locale": "fil_PH", "title": "YouTube sa MP3", "desc": "Libreng YouTube download.", "keywords": "youtube downloader, ytmp3", "h2": "YouTube sa MP3", "placeholder": "I-paste ang link...", "convert": "Libreng Download", "q1": "Paano?", "a1": "I-paste ang link.", "q2": "Ligtas?", "a2": "Oo.", "q3": "Quality", "a3": "320kbps.", "q4": "Mobile", "a4": "Oo."}
 }
 
+def _read(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
+
+
+def _write(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+
+
+def _replace_many(content: str, replacements: dict[str, str]) -> str:
+    for old, new in replacements.items():
+        content = content.replace(old, new)
+    return content
+
+
+def _main_replacements(code: str, data: dict[str, str]) -> dict[str, str]:
+    full_url = f"https://yt2mp3.lol/{code}/"
+    return {
+        'lang="en"': f'lang="{code}"',
+        '<link rel="canonical" href="https://yt2mp3.lol/">': f'<link rel="canonical" href="{full_url}">',
+        '<meta property="og:url" content="https://yt2mp3.lol/">': f'<meta property="og:url" content="{full_url}">',
+        '<meta property="og:locale" content="en">': f'<meta property="og:locale" content="{data["locale"]}">',
+        "<title>YT to MP3 - YouTube MP3 Converter & Downloader (Fast & Free)</title>": f"<title>{data['title']} - yt2mp3.lol</title>",
+        'content="The fastest YT to MP3 converter. Download high-quality audio (320kbps) and videos from YouTube with our free YouTube MP3 Downloader. Safe, ad-free, and reliable."': f'content="{data["desc"]}"',
+        'content="yt to mp3, youtube to mp3, youtube mp3, youtube converter, youtube downloader, yt mp3 converter, 320kbps mp3, wav converter, flac converter, youtube to mp4, ytmp3"': f'content="{data["keywords"]}"',
+        "YT2MP3 - YouTube to MP3": f"YT2MP3 - {data['h2']}",
+        'placeholder="Paste YouTube URL or search keywords"': f'placeholder="{data["placeholder"]}"',
+        ">Convert</button>": f">{data['convert']}</button>",
+        "How to convert YouTube to MP3?": data["q1"],
+        "Simply copy the URL of the YouTube video, paste it into the search box above, select your desired format/quality, and click 'Convert'. Your file will be ready for download in seconds.": data["a1"],
+        "Is yt2mp3.lol free and safe?": data["q2"],
+        "Yes! YT2MP3 is 100% free and safe. We don't have annoying pop-up ads, we don't require registration, and we don't store your data. It's a clean, high-performance YouTube downloader.": data["a2"],
+        "What is the highest MP3 quality available?": data["q3"],
+        "We support true 320kbps MP3 exports. You can also choose lossless formats like WAV and FLAC for professional-grade audio quality.": data["a3"],
+        "Can I use this on Android or iPhone?": data["q4"],
+        "Absolutely. Our site is mobile-first and works perfectly in any browser on Android, iOS (iPhone/iPad), and Tablets without installing any apps.": data["a4"],
+        'class="l-label">English': f'class="l-label">{data["name"]}',
+        'href="/" class="lang-active">English': 'href="/">English',
+        f'href="/{code}/">': f'href="/{code}/" class="lang-active">',
+    }
+
+
+def _google_translate_like_replacements(data: dict[str, str]) -> dict[str, str]:
+    """
+    Lightweight variant used for secondary pages:
+    keep structure/SEO stable, translate only obvious user-facing labels.
+    """
+    return {
+        'class="l-label">English': f'class="l-label">{data["name"]}',
+        ">Convert</button>": f">{data['convert']}</button>",
+        'placeholder="Paste YouTube URL or search keywords"': f'placeholder="{data["placeholder"]}"',
+        "Download Playlists": "Download Playlists",
+        "Multiple Download": "Multiple Download",
+        "Shorts Downloader": "Shorts Downloader",
+    }
+
+
 def generate():
-    if not TEMPLATE_FILE.exists(): return
-    with open(TEMPLATE_FILE, "r", encoding="utf-8") as f:
-        template = f.read()
+    if not MAIN_TEMPLATE_FILE.exists():
+        return
+    main_template = _read(MAIN_TEMPLATE_FILE)
 
     for code, data in LANGS.items():
-        lang_dir = BASE_DIR / code
-        lang_dir.mkdir(parents=True, exist_ok=True)
-        
-        content = template
-        content = content.replace('lang="en"', f'lang="{code}"')
-        
-        # --- TECHNICAL SEO FIXES ---
-        full_url = f"https://yt2mp3.lol/{code}/"
-        content = content.replace('<link rel="canonical" href="https://yt2mp3.lol/">', f'<link rel="canonical" href="{full_url}">')
-        content = content.replace('<meta property="og:url" content="https://yt2mp3.lol/">', f'<meta property="og:url" content="{full_url}">')
-        content = content.replace('<meta property="og:locale" content="en">', f'<meta property="og:locale" content="{data["locale"]}">')
-        
-        # SEO Content
-        content = content.replace("<title>YT to MP3 - YouTube MP3 Converter & Downloader (Fast & Free)</title>", f"<title>{data['title']} - yt2mp3.lol</title>")
-        content = content.replace('content="The fastest YT to MP3 converter. Download high-quality audio (320kbps) and videos from YouTube with our free YouTube MP3 Downloader. Safe, ad-free, and reliable."', f'content="{data["desc"]}"')
-        content = content.replace('content="yt to mp3, youtube to mp3, youtube mp3, youtube converter, youtube downloader, yt mp3 converter, 320kbps mp3, wav converter, flac converter, youtube to mp4, ytmp3"', f'content="{data["keywords"]}"')
+        # Main tool: dedicated SEO-targeted language version.
+        main_content = _replace_many(main_template, _main_replacements(code, data))
+        _write(BASE_DIR / code / "index.html", main_content)
 
-        # UI
-        content = content.replace("YT2MP3 - YouTube to MP3", f"YT2MP3 - {data['h2']}")
-        content = content.replace('placeholder="Paste YouTube URL or search keywords"', f'placeholder="{data["placeholder"]}"')
-        content = content.replace(">Convert</button>", f">{data['convert']}</button>")
-        
-        # FAQ Master Merge
-        content = content.replace("How to convert YouTube to MP3?", data['q1'])
-        content = content.replace("Simply copy the URL of the YouTube video, paste it into the search box above, select your desired format/quality, and click 'Convert'. Your file will be ready for download in seconds.", data['a1'])
-        content = content.replace("Is yt2mp3.lol free and safe?", data['q2'])
-        content = content.replace("Yes! YT2MP3 is 100% free and safe. We don't have annoying pop-up ads, we don't require registration, and we don't store your data. It's a clean, high-performance YouTube downloader.", data['a2'])
-        content = content.replace("What is the highest MP3 quality available?", data['q3'])
-        content = content.replace("We support true 320kbps MP3 exports. You can also choose lossless formats like WAV and FLAC for professional-grade audio quality.", data['a3'])
-        content = content.replace("Can I use this on Android or iPhone?", data['q4'])
-        content = content.replace("Absolutely. Our site is mobile-first and works perfectly in any browser on Android, iOS (iPhone/iPad), and Tablets without installing any apps.", data['a4'])
+        # Secondary tools: lightweight (Google-translate-like) language variants.
+        lightweight_replacements = _google_translate_like_replacements(data)
+        for slug in SECONDARY_TOOL_SLUGS:
+            src = BASE_DIR / slug / "index.html"
+            if not src.exists():
+                continue
+            page = _read(src)
+            page = _replace_many(page, lightweight_replacements)
+            page = page.replace('lang="en"', f'lang="{code}"')
+            _write(BASE_DIR / code / slug / "index.html", page)
 
-        # Hreflang Cleanup (Ensures only the target lang line in the head is updated)
-        # In the template, we have: <link rel="alternate" hreflang="de" href="https://yt2mp3.lol/de/">
-        # We don't actually need to replace it because it's already correct in the template!
-        # But for other languages, we need to make sure the target lang is updated if it was root.
-        # Actually, since I cleaned the template, I don't need to do anything here!
-
-        # Language Menu
-        content = content.replace('class="l-label">English', f'class="l-label">{data["name"]}')
-        content = content.replace('href="/" class="lang-active">English', 'href="/">English')
-        content = content.replace(f'href="/{code}/">', f'href="/{code}/" class="lang-active">')
-
-        with open(lang_dir / "index.html", "w", encoding="utf-8") as f:
-            f.write(content)
-        print(f"Generated {code} with Technical SEO Fixes.")
+        print(f"Generated dedicated main + lightweight secondary pages for {code}.")
 
 if __name__ == "__main__":
     generate()

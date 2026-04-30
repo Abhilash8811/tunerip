@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f4f9" media="(prefers-color-scheme: light)">
+<title>YouTube Shorts Downloader (MP3 &amp; MP4) - yt2mp3.lol</title>
+<meta name="description" content="Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved.">
+<meta name="keywords" content="youtube shorts downloader, shorts to mp3, shorts to mp4, download youtube shorts, save youtube shorts">
+<link rel="canonical" href="https://yt2mp3.lol/youtube-shorts-downloader">
+<meta property="og:title" content="YouTube Shorts Downloader (MP3 &amp; MP4)">
+<meta property="og:description" content="Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yt2mp3.lol/youtube-shorts-downloader">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="stylesheet" href="/assets/style.css?v=2">
+<script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I download a channel's entire Shorts feed?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you can create a playlist containing those Shorts. Paste the playlist URL and every video will be processed individually."}},{"@type":"Question","name":"Why does my Short look blurry?","acceptedAnswer":{"@type":"Answer","text":"Shorts are often uploaded at lower resolutions by creators. We pull the highest resolution available; if that's 720p, the download will reflect that."}},{"@type":"Question","name":"What is the difference between a Short and a regular video?","acceptedAnswer":{"@type":"Answer","text":"Technically, very little. Shorts are just vertical videos (9:16 ratio) that are 60 seconds or less. Our system handles them using the same high-speed extraction engine as regular videos."}},{"@type":"Question","name":"Will the downloaded Short have a YouTube watermark?","acceptedAnswer":{"@type":"Answer","text":"No. Unlike some other platforms, YouTube does not embed a hardcoded watermark into the video file itself. Your downloaded MP4 will be clean and watermark-free."}},{"@type":"Question","name":"Can I download Shorts in 4K?","acceptedAnswer":{"@type":"Answer","text":"Most Shorts are uploaded at a maximum resolution of 1080p to optimize for mobile screens. If a creator managed to upload a 4K vertical video, our tool will capture it, but 1080p is the standard maximum."}},{"@type":"Question","name":"How do I save the Short to my iPhone Camera Roll?","acceptedAnswer":{"@type":"Answer","text":"After downloading the MP4 via Safari, open the 'Files' app, locate the video in your Downloads folder, tap the share icon, and select 'Save Video'."}},{"@type":"Question","name":"Why did the MP3 extraction fail?","acceptedAnswer":{"@type":"Answer","text":"This is extremely rare, but if a Short has been completely muted by YouTube due to copyright claims, there is no audio track for our servers to extract."}},{"@type":"Question","name":"Is there a limit to how many Shorts I can download?","acceptedAnswer":{"@type":"Answer","text":"No! You can download as many Shorts as you like. Our service is completely unlimited and free of charge."}},{"@type":"Question","name":"Can I download unlisted Shorts?","acceptedAnswer":{"@type":"Answer","text":"Yes, as long as you have the direct link to the unlisted Short, our tool can access and convert it. We cannot access Private Shorts."}},{"@type":"Question","name":"Does the tool work on desktop computers?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. You can copy the URL of a Short from your desktop browser (e.g., youtube.com/shorts/...) and paste it into our tool just like any other link."}},{"@type":"Question","name":"What happens to the video thumbnail?","acceptedAnswer":{"@type":"Answer","text":"For MP3 downloads, we embed the Short's thumbnail as the album artwork. For MP4 downloads, the video file itself contains the first frame as the poster image."}},{"@type":"Question","name":"Are the downloads safe from viruses?","acceptedAnswer":{"@type":"Answer","text":"Yes, the files are generated directly from YouTube's servers via FFmpeg muxing. We do not alter the files or inject malicious code."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to convert using yt2mp3.lol","step":[{"@type":"HowToStep","name":"Copy link","text":"Copy the video URL from your browser or app."},{"@type":"HowToStep","name":"Paste and select format","text":"Paste the link and choose your preferred format and quality."},{"@type":"HowToStep","name":"Download","text":"Click Convert and download the file."}]}</script>
+</head>
+<body>
+<a href="#converter" class="skip">Skip to converter</a>
+<header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="yt2mp3.lol home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">한국어</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="#" class="lang-active">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>
+<main>
+<section class="hero">
+  <div class="container">
+    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/">&larr; Home</a></p>
+    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">YouTube Shorts Downloader</h1>
+    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved.</p>
+    <div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
+  <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
+  <form id="convert-form" autocomplete="off" novalidate>
+    <div class="url-wrap">
+      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="링크를 입력하세요..." aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
+      <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
+    </div>
+    <div class="controls-row">
+      <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
+      <label for="quality" class="sr-only">Quality</label>
+      <select id="quality" class="select-pill" aria-label="Quality"></select>
+      <details class="track-menu">
+        <summary class="track-pill" role="button" aria-label="Audio track"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Origin</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="track-list" role="menu" style="min-width:200px;">
+          <div class="track-search-wrap" style="padding:8px 12px;border-bottom:1px solid var(--border);">
+            <input type="text" id="track-search" class="track-search" placeholder="Search languages..." aria-label="Search languages" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
+          </div>
+          <div class="track-scroll" style="max-height:220px;overflow-y:auto;padding:4px;">
+            <button type="button" class="track-opt" data-track="" role="menuitem">Origin (default)</button>
+            <button type="button" class="track-opt" data-track="en" role="menuitem">🇬🇧 English</button>
+            <button type="button" class="track-opt" data-track="hi" role="menuitem">🇮🇳 Hindi</button>
+            <button type="button" class="track-opt" data-track="en-IN" role="menuitem">🇮🇳 English (India)</button>
+            <button type="button" class="track-opt" data-track="fr-CA" role="menuitem">🇨🇦 French (Canada)</button>
+            <button type="button" class="track-opt" data-track="es-419" role="menuitem">🇲🇽 Spanish (LatAm)</button>
+            <button type="button" class="track-opt" data-track="ar" role="menuitem">🇸🇦 Arabic</button>
+            <button type="button" class="track-opt" data-track="ja" role="menuitem">🇯🇵 Japanese</button>
+            <button type="button" class="track-opt" data-track="ko" role="menuitem">🇰🇷 Korean</button>
+            <button type="button" class="track-opt" data-track="fr" role="menuitem">🇫🇷 French</button>
+            <button type="button" class="track-opt" data-track="es" role="menuitem">🇪🇸 Spanish</button>
+            <button type="button" class="track-opt" data-track="de" role="menuitem">🇩🇪 German</button>
+            <button type="button" class="track-opt" data-track="it" role="menuitem">🇮🇹 Italian</button>
+            <button type="button" class="track-opt" data-track="pt-BR" role="menuitem">🇧🇷 Portuguese (Brazil)</button>
+            <button type="button" class="track-opt" data-track="pt" role="menuitem">🇵🇹 Portuguese</button>
+            <button type="button" class="track-opt" data-track="ru" role="menuitem">🇷🇺 Russian</button>
+            <button type="button" class="track-opt" data-track="zh-Hans" role="menuitem">🇨🇳 Chinese (Simplified)</button>
+            <button type="button" class="track-opt" data-track="zh-Hant" role="menuitem">🇹🇼 Chinese (Traditional)</button>
+            <button type="button" class="track-opt" data-track="vi" role="menuitem">🇻🇳 Vietnamese</button>
+            <button type="button" class="track-opt" data-track="th" role="menuitem">🇹🇭 Thai</button>
+            <button type="button" class="track-opt" data-track="id" role="menuitem">🇮🇩 Indonesian</button>
+            <button type="button" class="track-opt" data-track="tl" role="menuitem">🇵🇭 Filipino</button>
+            <button type="button" class="track-opt" data-track="tr" role="menuitem">🇹🇷 Turkish</button>
+            <button type="button" class="track-opt" data-track="pl" role="menuitem">🇵🇱 Polish</button>
+            <button type="button" class="track-opt" data-track="nl" role="menuitem">🇳🇱 Dutch</button>
+            <button type="button" class="track-opt" data-track="sv" role="menuitem">🇸🇪 Swedish</button>
+            <button type="button" class="track-opt" data-track="no" role="menuitem">🇳🇴 Norwegian</button>
+            <button type="button" class="track-opt" data-track="da" role="menuitem">🇩🇰 Danish</button>
+            <button type="button" class="track-opt" data-track="fi" role="menuitem">🇫🇮 Finnish</button>
+            <button type="button" class="track-opt" data-track="el" role="menuitem">🇬🇷 Greek</button>
+            <button type="button" class="track-opt" data-track="cs" role="menuitem">🇨🇿 Czech</button>
+            <button type="button" class="track-opt" data-track="hu" role="menuitem">🇭🇺 Hungarian</button>
+            <button type="button" class="track-opt" data-track="ro" role="menuitem">🇷🇴 Romanian</button>
+            <button type="button" class="track-opt" data-track="bg" role="menuitem">🇧🇬 Bulgarian</button>
+            <button type="button" class="track-opt" data-track="uk" role="menuitem">🇺🇦 Ukrainian</button>
+            <button type="button" class="track-opt" data-track="he" role="menuitem">🇮🇱 Hebrew</button>
+            <button type="button" class="track-opt" data-track="ms" role="menuitem">🇲🇾 Malay</button>
+            <button type="button" class="track-opt" data-track="bn" role="menuitem">🇧🇩 Bengali</button>
+            <button type="button" class="track-opt" data-track="ur" role="menuitem">🇵🇰 Urdu</button>
+            <button type="button" class="track-opt" data-track="fa" role="menuitem">🇮🇷 Persian</button>
+          </div>
+        </div>
+      </details>
+      <div class="spacer"></div>
+      <button id="convert-btn" type="submit">무료 다운로드</button>
+    </div>
+    <div id="status" class="status hidden" aria-live="polite"></div>
+  </form>
+</div>
+  </div>
+</section>
+<section class="section"><div class="container"><h2>Download YouTube Shorts without an app</h2><p>Shorts are just YouTube videos under a minute, so yt2mp3.lol handles them through the same pipeline as full-length clips. Paste a Shorts URL (anything matching youtube.com/shorts/…), pick MP3 or MP4, and the file is yours in seconds.</p></div></section>
+<section class="section alt"><div class="container"><h2>Shorts keep their vertical framing</h2><p>We export MP4 in the original 9:16 portrait aspect ratio whenever the uploader filmed that way. Nothing is cropped, stretched, or re-centered, so the Short looks identical offline.</p></div></section>
+<section class="section"><div class="container"><h2>Grab the audio only</h2><p>Some Shorts are just short songs, remixes, or memes — pick MP3 at 320 kbps and you get the audio without the video wrapper. Useful for making ringtones, memes, or sample libraries.</p></div></section>
+<section class="section alt"><div class="container"><h2>Format Comparison Table</h2><p><div style="overflow-x:auto;">
+      <table style="width:100%; border-collapse: collapse; text-align: left;">
+        <tr style="border-bottom: 1px solid var(--border);">
+          <th style="padding: 8px;">Format</th>
+          <th style="padding: 8px;">Best For</th>
+          <th style="padding: 8px;">Quality Options</th>
+          <th style="padding: 8px;">File Size</th>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px;">MP3</td><td style="padding: 8px;">Universal audio playback</td><td style="padding: 8px;">128 - 320 kbps</td><td style="padding: 8px;">Small</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px;">MP4</td><td style="padding: 8px;">Video playback everywhere</td><td style="padding: 8px;">360p - 2160p (4K)</td><td style="padding: 8px;">Large</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border);">
+          <td style="padding: 8px;">WAV</td><td style="padding: 8px;">Lossless audio editing</td><td style="padding: 8px;">16-bit 44.1kHz</td><td style="padding: 8px;">Very Large</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">M4A</td><td style="padding: 8px;">Apple devices</td><td style="padding: 8px;">Native AAC</td><td style="padding: 8px;">Medium</td>
+        </tr>
+      </table>
+    </div></p></div></section>
+<section class="section"><div class="container"><h2>Download Shorts in Original 9:16 Format</h2><p>YouTube Shorts are designed for vertical screens. Our converter detects Shorts URLs and ensures that the downloaded MP4 preserves the original 9:16 portrait aspect ratio. You get the exact video as it appears on your phone, without any ugly black bars or artificial cropping.</p></div></section>
+<section class="section alt"><div class="container"><h2>Extract Viral Audio with MP3</h2><p>Often, the best part of a YouTube Short is the trending audio, meme sound, or background track. By selecting the MP3 option, you can rip just the audio track at a crisp 320kbps. This is perfect for creating your own ringtones, soundboards, or using the audio in your own TikToks and Reels.</p></div></section>
+<section class="section"><div class="container"><h2>No App Installation Necessary</h2><p>Don't clutter your phone with shady downloader apps from the app store. Our YouTube Shorts Downloader works flawlessly via your mobile browser (Chrome, Safari, Firefox). Just use the 'Share' &gt; 'Copy Link' feature in the YouTube app and paste it here.</p></div></section>
+<section class="section alt"><div class="container"><h2>Ultra-Fast Processing for Short Clips</h2><p>Because Shorts are under 60 seconds by definition, our backend processes them almost instantaneously. In most cases, your download link will be ready in under 3 seconds, allowing you to quickly save multiple Shorts in a row.</p></div></section>
+<section class="section"><div class="container"><h2>Bypass Content Restrictions</h2><p>Sometimes creators delete their viral Shorts, or the platform mutes the audio due to copyright disputes. By downloading the Short directly to your device, you secure a permanent offline copy that can never be altered or removed from your library.</p></div></section>
+<section class="section alt"><div class="container"><h2>Perfect for Cross-Posting</h2><p>Are you a social media manager or creator looking to cross-post your content? Download your own YouTube Shorts in pristine 1080p MP4 format and natively upload them to TikTok, Instagram Reels, or Snapchat Spotlight without watermarks.</p></div></section>
+<section class="section"><div class="container"><h2>Batch Download Shorts from Playlists</h2><p>If you've saved a bunch of funny Shorts to a public playlist, you don't have to download them one by one. Paste the playlist URL into our tool, and it will generate individual download links for every Short in the collection.</p></div></section>
+<section class="section alt"><div class="container"><h2>Seamless iOS and Android Integration</h2><p>On iPhones, Safari will download the Short directly to your 'Files' app, from which you can easily save it to your Camera Roll. On Android, Chrome saves it straight to your 'Downloads' folder or Gallery for immediate viewing.</p></div></section>
+
+<section class="section alt"><div class="container"><h2>How to Download YouTube Shorts</h2><p>1. Open the YouTube app and watch a Short. 2. Tap the 'Share' arrow and select 'Copy Link'. 3. Open your mobile browser and navigate to our site. 4. Paste the link into the input field. 5. Choose MP4 for video or MP3 for audio, then tap 'Convert'. 6. Tap 'Download' to save the file.</p></div></section>
+<section class="section"><div class="container"><h2>FAQ</h2><details><summary>Can I download a channel's entire Shorts feed?</summary><p>Yes, if you can create a playlist containing those Shorts. Paste the playlist URL and every video will be processed individually.</p></details><details><summary>Why does my Short look blurry?</summary><p>Shorts are often uploaded at lower resolutions by creators. We pull the highest resolution available; if that's 720p, the download will reflect that.</p></details><details><summary>What is the difference between a Short and a regular video?</summary><p>Technically, very little. Shorts are just vertical videos (9:16 ratio) that are 60 seconds or less. Our system handles them using the same high-speed extraction engine as regular videos.</p></details><details><summary>Will the downloaded Short have a YouTube watermark?</summary><p>No. Unlike some other platforms, YouTube does not embed a hardcoded watermark into the video file itself. Your downloaded MP4 will be clean and watermark-free.</p></details><details><summary>Can I download Shorts in 4K?</summary><p>Most Shorts are uploaded at a maximum resolution of 1080p to optimize for mobile screens. If a creator managed to upload a 4K vertical video, our tool will capture it, but 1080p is the standard maximum.</p></details><details><summary>How do I save the Short to my iPhone Camera Roll?</summary><p>After downloading the MP4 via Safari, open the 'Files' app, locate the video in your Downloads folder, tap the share icon, and select 'Save Video'.</p></details><details><summary>Why did the MP3 extraction fail?</summary><p>This is extremely rare, but if a Short has been completely muted by YouTube due to copyright claims, there is no audio track for our servers to extract.</p></details><details><summary>Is there a limit to how many Shorts I can download?</summary><p>No! You can download as many Shorts as you like. Our service is completely unlimited and free of charge.</p></details><details><summary>Can I download unlisted Shorts?</summary><p>Yes, as long as you have the direct link to the unlisted Short, our tool can access and convert it. We cannot access Private Shorts.</p></details><details><summary>Does the tool work on desktop computers?</summary><p>Absolutely. You can copy the URL of a Short from your desktop browser (e.g., youtube.com/shorts/...) and paste it into our tool just like any other link.</p></details><details><summary>What happens to the video thumbnail?</summary><p>For MP3 downloads, we embed the Short's thumbnail as the album artwork. For MP4 downloads, the video file itself contains the first frame as the poster image.</p></details><details><summary>Are the downloads safe from viruses?</summary><p>Yes, the files are generated directly from YouTube's servers via FFmpeg muxing. We do not alter the files or inject malicious code.</p></details></div></section>
+</main>
+<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> yt2mp3.lol. Not affiliated with YouTube or Google.</p></div></footer>
+<script>window.__DEFAULT_FORMAT__="mp4";window.__DEFAULT_QUALITY__="1080";</script>
+<script src="/assets/app.js?v=2" defer></script>
+</body>
+</html>
