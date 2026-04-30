@@ -56,8 +56,8 @@
       interval: 25000  // 25 seconds in milliseconds
     },
     lazyLoad: {
-      enabled: true,
-      rootMargin: '300px'  // Load ads 300px before they come into view
+      enabled: false,  // DISABLED - Load all ads immediately
+      rootMargin: '300px'
     }
   };
 
