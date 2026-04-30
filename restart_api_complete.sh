@@ -64,15 +64,29 @@ print_status "Stopping existing API processes..."
 # Method 1: Kill by process name
 pkill -9 -f "uvicorn main:app" 2>/dev/null && print_success "Killed uvicorn processes" || print_warning "No uvicorn processes found"
 
+# Wait a moment
+sleep 2
+
 # Method 2: Kill by port using lsof
 if command -v lsof >/dev/null 2>&1; then
-    lsof -ti:$API_PORT | xargs kill -9 2>/dev/null && print_success "Killed processes on port $API_PORT (lsof)" || print_warning "No processes on port $API_PORT (lsof)"
+    PIDS=$(lsof -ti:$API_PORT 2>/dev/null)
+    if [ ! -z "$PIDS" ]; then
+        echo "$PIDS" | xargs kill -9 2>/dev/null && print_success "Killed processes on port $API_PORT (lsof)" || print_warning "Failed to kill with lsof"
+    else
+        print_warning "No processes on port $API_PORT (lsof)"
+    fi
 fi
+
+# Wait a moment
+sleep 2
 
 # Method 3: Kill by port using fuser
 if command -v fuser >/dev/null 2>&1; then
-    fuser -k $API_PORT/tcp 2>/dev/null && print_success "Killed processes on port $API_PORT (fuser)" || print_warning "No processes on port $API_PORT (fuser)"
+    fuser -k -9 $API_PORT/tcp 2>/dev/null && print_success "Killed processes on port $API_PORT (fuser)" || print_warning "No processes on port $API_PORT (fuser)"
 fi
+
+# Wait a moment
+sleep 2
 
 # Method 4: Kill by port using netstat (fallback)
 if command -v netstat >/dev/null 2>&1; then
@@ -82,14 +96,26 @@ if command -v netstat >/dev/null 2>&1; then
     fi
 fi
 
+# Method 5: Kill all Python processes running uvicorn
+pkill -9 -f "python.*uvicorn" 2>/dev/null
+
 print_status "Waiting for port to be released..."
-sleep 3
+sleep 5
 
 # Verify port is free
 if lsof -i:$API_PORT >/dev/null 2>&1; then
-    print_error "Port $API_PORT is still in use!"
+    print_error "Port $API_PORT is still in use after cleanup attempts!"
+    print_error "Processes using port $API_PORT:"
     lsof -i:$API_PORT
-    print_error "Please manually kill the process and try again"
+    echo ""
+    print_error "All Python/uvicorn processes:"
+    ps aux | grep -E "(uvicorn|python.*main)" | grep -v grep
+    echo ""
+    print_error "Please run these commands manually:"
+    echo "  lsof -ti:$API_PORT | xargs kill -9"
+    echo "  pkill -9 -f uvicorn"
+    echo "  fuser -k -9 $API_PORT/tcp"
+    echo ""
     exit 1
 else
     print_success "Port $API_PORT is now free"
