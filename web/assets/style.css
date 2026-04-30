@@ -1,24 +1,42 @@
 /* TuneRip — critical path styles. Kept small so it can be inlined. */
 :root {
-  --bg: #0b0d14;
-  --bg-2: #1a1d28;
-  --card: #262a36;
-  --card-2: #2d313e;
-  --text: #f5f6fa;
-  --muted: #a3a8b8;
-  --border: #353948;
-  --border-2: #40455a;
-  --accent: #ffcc33;
-  --accent-text: #1a1d28;
-  --blue: #3b82f6;
+  /* Light Theme - High Contrast Mobile-First */
+  --bg: #ffffff;
+  --bg-2: #f8f9fa;
+  --card: #ffffff;
+  --card-2: #f1f3f5;
+  --text: #111111;
+  --muted: #333333;
+  --border: #e1e4e8;
+  --border-2: #d1d5da;
+  --accent: #2d5cf7;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(45, 92, 247, 0.1);
+  --blue: #2d5cf7;
   --success: #22c55e;
   --danger: #ef4444;
   --radius: 18px;
-  --radius-sm: 999px;
-  --shadow: 0 4px 24px rgba(0,0,0,0.25);
+  --radius-sm: 12px;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   --max: 900px;
   --tap: 44px;
 }
+
+[data-theme="dark"] {
+  --bg: #0b0d14;
+  --bg-2: #161a24;
+  --card: #1c212e;
+  --card-2: #262a36;
+  --text: #f3f4f9;
+  --muted: #a0a8c0;
+  --border: #2d3446;
+  --border-2: #353948;
+  --accent: #4a7fff;
+  --accent-text: #0b0d14;
+  --accent-soft: rgba(74, 127, 255, 0.15);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
 html{color-scheme:dark}
