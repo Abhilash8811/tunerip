@@ -383,6 +383,7 @@ function renderLandingPage(p) {
 <link rel="stylesheet" href="/assets/style.css?v=2">
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 ${faqLd}
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 ${howToLd}
 </head>
 <body>
