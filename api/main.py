@@ -48,8 +48,9 @@ if COOKIES_FILE and os.path.exists(COOKIES_FILE):
 
 YOUTUBE_URL_RE = re.compile(
     r"^(?:(?:https?://)?(?:www\.|m\.|music\.)?"
-    r"(?:youtube\.com/(?:watch\?v=|shorts/|embed/|v/|playlist\?list=)|youtu\.be/)"
-    r"[\w\-?=&/.]+|ytsearch\d*:.+)$"
+    r"(?:youtube\.com/(?:watch\?|shorts/|embed/|v/|playlist\?)|youtu\.be/)"
+    r"[\w\-?=&/.#]+|ytsearch\d*:.+)$",
+    re.IGNORECASE
 )
 
 AUDIO_FORMATS = {"mp3", "m4a", "ogg", "wav", "opus", "flac"}
