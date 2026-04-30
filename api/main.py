@@ -96,7 +96,7 @@ def _get_job(jid: str) -> dict | None:
 
 class ConvertRequest(BaseModel):
     url: str
-    format: Literal["mp3", "m4a", "ogg", "wav", "opus", "mp4"] = "mp3"
+    format: Literal["mp3", "m4a", "ogg", "wav", "opus", "flac", "mp4"] = "mp3"
     quality: str = "320"
 
     @field_validator("url")
@@ -155,15 +155,18 @@ def _progress_hook(job_id: str):
 
 
 def _ydl_opts_audio(job_id: str, out_dir: Path, fmt: str, bitrate: str) -> dict:
-    pp = [{
+    pp_opts = {
         "key": "FFmpegExtractAudio",
         "preferredcodec": fmt,
-        "preferredquality": bitrate if fmt == "mp3" else "0",
-    }]
+    }
+    # Only set bitrate for formats that support it
+    if fmt in ["mp3", "m4a", "opus"]:
+        pp_opts["preferredquality"] = bitrate
+
     opts = {
         "format": "bestaudio/best",
         "outtmpl": str(out_dir / "%(title).80s.%(ext)s"),
-        "postprocessors": pp,
+        "postprocessors": [pp_opts],
         "noplaylist": True,
         "quiet": True,
         "no_warnings": True,
