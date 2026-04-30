@@ -50,6 +50,14 @@
     maxAdsPerPage: {
       mobile: 3,  // Maximum 3 ads on mobile
       desktop: 4  // Maximum 4 ads on desktop
+    },
+    autoRefresh: {
+      enabled: true,
+      interval: 25000  // 25 seconds in milliseconds
+    },
+    lazyLoad: {
+      enabled: true,
+      rootMargin: '300px'  // Load ads 300px before they come into view
     }
   };
 
@@ -93,15 +101,33 @@
     return null; // No ad config for this type
   }
 
-  // Load ads immediately
+  // Load ads with lazy loading support
   function setupAdLoading() {
     const adContainers = document.querySelectorAll('.ad-container');
     const maxAds = isMobile ? AD_CONFIG.maxAdsPerPage.mobile : AD_CONFIG.maxAdsPerPage.desktop;
     
-    // Load all ads immediately
-    Array.from(adContainers).slice(0, maxAds).forEach(container => {
-      loadAd(container);
-    });
+    if (AD_CONFIG.lazyLoad.enabled && 'IntersectionObserver' in window) {
+      // Use lazy loading with IntersectionObserver
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && session.adsLoaded < maxAds) {
+            loadAd(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: AD_CONFIG.lazyLoad.rootMargin });
+
+      adContainers.forEach(container => {
+        if (session.adsLoaded < maxAds) {
+          observer.observe(container);
+        }
+      });
+    } else {
+      // Fallback: Load all ads immediately
+      Array.from(adContainers).slice(0, maxAds).forEach(container => {
+        loadAd(container);
+      });
+    }
   }
 
   // Load ad into container
@@ -155,6 +181,76 @@
     }, 1000);
     
     console.log(`✅ Adsterra ad loaded: ${adType} (${adConfig.width}x${adConfig.height})`);
+    
+    // Setup auto-refresh if enabled
+    if (AD_CONFIG.autoRefresh.enabled) {
+      setupAutoRefresh(container, adConfig);
+    }
+  }
+  
+  // Auto-refresh ad every 25 seconds
+  function setupAutoRefresh(container, adConfig) {
+    const refreshInterval = setInterval(() => {
+      // Check if container still exists and is visible
+      if (!document.body.contains(container)) {
+        clearInterval(refreshInterval);
+        return;
+      }
+      
+      // Check if ad is in viewport (only refresh visible ads)
+      const rect = container.getBoundingClientRect();
+      const isVisible = (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+      );
+      
+      if (isVisible) {
+        refreshAd(container, adConfig);
+      }
+    }, AD_CONFIG.autoRefresh.interval);
+    
+    // Store interval ID for cleanup
+    container.dataset.refreshInterval = refreshInterval;
+  }
+  
+  // Refresh ad by recreating it
+  function refreshAd(container, adConfig) {
+    // Find and remove old ad wrapper
+    const oldWrapper = container.querySelector('.adsterra-ad');
+    if (oldWrapper) {
+      oldWrapper.remove();
+    }
+    
+    // Create new ad wrapper
+    const adWrapper = document.createElement('div');
+    adWrapper.className = 'adsterra-ad';
+    adWrapper.style.textAlign = 'center';
+    
+    // Create script for atOptions
+    const optionsScript = document.createElement('script');
+    optionsScript.textContent = `atOptions = ${JSON.stringify({
+      key: adConfig.key,
+      format: adConfig.format,
+      height: adConfig.height,
+      width: adConfig.width,
+      params: {}
+    })};`;
+    
+    // Create script for invoke.js
+    const invokeScript = document.createElement('script');
+    invokeScript.src = `https://www.highperformanceformat.com/${adConfig.key}/invoke.js?t=${Date.now()}`;
+    invokeScript.async = true;
+    
+    // Append scripts to wrapper
+    adWrapper.appendChild(optionsScript);
+    adWrapper.appendChild(invokeScript);
+    
+    // Add wrapper to container
+    container.appendChild(adWrapper);
+    
+    console.log(`🔄 Ad refreshed: ${container.dataset.adType}`);
   }
 
   // Close mobile sticky ad
@@ -210,6 +306,8 @@
       device: isMobile ? 'mobile' : (isTablet ? 'tablet' : 'desktop'),
       maxAds: isMobile ? AD_CONFIG.maxAdsPerPage.mobile : AD_CONFIG.maxAdsPerPage.desktop,
       adsLoaded: session.adsLoaded,
+      lazyLoading: AD_CONFIG.lazyLoad.enabled ? 'Enabled (300px margin)' : 'Disabled',
+      autoRefresh: AD_CONFIG.autoRefresh.enabled ? `Enabled (${AD_CONFIG.autoRefresh.interval/1000}s)` : 'Disabled',
       network: 'Adsterra'
     });
   }
