@@ -5,7 +5,8 @@
 | Ad Size | Zone ID | Usage |
 |---------|---------|-------|
 | **728x90** | 5914450 | Desktop top/bottom banners |
-| **300x250** | 5914446 | Sidebar & in-content (all devices) |
+| **300x250** | 5914446 | In-content (all devices) |
+| **300x500** | 5914458 | Desktop sidebar (tall vertical) |
 | **300x100** | 5914456 | Mobile top/bottom banners |
 | **300x50** | 5914454 | Mobile sticky bottom |
 
@@ -38,7 +39,8 @@
    - High engagement area
    - Auto-refresh
 
-3. **Sidebar Sticky** - 300x250 (Zone: 5914446)
+3. **Sidebar Sticky** - 300x500 (Zone: 5914458)
+   - Tall vertical banner
    - Always visible on scroll
    - Auto-refresh
 

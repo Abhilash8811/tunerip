@@ -9,7 +9,8 @@
     banner_728x90: '5914450',      // Desktop banner
     mobile_300x100: '5914456',     // Mobile banner large
     mobile_300x50: '5914454',      // Mobile banner small
-    rectangle_300x250: '5914446'   // Sidebar/in-content
+    rectangle_300x250: '5914446',  // Sidebar/in-content
+    banner_300x500: '5914458'      // Tall sidebar banner (desktop only)
   };
 
   const AD_CONFIG = {
@@ -45,8 +46,13 @@
       if (adType === 'banner-top' || adType === 'banner-bottom') {
         return AD_ZONES.banner_728x90;
       }
+      // Use tall 300x500 banner for sidebar on desktop
+      if (adType === 'sidebar') {
+        return AD_ZONES.banner_300x500;
+      }
       return AD_ZONES.rectangle_300x250;
     }
+  }
   }
 
   // Lazy load ads

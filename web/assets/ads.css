@@ -48,13 +48,14 @@
     position: sticky;
     top: 80px;
     margin: 20px 0;
+    min-height: 500px; /* Accommodate 300x500 banner */
   }
   
   .content-with-sidebar {
     display: grid;
-    grid-template-columns: 1fr 320px;
+    grid-template-columns: 1fr 340px; /* Increased width for 300x500 */
     gap: 32px;
-    max-width: 1200px;
+    max-width: 1240px; /* Adjusted for wider sidebar */
     margin: 0 auto;
   }
 }
