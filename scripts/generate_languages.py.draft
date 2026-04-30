@@ -1,0 +1,72 @@
+import os
+from pathlib import Path
+
+# Configuration
+BASE_DIR = Path("web")
+TEMPLATE_FILE = BASE_DIR / "index.html"
+
+# GOD-LEVEL SEO CONTENT (BATCH 2)
+BATCH_2 = {
+    "de": {
+        "name": "Deutsch",
+        "title": "YouTube zu MP3 Konverter - Gratis Musik Download (320kbps)",
+        "desc": "Der schnellste YouTube zu MP3 Konverter für Deutschland. Laden Sie Musik in 320kbps und Videos in MP4 sicher und ohne Werbung herunter. Voll kompatibel mit iPhone & Android.",
+        "keywords": "youtube zu mp3, youtube konverter, musik downloaden, ytmp3 deutschland",
+        "h2": "Deutschlands Nr. 1 YouTube zu MP3 Konverter",
+        "placeholder": "YouTube Link hier einfügen...",
+        "convert": "Gratis Download",
+        "q1": "Wie konvertiere ich YouTube-Videos in MP3?",
+        "a1": "Kopieren Sie einfach den Link des YouTube-Videos, fügen Sie ihn oben in das Feld ein und klicken Sie auf 'Konvertieren'. Unser Cloud-System wandelt das Video sofort in eine hochwertige MP3-Datei um, die Sie ohne Qualitätsverlust speichern können.",
+        "q2": "Ist die Nutzung sicher und anonym?",
+        "a2": "Ja, Sicherheit steht bei uns an erster Stelle. Wir speichern keine Nutzerdaten und unsere Website ist frei von gefährlicher Werbung oder Pop-ups. Sie können den Dienst völlig anonym und sicher nutzen.",
+        "q3": "Kann ich ganze Playlists herunterladen?",
+        "a3": "Ja, unser Tool unterstützt Batch-Downloads. Wenn Sie den Link einer Playlist einfügen, extrahiert unser System alle Titel und ermöglicht es Ihnen, diese einzeln in bester Qualität zu speichern.",
+        "q4": "Funktioniert es auf dem Smartphone?",
+        "a4": "Absolut. Die Website ist 'Mobile First' optimiert. Sie funktioniert auf jedem modernen Browser auf iOS (iPhone) und Android reibungslos, ohne dass eine zusätzliche App erforderlich ist.",
+    },
+    "fr": {
+        "name": "Français",
+        "title": "Convertisseur YouTube en MP3 - Télécharger Musique Haute Qualité",
+        "desc": "Le convertisseur YouTube en MP3 le plus rapide. Téléchargez de la musique en 320kbps et des vidéos MP4 gratuitement, sans publicité et en toute sécurité.",
+        "keywords": "youtube en mp3, convertisseur youtube, telecharger musique youtube, ytmp3 france",
+        "h2": "Le Meilleur Convertisseur YouTube en MP3 en Français",
+        "placeholder": "Collez le lien YouTube ici...",
+        "convert": "Télécharger",
+        "q1": "Comment convertir une vidéo YouTube en MP3 ?",
+        "a1": "Copiez l'URL de la vidéo YouTube, collez-la dans la barre de recherche ci-dessus, choisissez votre format et cliquez sur 'Convertir'. Notre moteur de conversion extraira l'audio en quelques secondes pour un téléchargement immédiat.",
+        "q2": "Le site est-il sûr et gratuit ?",
+        "a2": "Oui, notre service est 100% gratuit et sans limites. Nous avons éliminé toutes les publicités intrusives pour vous offrir une expérience propre et sécurisée. Aucune inscription n'est requise.",
+        "q3": "Prenez-vous en charge les playlists ?",
+        "a3": "Bien sûr. Collez simplement le lien de la playlist et vous pourrez télécharger tous les morceaux un par un. C'est l'outil idéal pour sauvegarder des albums complets rapidement.",
+        "q4": "Est-ce compatible avec mon mobile ?",
+        "a4": "Oui, le site est entièrement optimisé pour les mobiles. Que vous soyez sur Android ou iPhone, vous pouvez télécharger vos titres préférés directement dans votre navigateur sans aucune application tierce.",
+    },
+    "ru": {
+        "name": "Русский",
+        "title": "YouTube в MP3 конвертер - Скачать музыку бесплатно 320kbps",
+        "desc": "Самый быстрый конвертер YouTube в MP3 на русском языке. Скачивайте музыку в высоком качестве (320 кбит/с) и видео MP4 безопасно и без рекламы.",
+        "keywords": "youtube в mp3, ютуб конвертер, скачать музыку с ютуба, ytmp3 русский",
+        "h2": "Лучший YouTube в MP3 конвертер на русском",
+        "placeholder": "Вставьте ссылку на YouTube...",
+        "convert": "Скачать бесплатно",
+        "q1": "Как конвертировать видео YouTube в MP3?",
+        "a1": "Просто скопируйте ссылку на видео, вставьте ее в поле выше и нажмите кнопку «Скачать». Наша система мгновенно преобразует видео в аудиофайл формата MP3 с битрейтом до 320 кбит/с.",
+        "q2": "Безопасно ли использовать этот сервис?",
+        "a2": "Да, наш сайт полностью безопасен. Мы не требуем регистрации и не показываем назойливую рекламу. Все загрузки проверяются на отсутствие вирусов, что обеспечивает чистый пользовательский опыт.",
+        "q3": "Можно ли скачивать целые плейлисты?",
+        "a3": "Да, мы поддерживаем пакетную загрузку. Вставьте ссылку на плейлист, и система автоматически найдет все видео, чтобы вы могли скачать их по отдельности в один клик.",
+        "q4": "Работает ли сайт на телефоне?",
+        "a4": "Конечно. Сайт оптимизирован для смартфонов (Android и iPhone). Вам не нужно устанавливать сторонние приложения — просто откройте сайт в браузере и скачивайте музыку напрямую.",
+    }
+}
+
+# Update the main LANGS dict with Batch 2 (I'll keep Batch 1 too)
+# For brevity in this call, I'll just merge them if I had them in a shared script.
+# But since I'm editing the file, I'll add them to the script.
+
+def generate():
+    # Load previous LANGS from the script or just redefine them
+    # Actually, I'll just rewrite the generate_languages.py with the new full dict.
+    pass
+
+# (I will do the actual file rewrite in the next step to ensure I have all content ready)
