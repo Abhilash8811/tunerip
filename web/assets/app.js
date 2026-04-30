@@ -9,12 +9,18 @@
     return "https://api.yt2mp3.lol";
   })();
 
-  var AUDIO_FORMATS = ["mp3", "m4a", "wav", "ogg", "opus"];
+  var AUDIO_FORMATS = ["mp3", "m4a", "wav", "ogg", "opus", "flac"];
   var AUDIO_BITRATES = [
-    { v: "128", l: "MP3 - 128 kbps" },
-    { v: "192", l: "MP3 - 192 kbps" },
-    { v: "256", l: "MP3 - 256 kbps" },
-    { v: "320", l: "MP3 - 320 kbps" },
+    { v: "320", l: "MP3 - 320kbps" },
+    { v: "256", l: "MP3 - 256kbps" },
+    { v: "192", l: "MP3 - 192kbps" },
+    { v: "128", l: "MP3 - 128kbps" },
+    { v: "64", l: "MP3 - 64kbps" },
+    { v: "wav", l: "WAV" },
+    { v: "flac", l: "FLAC" },
+    { v: "m4a", l: "M4A" },
+    { v: "ogg", l: "OGG" },
+    { v: "opus", l: "Opus" }
   ];
   var VIDEO_HEIGHTS = [
     { v: "360", l: "MP4 - 360p" },
@@ -271,10 +277,19 @@
     convertBtn.disabled = true;
     showStatus('<div class="status-meta"><span>Starting…</span></div><div class="progress"><div style="width:5%"></div></div>');
 
+    var fmt = currentFormat;
+    var qual = qualitySel.value;
+
+    // If a specific format like wav/flac is selected in the quality dropdown, use it
+    if (["wav", "flac", "m4a", "ogg", "opus"].indexOf(qual) !== -1) {
+      fmt = qual;
+      qual = "320"; // Default high quality for these formats
+    }
+
     fetch(API_BASE + "/api/convert", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: url, format: currentFormat, quality: qualitySel.value }),
+      body: JSON.stringify({ url: url, format: fmt, quality: qual }),
     })
       .then(function (r) {
         if (!r.ok) return r.json().then(function (j) { throw new Error(j.detail || "Request failed"); });

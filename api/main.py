@@ -52,8 +52,8 @@ YOUTUBE_URL_RE = re.compile(
     r"[\w\-?=&/.]+|ytsearch\d*:.+)$"
 )
 
-AUDIO_FORMATS = {"mp3", "m4a", "ogg", "wav", "opus"}
-AUDIO_BITRATES = {"128", "192", "256", "320"}
+AUDIO_FORMATS = {"mp3", "m4a", "ogg", "wav", "opus", "flac"}
+AUDIO_BITRATES = {"64", "128", "192", "256", "320"}
 VIDEO_HEIGHTS = {"360", "480", "720", "1080", "1440", "2160"}
 
 app = FastAPI(title="ytconvert-api", version="0.1.0")
