@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3f4f9" media="(prefers-color-scheme: light)">
-<title>YouTube Playlist Downloader (MP3 &amp; MP4 Batch) - yt2mp3.lol</title>
-<meta name="description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
-<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter">
+<title>Téléchargeur de Playlist YouTube (MP3 et MP4 par Lots) - yt2mp3.lol</title>
+<meta name="description" content="Convertissez une playlist YouTube entière en MP3 ou MP4 en un clic. Chaque vidéo est téléchargée comme son propre fichier.">
+<meta name="keywords" content="youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter, téléchargeur playlist youtube">
 <link rel="canonical" href="https://yt2mp3.lol/fr/youtube-playlist-downloader">
-<meta property="og:title" content="YouTube Playlist Downloader (MP3 &amp; MP4 Batch)">
-<meta property="og:description" content="Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.">
+<meta property="og:title" content="Téléchargeur de Playlist YouTube (MP3 et MP4 par Lots)">
+<meta property="og:description" content="Convertissez une playlist YouTube entière en MP3 ou MP4 en un clic. Chaque vidéo est téléchargée comme son propre fichier.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yt2mp3.lol/fr/youtube-playlist-downloader">
 <meta name="twitter:card" content="summary_large_image">
@@ -56,28 +56,28 @@
 
 <section class="hero">
   <div class="container">
-    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/fr/">&larr; Home</a></p>
-    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">YouTube Playlist Downloader</h1>
-    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.</p>
-    <div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
-  <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
+    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/fr/">&larr; Accueil</a></p>
+    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">Téléchargeur de Playlist YouTube</h1>
+    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Convertissez une playlist YouTube entière en MP3 ou MP4 en un clic. Chaque vidéo est téléchargée comme son propre fichier.</p>
+    <div id="converter" class="converter-card" role="region" aria-label="Convertisseur YouTube">
+  <h2 class="converter-title">YT2MP3 - YouTube vers MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
-      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">
-      <button type="button" id="paste-btn" aria-label="Paste from clipboard" title="Paste"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
+      <input id="yt-url" name="url" type="text" inputmode="url" placeholder="Collez l'URL YouTube ou recherchez" aria-label="Collez un lien YouTube" required autocomplete="off" spellcheck="false">
+      <button type="button" id="paste-btn" aria-label="Coller depuis le presse-papiers" title="Coller"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1" stroke="currentColor" stroke-width="1.8"/><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-2" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></button>
     </div>
     <div class="controls-row">
-      <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
-      <label for="quality" class="sr-only">Quality</label>
-      <select id="quality" class="select-pill" aria-label="Quality"></select>
+      <div class="seg" role="tablist" aria-label="Format de sortie"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
+      <label for="quality" class="sr-only">Qualité</label>
+      <select id="quality" class="select-pill" aria-label="Qualité"></select>
       <details class="track-menu">
-        <summary class="track-pill" role="button" aria-label="Audio track"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Origin</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <summary class="track-pill" role="button" aria-label="Piste audio"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Origine</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="track-list" role="menu" style="min-width:200px;">
           <div class="track-search-wrap" style="padding:8px 12px;border-bottom:1px solid var(--border);">
-            <input type="text" id="track-search" class="track-search" placeholder="Search languages..." aria-label="Search languages" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
+            <input type="text" id="track-search" class="track-search" placeholder="Rechercher des langues..." aria-label="Rechercher des langues" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
           </div>
           <div class="track-scroll" style="max-height:220px;overflow-y:auto;padding:4px;">
-            <button type="button" class="track-opt" data-track="" role="menuitem">Origin (default)</button>
+            <button type="button" class="track-opt" data-track="" role="menuitem">Origine (par défaut)</button>
             <button type="button" class="track-opt" data-track="en" role="menuitem">🇬🇧 English</button>
             <button type="button" class="track-opt" data-track="hi" role="menuitem">🇮🇳 Hindi</button>
             <button type="button" class="track-opt" data-track="en-IN" role="menuitem">🇮🇳 English (India)</button>
@@ -121,7 +121,7 @@
         </div>
       </details>
       <div class="spacer"></div>
-      <button id="convert-btn" type="submit">Convert</button>
+      <button id="convert-btn" type="submit">Convertir</button>
     </div>
     <div id="status" class="status hidden" aria-live="polite"></div>
   </form>
@@ -137,9 +137,9 @@
 <div class="content-with-sidebar">
   <div class="main-content">
 
-<section class="section"><div class="container"><h2>Bulk-convert every video in a playlist</h2><p>Paste any public YouTube playlist URL (for example ?list=PL…) and yt2mp3.lol queues every video individually. Each conversion runs in parallel where possible, so even long playlists finish quickly. You get one clean file per video, named with the original title.</p></div></section>
-<section class="section alt"><div class="container"><h2>Supports mixes and topic playlists</h2><p>Auto-generated mixes, Topic artist playlists, and user-curated playlists all work as long as they're set to Public or Unlisted. Private playlists won't resolve.</p></div></section>
-<section class="section"><div class="container"><h2>Picking the right format</h2><p>For music, MP3 at 320 kbps is the standard. For podcasts, M4A produces smaller files at equal quality. For lecture series you plan to re-watch, MP4 at 720p balances storage and clarity.</p></div></section>
+<section class="section"><div class="container"><h2>Conversion en masse de chaque vidéo dans une playlist</h2><p>Collez n'importe quelle URL de playlist YouTube publique (par exemple ?list=PL…) et yt2mp3.lol met en file d'attente chaque vidéo individuellement. Chaque conversion s'exécute en parallèle lorsque c'est possible, donc même les longues playlists se terminent rapidement. Vous obtenez un fichier propre par vidéo, nommé avec le titre original.</p></div></section>
+<section class="section alt"><div class="container"><h2>Prend en charge les mix et les playlists thématiques</h2><p>Les mix générés automatiquement, les playlists d'artistes thématiques et les playlists organisées par les utilisateurs fonctionnent tous tant qu'ils sont définis sur Public ou Non répertorié. Les playlists privées ne fonctionneront pas.</p></div></section>
+<section class="section"><div class="container"><h2>Choisir le bon format</h2><p>Pour la musique, MP3 à 320 kbps est la norme. Pour les podcasts, M4A produit des fichiers plus petits à qualité égale. Pour les séries de conférences que vous prévoyez de revoir, MP4 à 720p équilibre stockage et clarté.</p></div></section>
 <section class="section alt"><div class="container"><h2>Format Comparison Table</h2><p><div style="overflow-x:auto;">
       <table style="width:100%; border-collapse: collapse; text-align: left;">
         <tr style="border-bottom: 1px solid var(--border);">
