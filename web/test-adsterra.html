@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adsterra Test - yt2mp3.lol</title>
+<link rel="stylesheet" href="/assets/style.css?v=2">
+<link rel="stylesheet" href="/assets/ads.css">
+<style>
+  .test-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  .test-section {
+    margin: 40px 0;
+    padding: 20px;
+    background: var(--card);
+    border-radius: 12px;
+  }
+  .test-section h2 {
+    margin-top: 0;
+    color: var(--accent);
+  }
+  .direct-ad {
+    margin: 20px 0;
+    padding: 20px;
+    background: var(--bg-2);
+    border: 2px dashed var(--border);
+    border-radius: 8px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-row">
+    <a class="brand" href="/">yt2mp3<span class="brand-dot">.lol</span></a>
+    <h1 style="margin: 0; font-size: 16px; color: var(--muted);">Adsterra Test Page</h1>
+  </div>
+</header>
+
+<div class="test-container">
+  
+  <div class="test-section">
+    <h2>🧪 Test 1: Direct Adsterra Code (Should Work)</h2>
+    <p>This is the raw Adsterra code you provided, embedded directly:</p>
+    <div class="direct-ad">
+      <p style="font-size: 12px; color: var(--muted); margin-bottom: 10px;">DIRECT ADSTERRA AD BELOW:</p>
+      <script>
+        atOptions = {
+          'key' : 'b14f8d923aebce5fa713180a7c8367a2',
+          'format' : 'iframe',
+          'height' : 90,
+          'width' : 728,
+          'params' : {}
+        };
+      </script>
+      <script src="https://www.highperformanceformat.com/b14f8d923aebce5fa713180a7c8367a2/invoke.js"></script>
+    </div>
+    <p style="font-size: 14px; color: var(--muted);">
+      ✅ If you see an ad above, Adsterra is working!<br>
+      ❌ If you see nothing, check your Adsterra account status.
+    </p>
+  </div>
+
+  <div class="test-section">
+    <h2>🎯 Test 2: Our Ad System (Using ads-adsterra.js)</h2>
+    <p>This uses our automated ad system with the same Adsterra code:</p>
+    
+    <!-- Ad: Top Banner -->
+    <div class="ad-container ad-top-banner" data-ad-type="banner-top">
+      <div class="ad-label">Advertisement</div>
+    </div>
+    
+    <p style="font-size: 14px; color: var(--muted); margin-top: 20px;">
+      ✅ If you see an ad above, our ad system is working!<br>
+      ❌ If you see just "Advertisement" label, check console for errors.
+    </p>
+  </div>
+
+  <div class="test-section">
+    <h2>🔍 Debug Information</h2>
+    <p>Open browser console (F12) and check for:</p>
+    <ul style="line-height: 1.8;">
+      <li><code>🎯 Adsterra Ad System Initialized</code> - System loaded</li>
+      <li><code>✅ Adsterra ad loaded: banner-top</code> - Ad was loaded</li>
+      <li>Any red error messages</li>
+    </ul>
+    
+    <button onclick="runDebug()" style="padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">
+      Run Debug Check
+    </button>
+    
+    <pre id="debug-output" style="margin-top: 20px; padding: 15px; background: var(--bg-2); border-radius: 6px; font-size: 12px; overflow-x: auto;"></pre>
+  </div>
+
+</div>
+
+<script>
+function runDebug() {
+  const output = document.getElementById('debug-output');
+  const info = {
+    'AdManager exists': typeof window.AdManager !== 'undefined',
+    'Ad network': window.AdManager?.network || 'Not loaded',
+    'Device type': window.AdManager?.isMobile ? 'Mobile' : 'Desktop',
+    'Ad containers': document.querySelectorAll('.ad-container').length,
+    'Ads loaded': document.querySelectorAll('[data-loaded="true"]').length,
+    'Adsterra scripts': document.querySelectorAll('script[src*="highperformanceformat"]').length
+  };
+  
+  output.textContent = JSON.stringify(info, null, 2);
+  console.log('Debug Info:', info);
+}
+</script>
+
+<script src="/assets/ads-adsterra.js" defer></script>
+
+</body>
+</html>
