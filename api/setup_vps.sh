@@ -38,15 +38,15 @@ pip install -e .
 # 5. Create storage directory
 mkdir -p /tmp/ytconvert
 
-# 6. Start the API
-echo "Starting TunerIP API..."
-PORT=8000
-# Kill any existing process on port 8000
+# 6. Start the API (using Port 2082 which is usually open on cPanel servers)
+echo "Starting TunerIP API on port 2082..."
+PORT=2082
+# Kill any existing process on port 2082
 fuser -k $PORT/tcp || true
 nohup venv/bin/uvicorn main:app --host 0.0.0.0 --port $PORT --workers 4 > api.log 2>&1 &
 
 echo "------------------------------------------------"
 echo "Setup Complete!"
-echo "Your API is now running on: http://122.176.149.109:8000"
+echo "Your API is now running on: http://122.176.149.109:2082"
 echo "Check api.log for any errors."
 echo "------------------------------------------------"
