@@ -55,11 +55,17 @@
   }
   }
 
-  // Lazy load ads
+  // Load ads immediately (lazy loading disabled for better ad fill)
   function setupLazyLoading() {
     const adContainers = document.querySelectorAll('.ad-lazy');
     const maxAds = isMobile ? AD_CONFIG.maxAdsPerPage.mobile : AD_CONFIG.maxAdsPerPage.desktop;
     
+    // Load all ads immediately instead of lazy loading
+    Array.from(adContainers).slice(0, maxAds).forEach(container => {
+      loadAd(container);
+    });
+    
+    /* LAZY LOADING DISABLED - Uncomment to re-enable
     if ('IntersectionObserver' in window) {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -75,6 +81,7 @@
       // Fallback for older browsers
       Array.from(adContainers).slice(0, maxAds).forEach(container => loadAd(container));
     }
+    */
   }
 
   // Load ad into container
@@ -162,6 +169,7 @@
     console.log('Ad System Initialized:', {
       device: isMobile ? 'mobile' : (isTablet ? 'tablet' : 'desktop'),
       maxAds: isMobile ? AD_CONFIG.maxAdsPerPage.mobile : AD_CONFIG.maxAdsPerPage.desktop,
+      lazyLoading: 'DISABLED - All ads load immediately',
       autoRefresh: 'Handled by ad network (30s)'
     });
   }
