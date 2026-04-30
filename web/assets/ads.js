@@ -97,15 +97,17 @@
     container.dataset.zoneId = zoneId;
     session.adsLoaded++;
     
-    // Trigger ad load
-    if (window.AdProvider) {
-      window.AdProvider.push({ serve: {} });
-    }
-    
     // Remove loading state after a delay
     setTimeout(() => {
       container.classList.remove('loading');
     }, 1000);
+    
+    // Trigger ad load after a short delay to ensure DOM is ready
+    setTimeout(() => {
+      if (window.AdProvider) {
+        window.AdProvider.push({ serve: {} });
+      }
+    }, 100);
   }
 
   // Close mobile sticky ad
