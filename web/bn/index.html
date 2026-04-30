@@ -25,6 +25,12 @@
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="apple-touch-icon" href="/assets/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css?v=2">
+<link rel="stylesheet" href="/assets/ads.css">
+
+<!-- Ad Provider Script -->
+<script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script>
+
+
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -35,7 +41,7 @@
 ]}
 </script>
 </head>
-<body>
+<body class="has-sticky-ad">
 <a href="#কনভার্টার" class="skip">কনভার্টারে যান</a>
 <header class="site-header">
   <div class="container header-row">
@@ -211,5 +217,24 @@
   </div>
 </footer>
 <script src="/assets/app.js?v=2" defer></script>
+<script src="/assets/ads.js"></script>
+
+<!-- Initialize Ad Provider -->
+<script>
+(AdProvider = window.AdProvider || []).push({"serve": {}});
+</script>
+
+
+
+<!-- Ad: Mobile Sticky Bottom -->
+<div class="ad-sticky-bottom ad-lazy" data-ad-type="sticky">
+  <button class="ad-close-btn" aria-label="Close ad">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <div class="ad-label">Advertisement</div>
+</div>
+
 </body>
 </html>

@@ -38,6 +38,12 @@
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="apple-touch-icon" href="/assets/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css?v=2">
+<link rel="stylesheet" href="/assets/ads.css">
+
+<!-- Ad Provider Script -->
+<script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script>
+
+
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"yt2mp3.lol","applicationCategory":"MultimediaApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.8","ratingCount":"12043"},"description":"Convertidor gratuito de YouTube a MP3 y MP4. Soporta audio de 128-320 kbps y video hasta 4K.","featureList":["MP3 hasta 320 kbps","MP4 hasta 2160p (4K)","WAV, OGG, Opus, M4A","Compatible con YouTube Shorts","Conversión de playlists en lote","Sin registro, sin anuncios, ilimitado"]}
@@ -54,7 +60,7 @@
 ]}
 </script>
 </head>
-<body>
+<body class="has-sticky-ad">
 <a href="#conversor" class="skip">Ir al conversor</a>
 
 <header class="site-header">
@@ -97,6 +103,13 @@
 </header>
 
 <main>
+
+<!-- Ad: Top Banner -->
+<div class="ad-container ad-top-banner ad-lazy" data-ad-type="banner-top">
+  <div class="ad-label">Advertisement</div>
+</div>
+
+
 <section class="hero">
   <div class="container">
     <h1 class="sr-only">yt2mp3.lol — Convertidor de YouTube a MP3 y MP4</h1>
@@ -167,6 +180,12 @@
   </div>
 </section>
 
+
+<!-- Ad: Below Converter -->
+<div class="ad-container ad-below-converter ad-lazy" data-ad-type="banner-bottom">
+  <div class="ad-label">Advertisement</div>
+</div>
+
 <section class="section">
   <div class="container">
     <h2>La forma más rápida de guardar audio y video de YouTube</h2>
@@ -174,6 +193,12 @@
     <p>Elige MP3 de 128 kbps hasta 320 kbps, o WAV sin pérdidas cuando necesites la captura más limpia posible. Para video, las descargas MP4 van desde 360p hasta 2160p (4K) cuando la fuente lo permite. El mismo proceso funciona en escritorio y en móvil, sin necesidad de aplicación.</p>
   </div>
 </section>
+
+
+<!-- Ad: In-Content -->
+<div class="ad-container ad-native ad-lazy" data-ad-type="in-content">
+  <div class="ad-label">Sponsored</div>
+</div>
 
 <section class="section alt">
   <div class="container">
@@ -185,6 +210,9 @@
     </ol>
   </div>
 </section>
+
+<div class="content-with-sidebar">
+  <div class="main-content">
 
 <section class="section">
   <div class="container">
@@ -261,6 +289,18 @@
 </section>
 </main>
 
+  </div>
+
+
+  <!-- Ad: Sidebar (Desktop Only) -->
+  <aside class="sidebar">
+    <div class="ad-container ad-sidebar ad-lazy" data-ad-type="sidebar">
+      <div class="ad-label">Advertisement</div>
+    </div>
+  </aside>
+
+</div>
+
 <footer class="site-footer">
   <div class="container">
     <nav class="footer-nav" aria-label="Pie de página principal">
@@ -280,5 +320,24 @@
   </div>
 </footer>
 <script src="/assets/app.js?v=2" defer></script>
+<script src="/assets/ads.js"></script>
+
+<!-- Initialize Ad Provider -->
+<script>
+(AdProvider = window.AdProvider || []).push({"serve": {}});
+</script>
+
+
+
+<!-- Ad: Mobile Sticky Bottom -->
+<div class="ad-sticky-bottom ad-lazy" data-ad-type="sticky">
+  <button class="ad-close-btn" aria-label="Close ad">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <div class="ad-label">Advertisement</div>
+</div>
+
 </body>
 </html>

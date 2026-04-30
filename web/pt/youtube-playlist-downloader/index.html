@@ -17,11 +17,17 @@
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css?v=2">
+<link rel="stylesheet" href="/assets/ads.css">
+
+<!-- Ad Provider Script -->
+<script async type="application/javascript" src="https://a.magsrv.com/ad-provider.js"></script>
+
+
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is there a maximum playlist length?","acceptedAnswer":{"@type":"Answer","text":"No hard cap, but very large playlists (500+ videos) may take several minutes to process in full."}},{"@type":"Question","name":"Are playlists downloaded in order?","acceptedAnswer":{"@type":"Answer","text":"Yes. Original playlist ordering is preserved by default."}},{"@type":"Question","name":"Is there a limit to the number of videos in a playlist?","acceptedAnswer":{"@type":"Answer","text":"We can theoretically parse playlists of any size, but for optimal performance and browser stability, we recommend downloading playlists with 200 videos or fewer at a time."}},{"@type":"Question","name":"Will it download as one giant file or separate files?","acceptedAnswer":{"@type":"Answer","text":"Each video in the playlist is converted and downloaded as its own separate file. We do not merge them into a single massive audio/video file."}},{"@type":"Question","name":"Can I download a 'Watch Later' playlist?","acceptedAnswer":{"@type":"Answer","text":"Your 'Watch Later' playlist is private to your account. Our servers cannot access it. You would need to move those videos to a Public or Unlisted playlist first."}},{"@type":"Question","name":"What happens if the playlist contains a live stream?","acceptedAnswer":{"@type":"Answer","text":"If the live stream has ended and is available as a VOD, it will download normally. If the stream is currently live, the tool will skip it, as it has no finite length."}},{"@type":"Question","name":"How long does a 50-video playlist take to convert?","acceptedAnswer":{"@type":"Answer","text":"Parsing the list takes only seconds. The conversion time depends on the total length of the videos and the chosen quality, but our concurrent processing usually finishes a typical music playlist in under 3 minutes."}},{"@type":"Question","name":"Do I have to click download 50 times?","acceptedAnswer":{"@type":"Answer","text":"Currently, browser security restrictions prevent websites from automatically triggering 50 file downloads at once. You will need to click the download button for each generated file."}},{"@type":"Question","name":"Does it download the playlist thumbnail?","acceptedAnswer":{"@type":"Answer","text":"The individual video files will have their respective video thumbnails embedded as metadata (for audio formats) or as the poster frame (for video formats)."}},{"@type":"Question","name":"Can I download a channel's entire video list?","acceptedAnswer":{"@type":"Answer","text":"If the channel has a 'Play All' button or a playlist containing all their uploads, yes. Just copy that specific playlist URL."}},{"@type":"Question","name":"Are the files numbered?","acceptedAnswer":{"@type":"Answer","text":"The files retain their original YouTube titles. If the creator numbered the titles (e.g., 'Episode 1: ...'), that numbering will be in your downloaded file."}},{"@type":"Question","name":"Why did only half the videos appear?","acceptedAnswer":{"@type":"Answer","text":"This usually means the missing videos are either Private, Deleted, or Region-Blocked. Our tool can only fetch publicly accessible media."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to convert using yt2mp3.lol","step":[{"@type":"HowToStep","name":"Copy link","text":"Copy the video URL from your browser or app."},{"@type":"HowToStep","name":"Paste and select format","text":"Paste the link and choose your preferred format and quality."},{"@type":"HowToStep","name":"Download","text":"Click Convert and download the file."}]}</script>
 </head>
-<body>
+<body class="has-sticky-ad">
 <a href="#converter" class="skip">Skip to converter</a>
 <header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="yt2mp3.lol home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">Português</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="#" class="lang-active">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>
 <main>
@@ -139,5 +145,24 @@
 <footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> yt2mp3.lol. Not affiliated with YouTube or Google.</p></div></footer>
 <script>window.__DEFAULT_FORMAT__="mp3";window.__DEFAULT_QUALITY__="320";</script>
 <script src="/assets/app.js?v=2" defer></script>
+<script src="/assets/ads.js"></script>
+
+<!-- Initialize Ad Provider -->
+<script>
+(AdProvider = window.AdProvider || []).push({"serve": {}});
+</script>
+
+
+
+<!-- Ad: Mobile Sticky Bottom -->
+<div class="ad-sticky-bottom ad-lazy" data-ad-type="sticky">
+  <button class="ad-close-btn" aria-label="Close ad">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
+  <div class="ad-label">Advertisement</div>
+</div>
+
 </body>
 </html>
