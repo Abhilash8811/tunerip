@@ -322,13 +322,14 @@ def search(q: str) -> JSONResponse:
             if "entries" in info:
                 for entry in info["entries"]:
                     if not entry: continue
+                    vid_id = entry.get("id")
                     results.append({
-                        "id": entry.get("id"),
+                        "id": vid_id,
                         "title": entry.get("title"),
-                        "thumbnail": entry.get("thumbnail"),
+                        "thumbnail": f"https://img.youtube.com/vi/{vid_id}/0.jpg" if vid_id else entry.get("thumbnail"),
                         "duration": entry.get("duration"),
                         "uploader": entry.get("uploader"),
-                        "url": entry.get("url") or f"https://www.youtube.com/watch?v={entry.get('id')}"
+                        "url": entry.get("url") or f"https://www.youtube.com/watch?v={vid_id}"
                     })
             return JSONResponse({"status": "ok", "results": results})
     except Exception as e:
