@@ -721,17 +721,26 @@
       if (url.indexOf("list=") !== -1) {
         showStatus('<div class="status-meta"><span>Parsing playlist...</span></div>');
         
-        fetch(API_BASE + "/api/playlist?url=" + encodeURIComponent(url))
-          .then(function(r) { return r.json(); })
+        var apiUrl = API_BASE + "/api/playlist?url=" + encodeURIComponent(url);
+        console.log("Fetching playlist from:", apiUrl);
+        
+        fetch(apiUrl)
+          .then(function(r) { 
+            console.log("Response status:", r.status);
+            return r.json(); 
+          })
           .then(function(data) {
+            console.log("Playlist API response:", data);
             if (data.status === "ok" && data.results && data.results.length > 0) {
               renderPlaylistUI(data.results, data.title || "Playlist");
             } else {
-              showStatus('<div class="error">Failed to parse playlist or playlist is empty</div>');
+              var errorMsg = data.error || "Failed to parse playlist or playlist is empty";
+              showStatus('<div class="error">' + escapeHtml(errorMsg) + '</div>');
             }
           })
-          .catch(function() {
-            showStatus('<div class="error">Failed to fetch playlist</div>');
+          .catch(function(err) {
+            console.error("Playlist fetch error:", err);
+            showStatus('<div class="error">Failed to fetch playlist. Check console for details.</div>');
           });
       } else {
         startJob(url, fmt, qual, null);
