@@ -29,10 +29,13 @@ pip install -e .
 
 # Find and kill existing API process
 echo "Stopping existing API process..."
-pkill -f "uvicorn main:app" || echo "No existing process found"
+pkill -9 -f "uvicorn main:app" || echo "No existing process found"
+
+# Also try to kill any process using port 8001
+lsof -ti:8001 | xargs kill -9 2>/dev/null || echo "No process on port 8001"
 
 # Wait a moment for the port to be released
-sleep 2
+sleep 3
 
 # Start the API server
 echo "Starting API server..."
