@@ -69,8 +69,13 @@ img,svg{max-width:100%;display:block}
   border:0;border-radius:var(--radius-sm);
   padding:10px 16px;font-weight:700;font-size:14px;cursor:pointer;
   min-height:var(--tap);
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  -webkit-user-select:none;
 }
 .btn-supporter:hover{filter:brightness(1.05)}
+.btn-supporter:active{transform:scale(0.98)}
 .btn-lang,.btn-theme{
   background:transparent;border:1px solid var(--border-2);
   border-radius:var(--radius-sm);color:var(--text);

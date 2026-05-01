@@ -37,7 +37,9 @@
   // Supporter button interaction
   var supporterBtn = document.querySelector(".btn-supporter");
   if (supporterBtn) {
-    supporterBtn.addEventListener("click", function () {
+    supporterBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
       // Create modal overlay
       var modal = document.createElement("div");
       modal.className = "supporter-modal";
