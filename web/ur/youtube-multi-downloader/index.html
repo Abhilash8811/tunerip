@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
 <meta name="theme-color" content="#f3f4f9" media="(prefers-color-scheme: light)">
-<title>Multiple YouTube Downloader (Batch Convert) - yt2mp3.lol</title>
-<meta name="description" content="Paste several YouTube URLs at once and convert them all in parallel. Great for playlists, curated lists, and research workflows.">
+<title>ملٹیپل یوٹیوب ڈاؤن لوڈر (بیچ تبدیلی) - yt2mp3.lol</title>
+<meta name="description" content="ایک ساتھ کئی یوٹیوب URLs پیسٹ کریں اور ان سب کو متوازی طور پر تبدیل کریں۔ پلے لسٹس، منتخب فہرستوں اور تحقیقی ورک فلو کے لیے بہترین۔">
 <meta name="keywords" content="multiple youtube downloader, batch youtube to mp3, bulk youtube converter, multi youtube download">
 <link rel="canonical" href="https://yt2mp3.lol/ur/youtube-multi-downloader">
-<meta property="og:title" content="Multiple YouTube Downloader (Batch Convert)">
-<meta property="og:description" content="Paste several YouTube URLs at once and convert them all in parallel. Great for playlists, curated lists, and research workflows.">
+<meta property="og:title" content="ملٹیپل یوٹیوب ڈاؤن لوڈر (بیچ تبدیلی)">
+<meta property="og:description" content="ایک ساتھ کئی یوٹیوب URLs پیسٹ کریں اور ان سب کو متوازی طور پر تبدیل کریں۔ پلے لسٹس، منتخب فہرستوں اور تحقیقی ورک فلو کے لیے بہترین۔">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://yt2mp3.lol/ur/youtube-multi-downloader">
 <meta name="twitter:card" content="summary_large_image">
@@ -62,28 +62,28 @@
 
 <section class="hero">
   <div class="container">
-    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/ur/">&larr; Home</a></p>
-    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">Multiple YouTube Downloader</h1>
-    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">Paste several YouTube URLs at once and convert them all in parallel. Great for playlists, curated lists, and research workflows.</p>
+    <p style="margin:0 0 12px;font-size:14px;color:#9aa0b4"><a href="/ur/">&larr; ہوم</a></p>
+    <h1 style="text-align:center;margin:0 0 8px;font-size:clamp(24px,4vw,34px);letter-spacing:-.02em">ملٹیپل یوٹیوب ڈاؤن لوڈر</h1>
+    <p style="text-align:center;color:#a3a8b8;max-width:620px;margin:0 auto 24px">ایک ساتھ کئی یوٹیوب URLs پیسٹ کریں اور ان سب کو متوازی طور پر تبدیل کریں۔ پلے لسٹس، منتخب فہرستوں اور تحقیقی ورک فلو کے لیے بہترین۔</p>
     <div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
-  <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
+  <h2 class="converter-title">YT2MP3 - یوٹیوب سے MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
-      <textarea id="yt-url" name="url" placeholder="Paste YouTube URLs here (one per line)" aria-label="Paste YouTube links" required autocomplete="off" spellcheck="false" rows="4" style="resize:vertical;"></textarea>
+      <textarea id="yt-url" name="url" placeholder="یہاں یوٹیوب URLs پیسٹ کریں (ہر لائن میں ایک)" aria-label="یوٹیوب لنکس پیسٹ کریں" required autocomplete="off" spellcheck="false" rows="4" style="resize:vertical;"></textarea>
       
     </div>
     <div class="controls-row">
-      <div class="seg" role="tablist" aria-label="Output format"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
-      <label for="quality" class="sr-only">Quality</label>
-      <select id="quality" class="select-pill" aria-label="Quality"></select>
+      <div class="seg" role="tablist" aria-label="آؤٹ پٹ فارمیٹ"><button type="button" class="seg-btn active" role="tab" aria-selected="true" data-format="mp3">MP3</button><button type="button" class="seg-btn" role="tab" aria-selected="false" data-format="mp4">MP4</button></div>
+      <label for="quality" class="sr-only">کوالٹی</label>
+      <select id="quality" class="select-pill" aria-label="کوالٹی"></select>
       <details class="track-menu">
-        <summary class="track-pill" role="button" aria-label="Audio track"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">Origin</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <summary class="track-pill" role="button" aria-label="آڈیو ٹریک"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11a7 7 0 0014 0M12 18v3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span id="track-label">اصل</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
         <div class="track-list" role="menu" style="min-width:200px;">
           <div class="track-search-wrap" style="padding:8px 12px;border-bottom:1px solid var(--border);">
-            <input type="text" id="track-search" class="track-search" placeholder="Search languages..." aria-label="Search languages" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
+            <input type="text" id="track-search" class="track-search" placeholder="زبانیں تلاش کریں..." aria-label="زبانیں تلاش کریں" style="width:100%;padding:6px;border:1px solid var(--border);border-radius:4px;background:var(--bg);color:var(--text);font-size:14px;">
           </div>
           <div class="track-scroll" style="max-height:220px;overflow-y:auto;padding:4px;">
-            <button type="button" class="track-opt" data-track="" role="menuitem">Origin (default)</button>
+            <button type="button" class="track-opt" data-track="" role="menuitem">اصل (ڈیفالٹ)</button>
             <button type="button" class="track-opt" data-track="en" role="menuitem">🇬🇧 English</button>
             <button type="button" class="track-opt" data-track="hi" role="menuitem">🇮🇳 Hindi</button>
             <button type="button" class="track-opt" data-track="en-IN" role="menuitem">🇮🇳 English (India)</button>
@@ -127,7 +127,7 @@
         </div>
       </details>
       <div class="spacer"></div>
-      <button id="convert-btn" type="submit">Convert</button>
+      <button id="convert-btn" type="submit">تبدیل کریں</button>
     </div>
     <div id="status" class="status hidden" aria-live="polite"></div>
   </form>
@@ -143,9 +143,9 @@
 <div class="content-with-sidebar">
   <div class="main-content">
 
-<section class="section"><div class="container"><h2>Why batch is faster</h2><p>Instead of converting videos one at a time, paste multiple links separated by newlines or commas. The server processes each in parallel and hands you a download list when everything is ready. For 10 short videos this is roughly 5x faster than sequential conversion.</p></div></section>
-<section class="section alt"><div class="container"><h2>How to batch</h2><p>Open the converter, paste your first link and hit Enter, then paste the next on the following line. Press Convert when you're done — each URL is queued as its own job and shows independent progress.</p></div></section>
-<section class="section"><div class="container"><h2>Works with mixed formats</h2><p>You can choose one format (e.g. MP3 320 kbps) for the whole batch, or queue separate batches with different formats one after another. Combining playlists and loose URLs is fine.</p></div></section>
+<section class="section"><div class="container"><h2>بیچ تیز کیوں ہے</h2><p>ویڈیوز کو ایک ایک کر کے تبدیل کرنے کے بجائے، نئی لائنوں یا کوماز سے الگ کردہ متعدد لنکس پیسٹ کریں۔ سرور ہر ایک کو متوازی طور پر پروسیس کرتا ہے اور جب سب کچھ تیار ہو جائے تو آپ کو ڈاؤن لوڈ کی فہرست دیتا ہے۔ 10 مختصر ویڈیوز کے لیے یہ ترتیب وار تبدیلی سے تقریباً 5 گنا تیز ہے۔</p></div></section>
+<section class="section alt"><div class="container"><h2>بیچ کیسے کریں</h2><p>کنورٹر کھولیں، اپنا پہلا لنک پیسٹ کریں اور Enter دبائیں، پھر اگلی لائن میں اگلا پیسٹ کریں۔ جب آپ کا کام ہو جائے تو تبدیل کریں دبائیں — ہر URL اپنی الگ جاب کے طور پر قطار میں لگایا جاتا ہے اور آزاد پیشرفت دکھاتا ہے۔</p></div></section>
+<section class="section"><div class="container"><h2>مخلوط فارمیٹس کے ساتھ کام کرتا ہے</h2><p>آپ پوری بیچ کے لیے ایک فارمیٹ (مثلاً MP3 320 kbps) منتخب کر سکتے ہیں، یا مختلف فارمیٹس کے ساتھ الگ الگ بیچز کو یکے بعد دیگرے قطار میں لگا سکتے ہیں۔ پلے لسٹس اور ڈھیلے URLs کو ملانا ٹھیک ہے۔</p></div></section>
 
 <!-- Ad: In-Content -->
 <div class="ad-container ad-native ad-lazy" data-ad-type="in-content">
@@ -159,7 +159,7 @@
   <div id="container-2ccf98a24a20e1363cee99b6956d273e"></div>
 </div>
 
-<section class="section"><div class="container"><h2>FAQ</h2><details><summary>Is there a batch size limit?</summary><p>Soft limit of 50 URLs per batch to keep the server responsive for everyone. Larger batches can be split.</p></details><details><summary>What if one URL fails?</summary><p>That job is marked failed and the rest keep running. You can retry just the failed URL.</p></details></div></section>
+<section class="section"><div class="container"><h2>عمومی سوالات</h2><details><summary>کیا بیچ سائز کی حد ہے؟</summary><p>سرور کو سب کے لیے جوابدہ رکھنے کے لیے فی بیچ 50 URLs کی نرم حد ہے۔ بڑی بیچز کو تقسیم کیا جا سکتا ہے۔</p></details><details><summary>اگر ایک URL ناکام ہو جائے تو کیا ہوگا؟</summary><p>وہ جاب ناکام کے طور پر نشان زد ہو جاتی ہے اور باقی چلتی رہتی ہیں۔ آپ صرف ناکام URL کو دوبارہ آزما سکتے ہیں۔</p></details></div></section>
 
   </div>
 
