@@ -32,6 +32,9 @@
   <!-- YTMP3 Page (English Only) -->
   <url><loc>https://yt2mp3.lol/ytmp3</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
   
+  <!-- YouTube Audio Download MP3 Page (English Only) -->
+  <url><loc>https://yt2mp3.lol/youtube-audio-download-mp3</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  
   <!-- Download Lagu YouTube (Indonesian Only) -->
   <url><loc>https://yt2mp3.lol/download-lagu-youtube</loc><priority>0.95</priority><changefreq>weekly</changefreq></url>
   
