@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- Performance: DNS Prefetch & Preconnect -->
+<link rel="dns-prefetch" href="https://pl29304694.profitablecpmratenetwork.com">
+<link rel="preconnect" href="https://pl29304694.profitablecpmratenetwork.com" crossorigin>
+<link rel="preload" href="/assets/favicon.svg" as="image" type="image/svg+xml">
+<link rel="preload" href="/assets/app.js?v=2" as="script">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b0d14" media="(prefers-color-scheme: dark)">
@@ -16,13 +21,76 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-<link rel="stylesheet" href="/assets/style.css?v=2">
-<link rel="stylesheet" href="/assets/ads.css">
+<!-- Critical CSS inlined for performance -->
+<style>
+/* Critical CSS - Inline this in <head> for 100/100 performance */
+:root{--bg:#ffffff;--bg-2:#f8f9fa;--card:#ffffff;--card-2:#f1f3f5;--text:#111111;--muted:#333333;--border:#e1e4e8;--border-2:#d1d5da;--accent:#2d5cf7;--accent-text:#ffffff;--accent-soft:rgba(45,92,247,0.1);--blue:#2d5cf7;--success:#22c55e;--danger:#ef4444;--radius:18px;--radius-sm:12px;--shadow:0 4px 12px rgba(0,0,0,0.05);--max:900px;--tap:44px}
+[data-theme="dark"]{--bg:#0b0d14;--bg-2:#161a24;--card:#1c212e;--card-2:#262a36;--text:#f3f4f9;--muted:#a0a8c0;--border:#2d3446;--border-2:#353948;--accent:#4a7fff;--accent-text:#0b0d14;--accent-soft:rgba(74,127,255,0.15);--shadow:0 8px 24px rgba(0,0,0,0.3)}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{color-scheme:dark}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;min-height:100vh}
+a{color:var(--text);text-decoration:none}
+button{font:inherit;color:inherit}
+img,svg{max-width:100%;display:block}
+.container{max-width:var(--max);margin:0 auto;padding:0 16px;width:100%}
+.sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;background:var(--accent);color:var(--accent-text);padding:8px 12px;border-radius:8px;z-index:9999}
+.site-header{padding:24px 0}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-weight:900;font-size:clamp(26px,4.6vw,36px);letter-spacing:-.02em;color:var(--text);line-height:1}
+.brand-dot{color:var(--accent);font-weight:900}
+.header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.btn-supporter{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-text);border:0;border-radius:var(--radius-sm);padding:10px 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:var(--tap)}
+.btn-lang,.btn-theme{background:transparent;border:1px solid var(--border-2);border-radius:var(--radius-sm);color:var(--text);padding:9px 14px;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:var(--tap)}
+.btn-theme{padding:0;width:var(--tap);height:var(--tap);justify-content:center}
+.btn-theme .icon-sun{display:none}
+html[data-theme="light"] .btn-theme .icon-moon{display:none}
+html[data-theme="light"] .btn-theme .icon-sun{display:block}
+.hero{padding:8px 0 40px;min-height:420px}
+.converter-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);min-height:320px}
+.converter-title{margin:0 0 24px;text-align:center;font-weight:800;letter-spacing:-.015em;font-size:clamp(22px,4vw,30px)}
+.url-wrap{position:relative;margin-bottom:16px}
+#yt-url{width:100%;background:var(--bg-2);color:var(--text);border:1px solid var(--border-2);border-radius:var(--radius-sm);padding:16px 56px 16px 22px;font-size:15px;outline:none;min-height:var(--tap);position:relative;z-index:1}
+#yt-url::placeholder{color:#7a8094}
+#paste-btn{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:0;color:var(--muted);cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;z-index:2}
+.controls-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg{display:inline-flex;background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius-sm);padding:4px;gap:2px}
+.seg-btn{background:transparent;border:0;color:var(--muted);cursor:pointer;padding:8px 18px;border-radius:var(--radius-sm);font-weight:600;font-size:14px;min-height:36px}
+.seg-btn.active{background:var(--text);color:var(--accent-text)}
+.select-pill{background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--radius-sm);color:var(--text);padding:9px 36px 9px 16px;font-weight:500;font-size:14px;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%23a3a8b8' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");background-repeat:no-repeat;background-position:right 14px center;background-size:12px;min-height:var(--tap)}
+.spacer{flex:1;min-width:0}
+#convert-btn{margin-left:auto;background:var(--text);color:var(--accent-text);border:0;border-radius:var(--radius-sm);padding:12px 32px;font-weight:700;font-size:15px;cursor:pointer;min-height:var(--tap)}
+html[data-theme="light"]{--bg:#f3f4f9;--bg-2:#ffffff;--card:#ffffff;--card-2:#f6f7fb;--text:#11131a;--muted:#4a5168;--border:#e3e6ef;--border-2:#d2d6e3;--accent-text:#1a1d28}
+html[data-theme="light"] #convert-btn{background:#11131a;color:#fff}
+html[data-theme="light"] .seg-btn.active{background:#11131a;color:#fff}
+@media (max-width:560px){
+.container{padding:0 12px}
+.converter-card{padding:20px 16px;border-radius:14px}
+.header-row{gap:8px}
+.brand{font-size:24px}
+.btn-supporter{padding:8px 12px;font-size:13px}
+.btn-supporter span.s-label{display:none}
+.btn-lang span.l-label{display:none}
+.controls-row{gap:8px}
+#convert-btn{margin-left:0;width:100%;order:99}
+}
+
+</style>
+
+<!-- Load full CSS asynchronously (non-blocking) -->
+<link rel="preload" href="/assets/style.css?v=2" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="/assets/style.css?v=2"></noscript>
+
+<!-- Load ads CSS with low priority -->
+<link rel="stylesheet" href="/assets/ads.css" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="/assets/ads.css"></noscript>
 
 
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can I download a channel's entire Shorts feed?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you can create a playlist containing those Shorts. Paste the playlist URL and every video will be processed individually."}},{"@type":"Question","name":"Why does my Short look blurry?","acceptedAnswer":{"@type":"Answer","text":"Shorts are often uploaded at lower resolutions by creators. We pull the highest resolution available; if that's 720p, the download will reflect that."}},{"@type":"Question","name":"What is the difference between a Short and a regular video?","acceptedAnswer":{"@type":"Answer","text":"Technically, very little. Shorts are just vertical videos (9:16 ratio) that are 60 seconds or less. Our system handles them using the same high-speed extraction engine as regular videos."}},{"@type":"Question","name":"Will the downloaded Short have a YouTube watermark?","acceptedAnswer":{"@type":"Answer","text":"No. Unlike some other platforms, YouTube does not embed a hardcoded watermark into the video file itself. Your downloaded MP4 will be clean and watermark-free."}},{"@type":"Question","name":"Can I download Shorts in 4K?","acceptedAnswer":{"@type":"Answer","text":"Most Shorts are uploaded at a maximum resolution of 1080p to optimize for mobile screens. If a creator managed to upload a 4K vertical video, our tool will capture it, but 1080p is the standard maximum."}},{"@type":"Question","name":"How do I save the Short to my iPhone Camera Roll?","acceptedAnswer":{"@type":"Answer","text":"After downloading the MP4 via Safari, open the 'Files' app, locate the video in your Downloads folder, tap the share icon, and select 'Save Video'."}},{"@type":"Question","name":"Why did the MP3 extraction fail?","acceptedAnswer":{"@type":"Answer","text":"This is extremely rare, but if a Short has been completely muted by YouTube due to copyright claims, there is no audio track for our servers to extract."}},{"@type":"Question","name":"Is there a limit to how many Shorts I can download?","acceptedAnswer":{"@type":"Answer","text":"No! You can download as many Shorts as you like. Our service is completely unlimited and free of charge."}},{"@type":"Question","name":"Can I download unlisted Shorts?","acceptedAnswer":{"@type":"Answer","text":"Yes, as long as you have the direct link to the unlisted Short, our tool can access and convert it. We cannot access Private Shorts."}},{"@type":"Question","name":"Does the tool work on desktop computers?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. You can copy the URL of a Short from your desktop browser (e.g., youtube.com/shorts/...) and paste it into our tool just like any other link."}},{"@type":"Question","name":"What happens to the video thumbnail?","acceptedAnswer":{"@type":"Answer","text":"For MP3 downloads, we embed the Short's thumbnail as the album artwork. For MP4 downloads, the video file itself contains the first frame as the poster image."}},{"@type":"Question","name":"Are the downloads safe from viruses?","acceptedAnswer":{"@type":"Answer","text":"Yes, the files are generated directly from YouTube's servers via FFmpeg muxing. We do not alter the files or inject malicious code."}}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to convert using yt2mp3.lol","step":[{"@type":"HowToStep","name":"Copy link","text":"Copy the video URL from your browser or app."},{"@type":"HowToStep","name":"Paste and select format","text":"Paste the link and choose your preferred format and quality."},{"@type":"HowToStep","name":"Download","text":"Click Convert and download the file."}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Могу ли я скачать всю ленту Shorts канала?","acceptedAnswer":{"@type":"Answer","text":"Да, если вы можете создать плейлист, содержащий эти Shorts. Вставьте URL плейлиста, и каждое видео будет обработано отдельно."}},{"@type":"Question","name":"Почему мой Short выглядит размытым?","acceptedAnswer":{"@type":"Answer","text":"Shorts часто загружаются создателями в более низком разрешении. Мы получаем максимально доступное разрешение; если это 720p, загрузка будет отражать это."}},{"@type":"Question","name":"В чем разница между Short и обычным видео?","acceptedAnswer":{"@type":"Answer","text":"Технически очень мало. Shorts — это просто вертикальные видео (соотношение 9:16) длительностью 60 секунд или меньше. Наша система обрабатывает их с помощью того же высокоскоростного механизма извлечения, что и обычные видео."}},{"@type":"Question","name":"Будет ли на скачанном Short водяной знак YouTube?","acceptedAnswer":{"@type":"Answer","text":"Нет. В отличие от некоторых других платформ, YouTube не встраивает жестко закодированный водяной знак в сам видеофайл. Ваш скачанный MP4 будет чистым и без водяных знаков."}},{"@type":"Question","name":"Могу ли я скачать Shorts в 4K?","acceptedAnswer":{"@type":"Answer","text":"Большинство Shorts загружаются с максимальным разрешением 1080p для оптимизации под мобильные экраны. Если создателю удалось загрузить вертикальное видео в 4K, наш инструмент его захватит, но 1080p — стандартный максимум."}},{"@type":"Question","name":"Как сохранить Short в Camera Roll моего iPhone?","acceptedAnswer":{"@type":"Answer","text":"После загрузки MP4 через Safari откройте приложение «Файлы», найдите видео в папке «Загрузки», нажмите значок «Поделиться» и выберите «Сохранить видео»."}},{"@type":"Question","name":"Почему не удалось извлечь MP3?","acceptedAnswer":{"@type":"Answer","text":"Это крайне редко, но если Short был полностью отключен YouTube из-за претензий по авторским правам, нашим серверам нечего извлекать из аудиодорожки."}},{"@type":"Question","name":"Есть ли ограничение на количество Shorts, которые я могу скачать?","acceptedAnswer":{"@type":"Answer","text":"Нет! Вы можете скачать столько Shorts, сколько захотите. Наш сервис полностью неограничен и бесплатен."}},{"@type":"Question","name":"Могу ли я скачать неопубликованные Shorts?","acceptedAnswer":{"@type":"Answer","text":"Да, если у вас есть прямая ссылка на неопубликованный Short, наш инструмент может получить к нему доступ и конвертировать его. Мы не можем получить доступ к частным Shorts."}},{"@type":"Question","name":"Работает ли инструмент на настольных компьютерах?","acceptedAnswer":{"@type":"Answer","text":"Абсолютно. Вы можете скопировать URL Short из вашего настольного браузера (например, youtube.com/shorts/...) и вставить его в наш инструмент, как любую другую ссылку."}},{"@type":"Question","name":"Что происходит с миниатюрой видео?","acceptedAnswer":{"@type":"Answer","text":"Для загрузок MP3 мы встраиваем миниатюру Short в качестве обложки альбома. Для загрузок MP4 сам видеофайл содержит первый кадр в качестве постерного изображения."}},{"@type":"Question","name":"Безопасны ли загрузки от вирусов?","acceptedAnswer":{"@type":"Answer","text":"Да, файлы генерируются непосредственно с серверов YouTube через мультиплексирование FFmpeg. Мы не изменяем файлы и не внедряем вредоносный код."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"Как конвертировать с помощью yt2mp3.lol","step":[{"@type":"HowToStep","name":"Скопировать ссылку","text":"Скопируйте URL видео из вашего браузера или приложения."},{"@type":"HowToStep","name":"Вставить и выбрать формат","text":"Вставьте ссылку и выберите предпочитаемый формат и качество."},{"@type":"HowToStep","name":"Скачать","text":"Нажмите «Конвертировать» и скачайте файл."}]}</script>
 </head>
 <body class="has-sticky-ad">
 <a href="#converter" class="skip">Skip to converter</a>

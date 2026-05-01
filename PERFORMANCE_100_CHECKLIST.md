@@ -1,19 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+# Performance 100/100 Checklist
+
+## Current Status
+- **Performance**: 86/100 → Target: 100/100
+- **Issues**: 
+  - Render blocking CSS (400ms savings)
+  - Layout shift (CLS: 0.274 → Target: <0.1)
+
+## Files Created
+1. ✅ `web/assets/critical.css` - Minified critical CSS for inlining
+2. ✅ `scripts/optimize_performance.py` - Automation script
+3. ✅ `PERFORMANCE_OPTIMIZATION_GUIDE.md` - Detailed guide
+
+## Quick Implementation (Manual - 1 File Test)
+
+### Test on `web/index.html` first:
+
+1. **Add Resource Hints** (after `<head>` tag):
+```html
 <head>
 <!-- Performance: DNS Prefetch & Preconnect -->
 <link rel="dns-prefetch" href="https://pl29304694.profitablecpmratenetwork.com">
 <link rel="preconnect" href="https://pl29304694.profitablecpmratenetwork.com" crossorigin>
 <link rel="preload" href="/assets/favicon.svg" as="image" type="image/svg+xml">
 <link rel="preload" href="/assets/app.js?v=2" as="script">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Adsterra Test - yt2mp3.lol</title>
+```
+
+2. **Replace CSS Loading** (find these lines):
+```html
+<!-- REMOVE THESE -->
+<link rel="stylesheet" href="/assets/style.css?v=2">
+<link rel="stylesheet" href="/assets/ads.css">
+```
+
+**Replace with**:
+```html
 <!-- Critical CSS inlined for performance -->
 <style>
-/* Critical CSS - Inline this in <head> for 100/100 performance */
-:root{--bg:#ffffff;--bg-2:#f8f9fa;--card:#ffffff;--card-2:#f1f3f5;--text:#111111;--muted:#333333;--border:#e1e4e8;--border-2:#d1d5da;--accent:#2d5cf7;--accent-text:#ffffff;--accent-soft:rgba(45,92,247,0.1);--blue:#2d5cf7;--success:#22c55e;--danger:#ef4444;--radius:18px;--radius-sm:12px;--shadow:0 4px 12px rgba(0,0,0,0.05);--max:900px;--tap:44px}
-[data-theme="dark"]{--bg:#0b0d14;--bg-2:#161a24;--card:#1c212e;--card-2:#262a36;--text:#f3f4f9;--muted:#a0a8c0;--border:#2d3446;--border-2:#353948;--accent:#4a7fff;--accent-text:#0b0d14;--accent-soft:rgba(74,127,255,0.15);--shadow:0 8px 24px rgba(0,0,0,0.3)}
+/* Copy entire content from web/assets/critical.css here */
+:root{--bg:#ffffff;--bg-2:#f8f9fa;--card:#ffffff;--card-2:#f1f3f5;--text:#111111;--muted:#333333;--border:#e1e4e8;--border-2:#d1d5da;--accent:#2d5cf7;--accent-text:#ffffff;--radius:18px;--radius-sm:12px;--shadow:0 4px 12px rgba(0,0,0,0.05);--max:900px;--tap:44px}
+[data-theme="dark"]{--bg:#0b0d14;--bg-2:#161a24;--card:#1c212e;--card-2:#262a36;--text:#f3f4f9;--muted:#a0a8c0;--border:#2d3446;--border-2:#353948;--accent:#4a7fff;--accent-text:#0b0d14;--shadow:0 8px 24px rgba(0,0,0,0.3)}
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
 html{color-scheme:dark}
@@ -64,7 +89,6 @@ html[data-theme="light"] .seg-btn.active{background:#11131a;color:#fff}
 .controls-row{gap:8px}
 #convert-btn{margin-left:0;width:100%;order:99}
 }
-
 </style>
 
 <!-- Load full CSS asynchronously (non-blocking) -->
@@ -74,116 +98,91 @@ html[data-theme="light"] .seg-btn.active{background:#11131a;color:#fff}
 <!-- Load ads CSS with low priority -->
 <link rel="stylesheet" href="/assets/ads.css" media="print" onload="this.media='all'">
 <noscript><link rel="stylesheet" href="/assets/ads.css"></noscript>
-<style>
-  .test-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-  }
-  .test-section {
-    margin: 40px 0;
-    padding: 20px;
-    background: var(--card);
-    border-radius: 12px;
-  }
-  .test-section h2 {
-    margin-top: 0;
-    color: var(--accent);
-  }
-  .direct-ad {
-    margin: 20px 0;
-    padding: 20px;
-    background: var(--bg-2);
-    border: 2px dashed var(--border);
-    border-radius: 8px;
-    text-align: center;
-  }
-</style>
-</head>
-<body>
+```
 
-<header class="site-header">
-  <div class="container header-row">
-    <a class="brand" href="/">yt2mp3<span class="brand-dot">.lol</span></a>
-    <h1 style="margin: 0; font-size: 16px; color: var(--muted);">Adsterra Test Page</h1>
-  </div>
-</header>
+3. **Test with Lighthouse**:
+```bash
+# Open Chrome DevTools
+# Go to Lighthouse tab
+# Run audit for Performance
+# Should see 100/100 with CLS < 0.1
+```
 
-<div class="test-container">
-  
-  <div class="test-section">
-    <h2>🧪 Test 1: Direct Adsterra Code (Should Work)</h2>
-    <p>This is the raw Adsterra code you provided, embedded directly:</p>
-    <div class="direct-ad">
-      <p style="font-size: 12px; color: var(--muted); margin-bottom: 10px;">DIRECT ADSTERRA AD BELOW:</p>
-      <script>
-        atOptions = {
-          'key' : 'b14f8d923aebce5fa713180a7c8367a2',
-          'format' : 'iframe',
-          'height' : 90,
-          'width' : 728,
-          'params' : {}
-        };
-      </script>
-      <script src="https://www.highperformanceformat.com/b14f8d923aebce5fa713180a7c8367a2/invoke.js"></script>
-    </div>
-    <p style="font-size: 14px; color: var(--muted);">
-      ✅ If you see an ad above, Adsterra is working!<br>
-      ❌ If you see nothing, check your Adsterra account status.
-    </p>
-  </div>
+## Automated Implementation (All Files)
 
-  <div class="test-section">
-    <h2>🎯 Test 2: Our Ad System (Using ads-adsterra.js)</h2>
-    <p>This uses our automated ad system with the same Adsterra code:</p>
-    
-    <!-- Ad: Top Banner -->
-    <div class="ad-container ad-top-banner" data-ad-type="banner-top">
-      <div class="ad-label">Advertisement</div>
-    </div>
-    
-    <p style="font-size: 14px; color: var(--muted); margin-top: 20px;">
-      ✅ If you see an ad above, our ad system is working!<br>
-      ❌ If you see just "Advertisement" label, check console for errors.
-    </p>
-  </div>
+### Run the Python script:
 
-  <div class="test-section">
-    <h2>🔍 Debug Information</h2>
-    <p>Open browser console (F12) and check for:</p>
-    <ul style="line-height: 1.8;">
-      <li><code>🎯 Adsterra Ad System Initialized</code> - System loaded</li>
-      <li><code>✅ Adsterra ad loaded: banner-top</code> - Ad was loaded</li>
-      <li>Any red error messages</li>
-    </ul>
-    
-    <button onclick="runDebug()" style="padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">
-      Run Debug Check
-    </button>
-    
-    <pre id="debug-output" style="margin-top: 20px; padding: 15px; background: var(--bg-2); border-radius: 6px; font-size: 12px; overflow-x: auto;"></pre>
-  </div>
+```bash
+# From project root
+python3 scripts/optimize_performance.py
+```
 
-</div>
+This will:
+- ✅ Inline critical CSS in all HTML files
+- ✅ Convert CSS loading to async
+- ✅ Add resource hints
+- ✅ Fix layout shifts with min-height
+- ✅ Optimize ~93 HTML files automatically
 
-<script>
-function runDebug() {
-  const output = document.getElementById('debug-output');
-  const info = {
-    'AdManager exists': typeof window.AdManager !== 'undefined',
-    'Ad network': window.AdManager?.network || 'Not loaded',
-    'Device type': window.AdManager?.isMobile ? 'Mobile' : 'Desktop',
-    'Ad containers': document.querySelectorAll('.ad-container').length,
-    'Ads loaded': document.querySelectorAll('[data-loaded="true"]').length,
-    'Adsterra scripts': document.querySelectorAll('script[src*="highperformanceformat"]').length
-  };
-  
-  output.textContent = JSON.stringify(info, null, 2);
-  console.log('Debug Info:', info);
-}
-</script>
+## Verification Steps
 
-<script src="/assets/ads-adsterra.js" defer></script>
+After optimization, verify on multiple pages:
 
-</body>
-</html>
+1. **Homepage** (`/`)
+   - Performance: 100/100
+   - CLS: <0.1
+   - FCP: <1.8s
+   - LCP: <2.5s
+
+2. **Language Pages** (`/es/`, `/hi/`, etc.)
+   - Same metrics as homepage
+
+3. **Downloader Pages** (`/youtube-shorts-downloader`, etc.)
+   - Same metrics across all variants
+
+4. **Special Pages** (`/ytmp3`, `/youtube-mp3`, etc.)
+   - Verify no regressions
+
+## Expected Improvements
+
+| Metric | Before | After | Target |
+|--------|--------|-------|--------|
+| Performance | 86 | 100 | 100 |
+| CLS | 0.274 | <0.05 | <0.1 |
+| FCP | ~1.2s | <0.9s | <1.8s |
+| LCP | ~2.0s | <1.5s | <2.5s |
+| TBT | ~150ms | <100ms | <200ms |
+| Blocking Time | 400ms | 0ms | 0ms |
+
+## Rollback Plan
+
+If issues occur:
+1. Keep backup of original files
+2. Script creates `.bak` files automatically
+3. Revert with: `git checkout web/`
+
+## Production Deployment
+
+1. ✅ Test locally first
+2. ✅ Verify on staging
+3. ✅ Deploy to production
+4. ✅ Monitor Core Web Vitals
+5. ✅ Check Google Search Console
+
+## Additional Optimizations (Optional)
+
+For even better performance:
+
+1. **Enable HTTP/2 Server Push**
+2. **Add Service Worker for caching**
+3. **Implement Brotli compression**
+4. **Use CDN for static assets**
+5. **Optimize images with WebP**
+
+## Support
+
+If you encounter issues:
+- Check `PERFORMANCE_OPTIMIZATION_GUIDE.md` for details
+- Review Lighthouse report for specific issues
+- Test on incognito mode (no extensions)
+- Clear cache and test again
