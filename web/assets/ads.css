@@ -15,29 +15,38 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  contain: layout style paint;
+  will-change: auto;
 }
 
 .ad-container:hover {
   border-color: var(--border-2);
 }
 
-/* Fixed dimensions for different ad types */
+/* Fixed dimensions for different ad types - Desktop */
 .ad-top-banner,
 .ad-below-converter {
-  min-height: 130px; /* 90px ad + padding */
-  max-height: 130px;
+  min-height: 122px; /* 90px ad + 32px padding */
+  height: 122px;
+  max-height: 122px;
+  width: 100%;
+  max-width: 760px;
 }
 
 .ad-sidebar {
-  min-height: 640px; /* 600px ad + padding */
-  max-height: 640px;
-  width: 100%;
-  max-width: 200px;
+  min-height: 632px; /* 600px ad + 32px padding */
+  height: 632px;
+  max-height: 632px;
+  width: 192px;
+  max-width: 192px;
 }
 
 .ad-native {
-  min-height: 290px; /* 250px ad + padding */
-  max-height: 290px;
+  min-height: 282px; /* 250px ad + 32px padding */
+  height: 282px;
+  max-height: 282px;
+  width: 100%;
+  max-width: 760px;
 }
 
 /* Constrain ad wrapper inside container */
@@ -125,7 +134,9 @@
   text-align: center;
   transform: translateY(0);
   transition: transform 0.3s ease;
-  height: 70px; /* Fixed height for 320x50 ad */
+  min-height: 66px; /* Fixed height for 320x50 ad + 16px padding */
+  height: 66px;
+  max-height: 66px;
   overflow: hidden;
 }
 
@@ -136,7 +147,7 @@
   
   /* Add padding to body to prevent content being hidden */
   body.has-sticky-ad {
-    padding-bottom: 70px;
+    padding-bottom: 66px;
   }
 }
 
@@ -179,13 +190,17 @@
   
   .ad-top-banner,
   .ad-below-converter {
-    min-height: 290px; /* 250px ad + padding for mobile 300x250 */
-    max-height: 290px;
+    min-height: 274px; /* 250px ad + 24px padding for mobile 300x250 */
+    height: 274px;
+    max-height: 274px;
+    max-width: 100%;
   }
   
   .ad-native {
-    min-height: 290px; /* 250px ad + padding */
-    max-height: 290px;
+    min-height: 274px; /* 250px ad + 24px padding */
+    height: 274px;
+    max-height: 274px;
+    max-width: 100%;
   }
 }
 
