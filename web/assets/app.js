@@ -176,7 +176,7 @@
 
   function renderProgress(job) {
     var pct = Math.max(0, Math.min(100, Number(job.progress) || 0));
-    var labels = { queued: "Queued…", downloading: "Downloading from YouTube…", processing: "Converting with FFmpeg…", done: "Ready", error: "Failed" };
+    var labels = { queued: "Queued…", downloading: "Downloading from YouTube…", processing: "Processing…", done: "Ready", error: "Failed" };
     var stateLabel = labels[job.state] || "Working…";
     var thumb = job.thumbnail ? '<img alt="" src="' + escapeHtml(job.thumbnail) + '" loading="lazy" />' : "";
     var title = job.title ? '<span class="status-title">' + escapeHtml(job.title) + "</span>" : "";
@@ -274,7 +274,7 @@
           .then(function (r) { return r.json(); })
           .then(function (job) {
             var pct = Math.max(0, Math.min(100, Number(job.progress) || 0));
-            var labels = { queued: "Queued…", downloading: "Downloading…", processing: "Converting…", done: "Ready", error: "Failed" };
+            var labels = { queued: "Queued…", downloading: "Downloading…", processing: "Processing…", done: "Ready", error: "Failed" };
             var stateLabel = labels[job.state] || "Working…";
             var thumb = job.thumbnail ? '<img alt="" src="' + escapeHtml(job.thumbnail) + '" loading="lazy" />' : "";
             var title = job.title ? '<span class="status-title">' + escapeHtml(job.title) + "</span>" : "";
