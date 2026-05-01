@@ -62,8 +62,11 @@ app = FastAPI(title="ytconvert-api", version="0.1.0")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
+    max_age=3600,
 )
 
 # Shared job store (file-based for multi-worker support)
@@ -271,6 +274,19 @@ def _run_conversion(job_id: str, url: str, fmt: str, quality: str) -> None:
 @app.get("/healthz")
 def healthz() -> dict:
     return {"ok": True, "yt_dlp": yt_dlp.version.__version__}
+
+
+@app.options("/{full_path:path}")
+async def options_handler(full_path: str):
+    """Handle OPTIONS requests for CORS preflight"""
+    return JSONResponse(
+        content={"ok": True},
+        headers={
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+            "Access-Control-Allow-Headers": "*",
+        }
+    )
 
 
 @app.get("/api/debug")
