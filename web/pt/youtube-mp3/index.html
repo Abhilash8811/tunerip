@@ -48,7 +48,7 @@ img,svg{max-width:100%;display:block}
 .brand{font-weight:900;font-size:clamp(26px,4.6vw,36px);letter-spacing:-.02em;color:var(--text);line-height:1}
 .brand-dot{color:var(--accent);font-weight:900}
 .header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.btn-supporter{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-text);border:0;border-radius:var(--radius-sm);padding:10px 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:var(--tap);touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+.btn-supporter{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-text);border:0;border-radius:var(--radius-sm);padding:10px 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:var(--tap);touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;pointer-events:auto;position:relative;z-index:10}
 .btn-lang,.btn-theme{background:transparent;border:1px solid var(--border-2);border-radius:var(--radius-sm);color:var(--text);padding:9px 14px;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:var(--tap)}
 .btn-theme{padding:0;width:var(--tap);height:var(--tap);justify-content:center}
 .btn-theme .icon-sun{display:none}

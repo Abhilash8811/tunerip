@@ -73,6 +73,9 @@ img,svg{max-width:100%;display:block}
   -webkit-tap-highlight-color:transparent;
   user-select:none;
   -webkit-user-select:none;
+  pointer-events:auto;
+  position:relative;
+  z-index:10;
 }
 .btn-supporter:hover{filter:brightness(1.05)}
 .btn-supporter:active{transform:scale(0.98)}
