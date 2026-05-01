@@ -40,6 +40,10 @@ html[data-theme="light"] .btn-theme .icon-sun{display:block}
 html[data-theme="light"]{--bg:#f3f4f9;--bg-2:#ffffff;--card:#ffffff;--card-2:#f6f7fb;--text:#11131a;--muted:#4a5168;--border:#e3e6ef;--border-2:#d2d6e3;--accent-text:#1a1d28}
 html[data-theme="light"] #convert-btn{background:#11131a;color:#fff}
 html[data-theme="light"] .seg-btn.active{background:#11131a;color:#fff}
+.ad-container{margin:24px auto;text-align:center;background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ad-top-banner,.ad-below-converter{min-height:122px;height:122px;max-height:122px;width:100%;max-width:760px}
+.ad-native{min-height:282px;height:282px;max-height:282px;width:100%;max-width:760px}
+.ad-sidebar{min-height:632px;height:632px;max-height:632px;width:192px;max-width:192px}
 @media (max-width:560px){
 .container{padding:0 12px}
 .converter-card{padding:20px 16px;border-radius:14px}
@@ -50,4 +54,5 @@ html[data-theme="light"] .seg-btn.active{background:#11131a;color:#fff}
 .btn-lang span.l-label{display:none}
 .controls-row{gap:8px}
 #convert-btn{margin-left:0;width:100%;order:99}
+.ad-top-banner,.ad-below-converter,.ad-native{min-height:274px;height:274px;max-height:274px;max-width:100%}
 }
