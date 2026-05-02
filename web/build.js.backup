@@ -6,7 +6,6 @@
 const fs = require("fs");
 const path = require("path");
 
-const currentDate = new Date().toISOString().split('T')[0];
 const WEB = path.resolve(__dirname);
 const SITE = "https://yt2mp3.lol";
 const BRAND = "yt2mp3.lol";
@@ -14,7 +13,6 @@ const BRAND = "yt2mp3.lol";
 // URL slugs mirror yt2mp3.lol's structure so SEO equity transfers.
 const PAGES = [
   { slug: "youtube-to-mp4-converter", title: "YouTube to MP4 Converter (1080p & 4K, Free)", h1: "YouTube to MP4 Converter",
-    converterTitle: "YouTube to MP4 Converter",
     kicker: "Download any YouTube video as MP4 in 360p, 720p, 1080p, or 4K. Free, fast, no signup.",
     defaultFormat: "mp4", defaultQuality: "1080",
     keywords: "youtube to mp4, youtube mp4 converter, youtube mp4 downloader, youtube to 1080p, youtube to 4k",
@@ -30,7 +28,6 @@ const PAGES = [
       ["Is the MP4 watermark-free?", "Yes. No watermarks, overlays, or trailers are added to the file."],
     ] },
   { slug: "youtube-shorts-downloader", title: "YouTube Shorts Downloader (MP3 & MP4)", h1: "YouTube Shorts Downloader",
-    converterTitle: "YouTube Shorts Downloader",
     kicker: "Save YouTube Shorts as MP3 audio or MP4 video in seconds. Original vertical aspect ratio preserved.",
     defaultFormat: "mp4", defaultQuality: "1080",
     keywords: "youtube shorts downloader, shorts to mp3, shorts to mp4, download youtube shorts, save youtube shorts",
@@ -44,7 +41,6 @@ const PAGES = [
       ["Why does my Short look blurry?", "Shorts are often uploaded at lower resolutions by creators. We pull the highest resolution available; if that's 720p, the download will reflect that."],
     ] },
   { slug: "youtube-playlist-downloader", title: "YouTube Playlist Downloader (MP3 & MP4 Batch)", h1: "YouTube Playlist Downloader",
-    converterTitle: "YouTube Playlist Downloader",
     kicker: "Convert an entire YouTube playlist to MP3 or MP4 in one click. Each video downloads as its own file.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "youtube playlist downloader, playlist to mp3, youtube playlist to mp4, batch youtube converter",
@@ -58,7 +54,6 @@ const PAGES = [
       ["Are playlists downloaded in order?", "Yes. Original playlist ordering is preserved by default."],
     ] },
   { slug: "youtube-multi-downloader", title: "Multiple YouTube Downloader (Batch Convert)", h1: "Multiple YouTube Downloader",
-    converterTitle: "Multiple YouTube Downloader",
     kicker: "Paste several YouTube URLs at once and convert them all in parallel. Great for playlists, curated lists, and research workflows.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "multiple youtube downloader, batch youtube to mp3, bulk youtube converter, multi youtube download",
@@ -72,7 +67,6 @@ const PAGES = [
       ["What if one URL fails?", "That job is marked failed and the rest keep running. You can retry just the failed URL."],
     ] },
   { slug: "youtube-to-mp3-320kbps-converter", title: "YouTube to MP3 320kbps Converter", h1: "YouTube to MP3 at 320 kbps",
-    converterTitle: "YouTube to MP3 320kbps",
     kicker: "True 320 kbps constant bitrate MP3 re-encoded with FFmpeg — not a padded fake.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "youtube to 320kbps, youtube to mp3 320kbps, high quality youtube mp3, 320 kbps converter",
@@ -87,7 +81,6 @@ const PAGES = [
     ] },
   // Extras we keep for long-tail SEO value
   { slug: "wav-converter", title: "YouTube to WAV Converter (Lossless)", h1: "YouTube to WAV Converter",
-    converterTitle: "YouTube to WAV Converter",
     kicker: "Export YouTube audio as uncompressed 16-bit 44.1kHz WAV for editing, sampling, or archival.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "youtube to wav, youtube wav converter, lossless youtube audio, wav download youtube",
@@ -100,7 +93,6 @@ const PAGES = [
       ["Is WAV supported on iPhone?", "Yes. For mobile listening, MP3 or M4A is more practical."],
     ] },
   { slug: "m4a-converter", title: "YouTube to M4A (AAC) Converter", h1: "YouTube to M4A Converter",
-    converterTitle: "YouTube to M4A Converter",
     kicker: "Export YouTube audio as M4A (AAC) — the most efficient audio format for Apple devices.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "youtube to m4a, youtube m4a converter, aac youtube download, youtube to aac",
@@ -113,7 +105,6 @@ const PAGES = [
       ["Does M4A include album art?", "The video thumbnail is embedded as cover art when the source provides one."],
     ] },
   { slug: "iphone-converter", title: "YouTube to MP3 on iPhone (No App)", h1: "YouTube to MP3 on iPhone",
-    converterTitle: "YouTube to MP3 on iPhone",
     kicker: "Convert YouTube to MP3 directly on iPhone or iPad — no App Store install required.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "youtube to mp3 iphone, iphone youtube converter, safari youtube mp3, ios youtube to mp3",
@@ -126,7 +117,6 @@ const PAGES = [
       ["Can I automate this with Shortcuts?", "Yes — build a Shortcut that takes a shared URL and opens the converter with it pre-filled."],
     ] },
   { slug: "android-converter", title: "YouTube to MP3 on Android", h1: "YouTube to MP3 on Android",
-    converterTitle: "YouTube to MP3 on Android",
     kicker: "Fast YouTube conversion on any Android phone through Chrome, Firefox, or Samsung Internet.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "youtube to mp3 android, android youtube converter, chrome youtube mp3, samsung internet youtube",
@@ -139,7 +129,6 @@ const PAGES = [
       ["Do I need storage permission?", "No extra permissions needed — the browser handles downloads."],
     ] },
   { slug: "how-to-install", title: "How to Install - Add to Home Screen", h1: "How to Install",
-    converterTitle: "Install YouTube Converter",
     kicker: `Add ${BRAND} to your phone's home screen so it opens like a native app. No App Store listing, no APK, no permissions beyond what the browser already has.`,
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "install ytmp3, add to home screen, ytmp3 app, youtube converter app",
@@ -187,7 +176,6 @@ const PAGES = [
       ["Do you have a phone number?", "We operate asynchronously over email to keep operating costs low, which is what lets the service stay free."],
     ] },
   { slug: "copyright-claims", title: "Copyright Claims & DMCA Notices", h1: "Copyright Claims",
-    converterTitle: "Copyright Claims",
     kicker: "If you believe content available through our service infringes your copyright, submit a notice using the format below and we will respond promptly.",
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "ytmp3 copyright, dmca notice, copyright claim, takedown request",
@@ -199,7 +187,6 @@ const PAGES = [
       ["Repeat infringers", "We reserve the right to permanently block URLs, IP addresses, or accounts associated with repeat infringement."],
     ], faqs: [] },
   { slug: "privacy-policy", title: "Privacy Policy", h1: "Privacy Policy",
-    converterTitle: "Privacy Policy",
     kicker: `How ${BRAND} collects, uses, and protects information. Plain language, no dark patterns.`,
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "ytmp3 privacy policy, youtube converter privacy",
@@ -213,7 +200,6 @@ const PAGES = [
       ["Changes", "Material changes to this policy will be announced at the top of this page for at least 30 days before taking effect."],
     ], faqs: [] },
   { slug: "terms-of-use", title: "Terms of Use", h1: "Terms of Use",
-    converterTitle: "Terms of Use",
     kicker: `By using ${BRAND} you agree to the terms below. Read them carefully — they are binding.`,
     defaultFormat: "mp3", defaultQuality: "320",
     keywords: "ytmp3 terms, terms of use, service agreement",
@@ -269,26 +255,7 @@ PAGES.forEach(p => {
   }
 });
 
-function esc(s) { 
-  // Don't escape if it's already HTML (contains tags)
-  if (String(s).includes('<') && String(s).includes('>')) return s;
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); 
-}
-
-function generateHreflang() {
-  const langs = [
-    ["en", "/"], ["ar", "/ar/"], ["bn", "/bn/"], ["de", "/de/"],
-    ["es", "/es/"], ["fil", "/fil/"], ["fr", "/fr/"], ["hi", "/hi/"],
-    ["id", "/id/"], ["it", "/it/"], ["ja", "/ja/"], ["ko", "/ko/"],
-    ["pt", "/pt/"], ["ru", "/ru/"], ["th", "/th/"], ["tr", "/tr/"],
-    ["ur", "/ur/"], ["vi", "/vi/"]
-  ];
-  let tags = '<link rel="alternate" hreflang="x-default" href="' + SITE + '/">\n';
-  for (const [code, path] of langs) {
-    tags += '<link rel="alternate" hreflang="' + code + '" href="' + SITE + path + '">\n';
-  }
-  return tags;
-}
+function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
 function header() {
   return `<header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="${BRAND} home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">English</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="#" class="lang-active">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>`;
@@ -305,7 +272,7 @@ function converterCard(p) {
     : `<input id="yt-url" name="url" type="text" inputmode="url" placeholder="Paste YouTube URL or search keywords" aria-label="Paste a YouTube link" required autocomplete="off" spellcheck="false">`;
 
   return `<div id="converter" class="converter-card" role="region" aria-label="YouTube converter">
-  <h2 class="converter-title">${p.converterTitle || "YT2MP3 - YouTube to MP3"}</h2>
+  <h2 class="converter-title">YT2MP3 - YouTube to MP3</h2>
   <form id="convert-form" autocomplete="off" novalidate>
     <div class="url-wrap">
       ${inputHtml}
@@ -405,13 +372,13 @@ function renderLandingPage(p) {
 <title>${esc(p.title)} - ${BRAND}</title>
 <meta name="description" content="${esc(p.kicker)}">
 <meta name="keywords" content="${esc(p.keywords)}">
-<link rel="canonical" href="${SITE}/${p.slug}/">
+<link rel="canonical" href="${SITE}/${p.slug}">
 <meta property="og:title" content="${esc(p.title)}">
 <meta property="og:description" content="${esc(p.kicker)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${SITE}/${p.slug}">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="robots" content="index,follow,max-image-preview:large">\n${generateHreflang()}
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css?v=2">
 <script>(function(){try{var t=localStorage.getItem("tr-theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();</script>
