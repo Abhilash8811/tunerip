@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "mkdir -p dist && cp -a web/. dist/ && cp -a public/. dist/",
   "installCommand": "true",
