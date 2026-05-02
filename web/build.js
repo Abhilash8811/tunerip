@@ -291,7 +291,7 @@ function generateHreflang() {
 }
 
 function header() {
-  return `<header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="${BRAND} home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">English</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="#" class="lang-active">English</a><a role="menuitem" href="#">العربية</a><a role="menuitem" href="#">বাংলা</a><a role="menuitem" href="#">Deutsch</a><a role="menuitem" href="#">Español</a><a role="menuitem" href="#">Filipino</a><a role="menuitem" href="#">Français</a><a role="menuitem" href="#">हिन्दी</a><a role="menuitem" href="#">Bahasa Indonesia</a><a role="menuitem" href="#">Italiano</a><a role="menuitem" href="#">日本語</a><a role="menuitem" href="#">한국어</a><a role="menuitem" href="#">Bahasa Melayu</a><a role="menuitem" href="#">မြန်မာ</a><a role="menuitem" href="#">Português</a><a role="menuitem" href="#">Русский</a><a role="menuitem" href="#">ภาษาไทย</a><a role="menuitem" href="#">Türkçe</a><a role="menuitem" href="#">اردو</a><a role="menuitem" href="#">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>`;
+  return `<header class="site-header"><div class="container header-row"><a class="brand" href="/" aria-label="${BRAND} home">yt2mp3<span class="brand-dot">.lol</span></a><div class="header-actions"><button type="button" class="btn-supporter" aria-label="Support"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg><span class="s-label">Supporter</span></button><details class="lang-menu"><summary class="btn-lang" role="button" aria-label="Language"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg><span class="l-label">English</span><svg width="10" height="10" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div class="lang-list" role="menu"><a role="menuitem" href="/" class="lang-active">English</a><a role="menuitem" href="/ar/">العربية</a><a role="menuitem" href="/bn/">বাংলা</a><a role="menuitem" href="/de/">Deutsch</a><a role="menuitem" href="/es/">Español</a><a role="menuitem" href="/fil/">Filipino</a><a role="menuitem" href="/fr/">Français</a><a role="menuitem" href="/hi/">हिन्दी</a><a role="menuitem" href="/id/">Bahasa Indonesia</a><a role="menuitem" href="/it/">Italiano</a><a role="menuitem" href="/ja/">日本語</a><a role="menuitem" href="/ko/">한국어</a><a role="menuitem" href="/pt/">Português</a><a role="menuitem" href="/ru/">Русский</a><a role="menuitem" href="/th/">ภาษาไทย</a><a role="menuitem" href="/tr/">Türkçe</a><a role="menuitem" href="/ur/">اردو</a><a role="menuitem" href="/vi/">Tiếng Việt</a></div></details><button type="button" class="btn-theme" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8 8 0 019.5 4 8 8 0 1020 14.5z" fill="currentColor"/></svg><svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.5 4.5l2 2M17.5 17.5l2 2M4.5 19.5l2-2M17.5 6.5l2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div></div></header>`;
 }
 
 function footer() {
@@ -373,6 +373,44 @@ function converterCard(p) {
 </div>`;
 }
 
+
+function getRelatedLinks(slug) {
+  const related = {
+    "youtube-to-mp3-320kbps-converter": [
+      { url: "/wav-converter/", title: "WAV Converter (Lossless)" },
+      { url: "/m4a-converter/", title: "M4A Converter" },
+      { url: "/youtube-to-mp4-converter/", title: "MP4 Converter" }
+    ],
+    "wav-converter": [
+      { url: "/youtube-to-mp3-320kbps-converter/", title: "320kbps MP3" },
+      { url: "/m4a-converter/", title: "M4A Converter" }
+    ],
+    "m4a-converter": [
+      { url: "/youtube-to-mp3-320kbps-converter/", title: "320kbps MP3" },
+      { url: "/wav-converter/", title: "WAV Converter" }
+    ],
+    "youtube-to-mp4-converter": [
+      { url: "/youtube-shorts-downloader/", title: "Shorts Downloader" },
+      { url: "/youtube-playlist-downloader/", title: "Playlist Downloader" }
+    ],
+    "youtube-shorts-downloader": [
+      { url: "/youtube-to-mp4-converter/", title: "MP4 Converter" },
+      { url: "/youtube-playlist-downloader/", title: "Playlist Downloader" }
+    ],
+    "youtube-playlist-downloader": [
+      { url: "/youtube-multi-downloader/", title: "Multi Downloader" },
+      { url: "/youtube-shorts-downloader/", title: "Shorts Downloader" }
+    ]
+  };
+  
+  if (!related[slug]) return "";
+  
+  return `<section class="section"><div class="container"><h2>Related Tools</h2><nav style="display:flex;gap:12px;flex-wrap:wrap;">${related[slug].map(r => 
+    '<a href="' + r.url + '" style="padding:12px 20px;background:var(--card);border:1px solid var(--border);border-radius:12px;font-weight:600;display:inline-block;">' + r.title + '</a>'
+  ).join('')}</nav></div></section>`;
+}
+
+
 function renderLandingPage(p) {
   const sectionsHtml = p.sections.map((s, i) =>
     `<section class="section${i % 2 ? " alt" : ""}"><div class="container"><h2>${esc(s[0])}</h2><p>${esc(s[1])}</p></div></section>`
@@ -410,7 +448,6 @@ function renderLandingPage(p) {
 <meta property="og:description" content="${esc(p.kicker)}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${SITE}/${p.slug}">
-<meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="index,follow,max-image-preview:large">\n${generateHreflang()}
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
 <link rel="stylesheet" href="/assets/style.css?v=2">
@@ -432,6 +469,7 @@ ${header()}
 </section>
 ${sectionsHtml}
 ${faqsHtml}
+${getRelatedLinks(p.slug)}
 </main>
 ${footer()}
 <script>window.__DEFAULT_FORMAT__=${JSON.stringify(p.defaultFormat)};window.__DEFAULT_QUALITY__=${JSON.stringify(p.defaultQuality)};</script>
