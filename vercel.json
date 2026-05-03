@@ -39,6 +39,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://ytmp3-api-2cas.onrender.com/api/$1" }
+    { "source": "/api/(.*)", "destination": "https://api.yt2mp3.lol/api/$1" }
   ]
 }
