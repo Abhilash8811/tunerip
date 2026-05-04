@@ -13,8 +13,8 @@ RewriteEngine On
 RewriteCond %{REQUEST_METHOD} OPTIONS
 RewriteRule ^(.*)$ $1 [R=200,L]
 
-# Proxy all requests to local API
-RewriteRule ^(.*)$ http://127.0.0.1:8001/api/$1 [P,L]
+# Proxy all requests to local API (app.js already adds /api/ prefix)
+RewriteRule ^(.*)$ http://127.0.0.1:8001/$1 [P,L]
 
 # Enable proxy
 <IfModule mod_proxy.c>
