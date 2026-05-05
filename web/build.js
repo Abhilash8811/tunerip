@@ -11,6 +11,9 @@ const WEB = path.resolve(__dirname);
 const SITE = "https://yt2mp3.lol";
 const BRAND = "yt2mp3.lol";
 
+// Check if building for Vercel (no canonical tags for independent indexing)
+const IS_VERCEL_BUILD = process.env.VERCEL === '1' || process.argv.includes('--vercel');
+
 // URL slugs mirror yt2mp3.lol's structure so SEO equity transfers.
 const PAGES = [
   { slug: "youtube-to-mp4-converter", title: "YouTube to MP4 Converter (1080p & 4K, Free)", h1: "YouTube to MP4 Converter",
@@ -393,6 +396,9 @@ function renderLandingPage(p) {
       ]
     })}</script>`;
 
+  // Conditionally include canonical tag (omit for Vercel to allow independent indexing)
+  const canonicalTag = IS_VERCEL_BUILD ? '' : `<link rel="canonical" href="${SITE}/${p.slug}/">`;
+  
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -403,7 +409,7 @@ function renderLandingPage(p) {
 <title>${esc(p.title)} - ${BRAND}</title>
 <meta name="description" content="${esc(p.kicker)}">
 <meta name="keywords" content="${esc(p.keywords)}">
-<link rel="canonical" href="${SITE}/${p.slug}/">
+${canonicalTag}
 <meta property="og:title" content="${esc(p.title)}">
 <meta property="og:description" content="${esc(p.kicker)}">
 <meta property="og:type" content="website">
@@ -462,3 +468,27 @@ ${urls.map(u => `  <url><loc>${SITE}${u.loc}</loc><priority>${u.pri}</priority><
 `;
 fs.writeFileSync(path.join(WEB, "sitemap.xml"), sitemap);
 console.log("wrote sitemap.xml (" + urls.length + " URLs)");
+
+// Post-process: Remove canonical tags from index.html if building for Vercel
+if (IS_VERCEL_BUILD) {
+  const indexPath = path.join(WEB, "index.html");
+  if (fs.existsSync(indexPath)) {
+    let indexHtml = fs.readFileSync(indexPath, "utf8");
+    // Remove canonical tag
+    indexHtml = indexHtml.replace(/<link rel="canonical"[^>]*>/gi, '');
+    fs.writeFileSync(indexPath, indexHtml);
+    console.log("removed canonical tag from index.html (Vercel build)");
+  }
+  
+  // Also remove from other static HTML pages if they exist
+  const staticPages = ['youtube-mp3', 'ytmp3', 'youtube-audio-download-mp3', 'download-lagu-youtube'];
+  for (const page of staticPages) {
+    const pagePath = path.join(WEB, page, "index.html");
+    if (fs.existsSync(pagePath)) {
+      let pageHtml = fs.readFileSync(pagePath, "utf8");
+      pageHtml = pageHtml.replace(/<link rel="canonical"[^>]*>/gi, '');
+      fs.writeFileSync(pagePath, pageHtml);
+      console.log(`removed canonical tag from ${page}/index.html (Vercel build)`);
+    }
+  }
+}

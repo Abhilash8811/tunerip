@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node web/build.js && mkdir -p dist && cp -a web/. dist/ && cp -a public/. dist/",
+  "buildCommand": "node web/build.js --vercel && mkdir -p dist && cp -a web/. dist/ && cp -a public/. dist/",
   "installCommand": "true",
   "outputDirectory": "dist",
   "framework": null,
