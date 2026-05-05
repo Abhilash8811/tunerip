@@ -258,7 +258,10 @@ function header() {
 }
 
 function footer() {
-  return `<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav><p class="footer-copy">&copy; <span id="year"></span> ${BRAND}. Not affiliated with YouTube or Google.</p></div></footer>`;
+  const crossPromoFooter = IS_VERCEL_BUILD 
+    ? `<div style="text-align:center;padding:20px 0;border-top:1px solid var(--border);margin-top:20px;"><p style="margin:0 0 12px;color:var(--muted);font-size:14px;">Prefer our official domain?</p><a href="https://yt2mp3.lol" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2d5cf7,#4a7fff);color:#ffffff;padding:12px 24px;border-radius:12px;font-weight:700;text-decoration:none;transition:all 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(45,92,247,0.4)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='none'"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="currentColor"/></svg> Visit yt2mp3.lol</a></div>`
+    : '';
+  return `<footer class="site-footer"><div class="container"><nav class="footer-nav" aria-label="Footer primary"><a href="/youtube-to-mp4-converter">YouTube to MP4</a><a href="/youtube-playlist-downloader">Playlist Downloader</a><a href="/youtube-shorts-downloader">Shorts Downloader</a><a href="/youtube-multi-downloader">Multiple Download</a><a href="/how-to-install">How to Install</a><a href="/faq">FAQ</a><a href="/about">About</a><a href="/contact">Contact</a></nav><nav class="footer-nav footer-legal" aria-label="Footer legal"><a href="/copyright-claims">Copyright Claims</a><a href="/privacy-policy">Privacy Policy</a><a href="/terms-of-use">Terms of Use</a></nav>${crossPromoFooter}<p class="footer-copy">&copy; <span id="year"></span> ${BRAND}. Not affiliated with YouTube or Google.</p></div></footer>`;
 }
 
 function converterCard(p) {
@@ -337,6 +340,26 @@ function converterCard(p) {
 }
 
 
+// Cross-promotion banner for Vercel deployment (funnels traffic to main domain)
+function getCrossPromotionBanner() {
+  if (!IS_VERCEL_BUILD) return ""; // Only show on Vercel
+  
+  return `<div class="cross-promo-banner" style="background:linear-gradient(135deg,#2d5cf7 0%,#4a7fff 100%);color:#ffffff;padding:16px 20px;text-align:center;border-radius:16px;margin:24px auto;max-width:800px;box-shadow:0 8px 24px rgba(45,92,247,0.3);border:2px solid rgba(255,255,255,0.1);">
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+      <path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="#ffd966"/>
+    </svg>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-weight:700;font-size:16px;margin-bottom:4px;">🎉 Visit Our Official Site</div>
+      <div style="font-size:14px;opacity:0.95;">Get the best experience at <strong style="color:#ffd966;">yt2mp3.lol</strong></div>
+    </div>
+    <a href="https://yt2mp3.lol" target="_blank" rel="noopener" style="background:#ffffff;color:#2d5cf7;padding:10px 24px;border-radius:8px;font-weight:700;text-decoration:none;display:inline-block;transition:all 0.2s ease;box-shadow:0 2px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'">
+      Visit yt2mp3.lol →
+    </a>
+  </div>
+</div>`;
+}
+
 function getRelatedLinks(slug) {
   const related = {
     "youtube-to-mp3-320kbps-converter": [
@@ -378,6 +401,7 @@ function renderLandingPage(p) {
   const sectionsHtml = p.sections.map((s, i) =>
     `<section class="section${i % 2 ? " alt" : ""}"><div class="container"><h2>${esc(s[0])}</h2><p>${esc(s[1])}</p></div></section>`
   ).join("\n");
+  const crossPromoBanner = getCrossPromotionBanner();
   const faqsHtml = p.faqs && p.faqs.length
     ? `<section class="section"><div class="container"><h2>FAQ</h2>${p.faqs.map(f => `<details><summary>${esc(f[0])}</summary><p>${esc(f[1])}</p></details>`).join("")}</div></section>`
     : "";
@@ -433,6 +457,7 @@ ${header()}
     ${converterCard(p)}
   </div>
 </section>
+${crossPromoBanner}
 ${sectionsHtml}
 ${faqsHtml}
 ${getRelatedLinks(p.slug)}
@@ -476,8 +501,29 @@ if (IS_VERCEL_BUILD) {
     let indexHtml = fs.readFileSync(indexPath, "utf8");
     // Remove canonical tag
     indexHtml = indexHtml.replace(/<link rel="canonical"[^>]*>/gi, '');
+    
+    // Add cross-promotion banner after hero section
+    const crossPromoBanner = `
+<!-- Cross-Promotion Banner (Vercel only) -->
+<div class="cross-promo-banner" style="background:linear-gradient(135deg,#2d5cf7 0%,#4a7fff 100%);color:#ffffff;padding:16px 20px;text-align:center;border-radius:16px;margin:24px auto;max-width:800px;box-shadow:0 8px 24px rgba(45,92,247,0.3);border:2px solid rgba(255,255,255,0.1);">
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+      <path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="#ffd966"/>
+    </svg>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-weight:700;font-size:16px;margin-bottom:4px;">🎉 Visit Our Official Site</div>
+      <div style="font-size:14px;opacity:0.95;">Get the best experience at <strong style="color:#ffd966;">yt2mp3.lol</strong></div>
+    </div>
+    <a href="https://yt2mp3.lol" target="_blank" rel="noopener" style="background:#ffffff;color:#2d5cf7;padding:10px 24px;border-radius:8px;font-weight:700;text-decoration:none;display:inline-block;transition:all 0.2s ease;box-shadow:0 2px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'">
+      Visit yt2mp3.lol →
+    </a>
+  </div>
+</div>
+`;
+    indexHtml = indexHtml.replace('</section>\n\n<!-- Ad: Below Converter -->', `</section>\n${crossPromoBanner}\n<!-- Ad: Below Converter -->`);
+    
     fs.writeFileSync(indexPath, indexHtml);
-    console.log("removed canonical tag from index.html (Vercel build)");
+    console.log("removed canonical tag and added cross-promo banner to index.html (Vercel build)");
   }
   
   // Also remove from other static HTML pages if they exist
@@ -487,8 +533,34 @@ if (IS_VERCEL_BUILD) {
     if (fs.existsSync(pagePath)) {
       let pageHtml = fs.readFileSync(pagePath, "utf8");
       pageHtml = pageHtml.replace(/<link rel="canonical"[^>]*>/gi, '');
+      
+      // Add cross-promo banner if not already present
+      if (!pageHtml.includes('cross-promo-banner')) {
+        const crossPromoBanner = `
+<!-- Cross-Promotion Banner (Vercel only) -->
+<div class="cross-promo-banner" style="background:linear-gradient(135deg,#2d5cf7 0%,#4a7fff 100%);color:#ffffff;padding:16px 20px;text-align:center;border-radius:16px;margin:24px auto;max-width:800px;box-shadow:0 8px 24px rgba(45,92,247,0.3);border:2px solid rgba(255,255,255,0.1);">
+  <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;">
+      <path d="M12 2l2.5 6L21 9l-5 4.5L17.5 20 12 16.8 6.5 20 8 13.5 3 9l6.5-1L12 2z" fill="#ffd966"/>
+    </svg>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-weight:700;font-size:16px;margin-bottom:4px;">🎉 Visit Our Official Site</div>
+      <div style="font-size:14px;opacity:0.95;">Get the best experience at <strong style="color:#ffd966;">yt2mp3.lol</strong></div>
+    </div>
+    <a href="https://yt2mp3.lol" target="_blank" rel="noopener" style="background:#ffffff;color:#2d5cf7;padding:10px 24px;border-radius:8px;font-weight:700;text-decoration:none;display:inline-block;transition:all 0.2s ease;box-shadow:0 2px 8px rgba(0,0,0,0.1);" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)'" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.1)'">
+      Visit yt2mp3.lol →
+    </a>
+  </div>
+</div>
+`;
+        // Try to insert after main content section or before first section
+        if (pageHtml.includes('</section>')) {
+          pageHtml = pageHtml.replace('</section>', `</section>\n${crossPromoBanner}`);
+        }
+      }
+      
       fs.writeFileSync(pagePath, pageHtml);
-      console.log(`removed canonical tag from ${page}/index.html (Vercel build)`);
+      console.log(`removed canonical tag and added cross-promo banner to ${page}/index.html (Vercel build)`);
     }
   }
 }
