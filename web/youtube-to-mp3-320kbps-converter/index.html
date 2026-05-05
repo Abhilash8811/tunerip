@@ -118,6 +118,7 @@
 </div>
   </div>
 </section>
+
 <section class="section"><div class="container"><h2>What 320 kbps actually means</h2><p>320 kbps is the highest bitrate allowed by the MP3 codec. At this rate, compression artifacts are close to inaudible for most material. yt2mp3.lol uses FFmpeg's libmp3lame at CBR 320 kbps with joint stereo, which is the standard configuration for high-quality music MP3s.</p></div></section>
 <section class="section alt"><div class="container"><h2>Why many converters fake bitrate</h2><p>Some sites advertise 320 kbps but re-package a lower-bitrate file with a higher bitrate header. The file sounds identical to the 128 kbps source. We re-encode from the best source stream YouTube offers (typically 160 kbps Opus) so the tag matches the actual bitrate.</p></div></section>
 <section class="section"><div class="container"><h2>When to pick WAV instead</h2><p>If you're mastering, looping, or sampling the audio, even 320 kbps lossy compression can stack up. Choose WAV for a lossless export at the cost of roughly 10x the file size.</p></div></section>
